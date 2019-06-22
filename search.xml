@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[错排公式]]></title>
+    <url>%2F2019%2F04%2F30%2F%E9%94%99%E6%8E%92%E5%85%AC%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[第一篇博客，写个错排公式 实践一下md语法 dp[i] = (i-1) * (dp[i-1] + dp[i-2]) 问题：把n封信装进n个信封，有多少种方法？ 公式很easy，写在上面了，现在理解一下： 假设现在已经有i-1封已经完成错排，有dp[i-1]种方式，下面处理第i封从前i-1封中取出一封(k位置)换一下，有i-1个选择，取出的信怎么处理呢？(1)放在原来的第i个位置，剩下i-2封错排之后有dp[i-2]种方式，这很容易理解。(2)不放在第i个位置,同时也不能放在k位置，只能再和剩下的i-2封换了，仔细想一下，这不就是原来的问题嘛！只不过数据规模减少了1，所以有dp[i-2]种方式。综上：dp[i] = (i-1) * (dp[i-1] + dp[i-2])&emsp;&emsp;&emsp;dp[1]=0;dp[2]=1;递归搞一搞，得结果。 就酱，第一篇结束。。。排版很low 内容很low 我也很low哎，几个月前就开了博客，一直没写过，感觉还是把接触到的有意义东西记录一下吧！毕竟记性不好，现在会的东西两个月之后也忘得差不多了。应该会写点ACM的东西吧，再传点其他方面的笔记，嗯嗯，希望自己真的能做到,结束自闭，努力学习。]]></content>
+      <categories>
+        <category>ACM-递推</category>
+      </categories>
+      <tags>
+        <tag>ACM-递推</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F04%2F21%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
