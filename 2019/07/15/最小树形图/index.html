@@ -112,7 +112,7 @@
 <meta property="og:description" content="最小树形图简单来说，最小树形图就是有向图的最小生成树  给出一个带权有向图，从中指定一个特殊的节点root，求一棵以root为根的有向生成树，且使得T中所有边权之和最小   朱刘算法 网上讲解无证明，了解过程 - 会套模版 - 分清有定根与无定根 - 重在建图 在选出入边集后，若有向图中不存在有向环，则说明该图是最小树形图 1）选入边集，找到除 root 点之外，每一个点的所有入边中权值最小的权值">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190105164804125.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTE4MTU0MDQ=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-07-15T01:51:19.638Z">
+<meta property="og:updated_time" content="2019-07-15T16:09:58.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最小树形图">
 <meta name="twitter:description" content="最小树形图简单来说，最小树形图就是有向图的最小生成树  给出一个带权有向图，从中指定一个特殊的节点root，求一棵以root为根的有向生成树，且使得T中所有边权之和最小   朱刘算法 网上讲解无证明，了解过程 - 会套模版 - 分清有定根与无定根 - 重在建图 在选出入边集后，若有向图中不存在有向环，则说明该图是最小树形图 1）选入边集，找到除 root 点之外，每一个点的所有入边中权值最小的权值">
@@ -445,12 +445,24 @@
                 
               
 
-              <time title="创建时间：2019-07-15 09:13:27 / 修改时间：09:51:19" itemprop="dateCreated datePublished" datetime="2019-07-15T09:13:27+08:00">2019-07-15</time>
+              <time title="创建时间：2019-07-15 09:13:27" itemprop="dateCreated datePublished" datetime="2019-07-15T09:13:27+08:00">2019-07-15</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-16 00:09:58" itemprop="dateModified" datetime="2019-07-16T00:09:58+08:00">2019-07-16</time>
               
             
           </span>
@@ -496,7 +508,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">13k</span>
+                <span title="本文字数">16k</span>
               
 
               
@@ -510,7 +522,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">12 分钟</span>
+                <span title="阅读时长">14 分钟</span>
               
             </div>
           
@@ -717,7 +729,7 @@ int main()
         else cout&lt;&lt;ans&lt;&lt;endl;
     }
 }
-</code></pre><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><pre><code>//POJ-3164 有定根的最小树形图
+</code></pre><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><h4 id="有定根的最小树形图"><a href="#有定根的最小树形图" class="headerlink" title="有定根的最小树形图"></a>有定根的最小树形图</h4><pre><code>//POJ-3164 有定根的最小树形图
 题意：给出 n 个点 m 条有向边，首先给出从 1 号点到 n 号点的笛卡尔坐标，然后再给出 m 条边，1 号点始终为根节点，求最小树形图
 思路：朱刘算法第一题。。。边的权值用 double 型，求一下距离直接建图后，然后套模版。。。注意模版需要改为 double 型
 
@@ -797,7 +809,7 @@ int main()
     }
 }
 </code></pre><hr>
-<pre><code>//HDU-2121 图不需要自己额外建(即题目给好了N个点,M条边),只是没有给定根
+<h4 id="无定根"><a href="#无定根" class="headerlink" title="无定根"></a>无定根</h4><pre><code>//HDU-2121 图不需要自己额外建(即题目给好了N个点,M条边),只是没有给定根
 
 题意：n 个点 m 条有向边，现要在 n 个点中选一个点作为首都，要求首都与其他点是可达的，
 给出 m 条道路修建要花费的价格，求最小花费并给出首都的序号，点的标号从 0 开始。
@@ -883,7 +895,7 @@ int main()
     }
 }
 </code></pre><hr>
-<pre><code>//HDU-4009 图需要自己建,同时也没有给定根
+<h4 id="建图-无定根"><a href="#建图-无定根" class="headerlink" title="建图+无定根"></a>建图+无定根</h4><pre><code>//HDU-4009 图需要自己建,同时也没有给定根
 
 题意：n户人家，每家对应一个三维坐标(x, y, z)，z代表这家的海拔高度。
 每家可以通过挖井获得水，也可以通过从别的人家引一条水渠获得水，其花费如下：
@@ -973,6 +985,91 @@ int main()
             edge[cnt].u=n;edge[cnt].v=i;edge[cnt++].cost=node[i].z*X;
         }
         printf(&quot;%d\n&quot;,zhuliu(n,n+1,cnt));
+    }
+}
+</code></pre><hr>
+<h4 id="建图-无定根-多点-一个课程好多点"><a href="#建图-无定根-多点-一个课程好多点" class="headerlink" title="建图+无定根+多点(一个课程好多点)"></a>建图+无定根+多点(一个课程好多点)</h4><pre><code>题意：给你n门课的最高等级及m条升级方法，开始时你每门课的等级都在等级0，升级方法的5个参数代表，你要上这门课，你的课程c的等级至少要到达L1i，
+你才能达到课程d的等级L2i，同时花费金钱moi，现在问你，每门课的等级都要到达最高等级所需要花费的最小费用是多少，如果不能都达到最高级别，输出-1
+
+思路：图论的题，精华都是在构图，这道题很明显是一道有向的最小生成树，也就是最小树形图，那么问题来了，因为条件中是至少到达，这样如果中间断开，
+按正常的建边就不能使得这棵树完整，那么精妙的方法就来了，外面把所有的边都往反向建一次，及课程a的等级i+1连向i，这就可以保证，
+如果我已经达到了等级i+1，就不用再对i作花费，同时，等级i如果能连向终点，也可以直接在树的结构中体现出来。
+
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=1005;
+const int maxm=1e4+5;
+const int INF=0x3f3f3f3f;
+struct Edge{
+    int u,v,cost;
+    Edge(int U=0,int V=0,int C=0):u(U),v(V),cost(C){}
+}edge[maxn*maxn+maxn];
+int pre[maxn],id[maxn],vis[maxn];
+int in[maxn];
+int zhuliu(int root,int n,int m){
+    int res=0;int u,v;
+    while(1){
+        for(int i=0;i&lt;n;i++) in[i]=INF;
+        for(int i=0;i&lt;m;i++){
+            if(edge[i].u!=edge[i].v&amp;&amp;edge[i].cost&lt;in[edge[i].v]){
+                pre[edge[i].v]=edge[i].u;in[edge[i].v]=edge[i].cost;
+            }
+        }
+        for(int i=0;i&lt;n;i++)
+            if(i!=root&amp;&amp;in[i]==INF) return -1;
+        int cnt=0;in[root]=0;
+        mem(id,-1);mem(vis,-1);
+
+        for(int i=0;i&lt;n;i++){
+            res+=in[i];v=i;
+            while(vis[v]!=i&amp;&amp;id[v]==-1&amp;&amp;v!=root){
+                vis[v]=i;v=pre[v];
+            }
+            if(v!=root&amp;&amp;id[v]==-1){
+                for(int u=pre[v];u!=v;u=pre[u]) id[u]=cnt;
+                id[v]=cnt++;
+            }
+        }
+        if(cnt==0) break;
+        for(int i=0;i&lt;n;i++)
+            if(id[i]==-1) id[i]=cnt++;
+        for(int i=0;i&lt;m;i++){
+            v=edge[i].v;
+            edge[i].u=id[edge[i].u];
+            edge[i].v=id[edge[i].v];
+            if(edge[i].u!=edge[i].v) edge[i].cost-=in[v];
+        }
+        n=cnt;root=id[root];
+    }
+    return res;
+}
+int a[maxn],sum[maxn];
+int main()
+{
+    int n,m;
+    while(~scanf(&quot;%d%d&quot;,&amp;n,&amp;m)&amp;&amp;(n+m)){
+        sum[0]=0;
+        for(int i=0;i&lt;n;i++){
+            scanf(&quot;%d&quot;,&amp;a[i]);a[i]++;//a[i]表示一个课程的a[i]++(0~a[i])个等级，共a[i]++个点
+            sum[i+1]=sum[i]+a[i];//sum[i]~sum[i+1]-1记录i课程的a[i]个点的序号
+        }
+        int cnt=0;
+        for(int i=0;i&lt;n;i++){
+            for(int j=sum[i+1]-1;j&gt;sum[i];j--){
+                edge[cnt++]=Edge(j,j-1,0);
+            }//将所有等级作为一个节点，对于等级i,可以建一条对等级i-1的边，边权为0
+            edge[cnt++]=Edge(sum[n],sum[i],0);
+        }//其中sum[n]为虚拟的跟，指向所有的课程的level0的点
+        int c,d,l1,l2,mo;
+        for(int i=0;i&lt;m;i++){
+            scanf(&quot;%d%d%d%d%d&quot;,&amp;c,&amp;l1,&amp;d,&amp;l2,&amp;mo);
+            edge[cnt++]=Edge(sum[c-1]+l1,sum[d-1]+l2,mo);
+        }//建立c课程的level0+l1 到 d课程的level0+l1 之间的边 权值为价格
+        printf(&quot;%d\n&quot;,zhuliu(sum[n],sum[n]+1,cnt));
     }
 }
 </code></pre>
@@ -1107,8 +1204,6 @@ int main()
                     
                       
                     
-                      
-                    
                     <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   
@@ -1121,8 +1216,6 @@ int main()
                 <div class="site-state-item site-state-tags">
                   
                     
-                    
-                      
                     
                       
                     
@@ -1192,7 +1285,7 @@ int main()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最小树形图"><span class="nav-text">最小树形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#朱刘算法"><span class="nav-text">朱刘算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版（NB网友）"><span class="nav-text">模版（NB网友）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版（邝斌）"><span class="nav-text">模版（邝斌）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最小树形图"><span class="nav-text">最小树形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#朱刘算法"><span class="nav-text">朱刘算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版（NB网友）"><span class="nav-text">模版（NB网友）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版（邝斌）"><span class="nav-text">模版（邝斌）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有定根的最小树形图"><span class="nav-text">有定根的最小树形图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无定根"><span class="nav-text">无定根</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建图-无定根"><span class="nav-text">建图+无定根</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建图-无定根-多点-一个课程好多点"><span class="nav-text">建图+无定根+多点(一个课程好多点)</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1225,7 +1318,7 @@ int main()
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">14k</span>
+    <span title="站点总字数">17k</span>
   
 
   
@@ -1234,7 +1327,7 @@ int main()
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">12 分钟</span>
+    <span title="站点阅读时长">15 分钟</span>
   
 </div>
 
