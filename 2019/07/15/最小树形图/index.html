@@ -103,13 +103,20 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="XXF">
-<meta property="og:url" content="http://xxf0512.github.io/tags/ACM-递推/index.html">
+  <meta name="description" content="最小树形图简单来说，最小树形图就是有向图的最小生成树  给出一个带权有向图，从中指定一个特殊的节点root，求一棵以root为根的有向生成树，且使得T中所有边权之和最小   朱刘算法 网上讲解无证明，了解过程 - 会套模版 - 分清有定根与无定根 - 重在建图 在选出入边集后，若有向图中不存在有向环，则说明该图是最小树形图 1）选入边集，找到除 root 点之外，每一个点的所有入边中权值最小的权值">
+<meta name="keywords" content="图论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最小树形图">
+<meta property="og:url" content="http://xxf0512.github.io/2019/07/15/最小树形图/index.html">
 <meta property="og:site_name" content="XXF">
+<meta property="og:description" content="最小树形图简单来说，最小树形图就是有向图的最小生成树  给出一个带权有向图，从中指定一个特殊的节点root，求一棵以root为根的有向生成树，且使得T中所有边权之和最小   朱刘算法 网上讲解无证明，了解过程 - 会套模版 - 分清有定根与无定根 - 重在建图 在选出入边集后，若有向图中不存在有向环，则说明该图是最小树形图 1）选入边集，找到除 root 点之外，每一个点的所有入边中权值最小的权值">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190105164804125.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTE4MTU0MDQ=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-07-15T01:51:19.638Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XXF">
+<meta name="twitter:title" content="最小树形图">
+<meta name="twitter:description" content="最小树形图简单来说，最小树形图就是有向图的最小生成树  给出一个带权有向图，从中指定一个特殊的节点root，求一棵以root为根的有向生成树，且使得T中所有边权之和最小   朱刘算法 网上讲解无证明，了解过程 - 会套模版 - 分清有定根与无定根 - 重在建图 在选出入边集后，若有向图中不存在有向环，则说明该图是最小树形图 1）选入边集，找到除 root 点之外，每一个点的所有入边中权值最小的权值">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190105164804125.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTE4MTU0MDQ=,size_16,color_FFFFFF,t_70">
 
 
 
@@ -117,7 +124,7 @@
 
   
   
-  <link rel="canonical" href="http://xxf0512.github.io/tags/ACM-递推/">
+  <link rel="canonical" href="http://xxf0512.github.io/2019/07/15/最小树形图/">
 
 
 
@@ -127,7 +134,7 @@
   };
 </script>
 
-  <title>标签: ACM-递推 | XXF</title>
+  <title>最小树形图 | XXF</title>
   
 
 
@@ -175,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/xxf0512" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -253,7 +260,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -375,86 +382,668 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>ACM-递推<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/07/15/最小树形图/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XXF">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XXF">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/04/30/错排公式/" itemprop="url">
-            
-              <span itemprop="name">错排公式</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">最小树形图
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-30T18:44:19+08:00" content="2019-04-30">
-          04-30
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-15 09:13:27 / 修改时间：09:51:19" itemprop="dateCreated datePublished" datetime="2019-07-15T09:13:27+08:00">2019-07-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图论/" itemprop="url" rel="index"><span itemprop="name">图论</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">13k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">12 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="最小树形图"><a href="#最小树形图" class="headerlink" title="最小树形图"></a>最小树形图</h1><p><strong>简单来说，最小树形图就是有向图的最小生成树</strong></p>
+<blockquote>
+<p>给出一个带权有向图，从中指定一个特殊的节点root，求一棵以root为根的有向生成树，且使得T中所有边权之和最小</p>
+</blockquote>
+<hr>
+<h3 id="朱刘算法"><a href="#朱刘算法" class="headerlink" title="朱刘算法"></a>朱刘算法</h3><p><img src="https://img-blog.csdnimg.cn/20190105164804125.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTE4MTU0MDQ=,size_16,color_FFFFFF,t_70" alt="zhuliu" title="optional title"></p>
+<pre><code>网上讲解无证明，了解过程 - 会套模版 - 分清有定根与无定根 - 重在建图
+在选出入边集后，若有向图中不存在有向环，则说明该图是最小树形图
+1）选入边集，找到除 root 点之外，每一个点的所有入边中权值最小的权值，用数组 in[] 记录这个最小权值，用 pre[] 记录到达该点的前驱。
+
+2）判断图中是否存在独立点，若存在除 root 外的孤立点，则说明 root 无法到达该点，说明最小树形图不存在。
+
+3）在图中寻找环，对环进行缩点并用数组 id[] 记录节点所属环的编号。
+
+4）更新其他点到环上的距离。
+
+5）重复 3、4 直到 图中不存在环 为止，此时图是最小树形图。
+</code></pre><h3 id="模版（NB网友）"><a href="#模版（NB网友）" class="headerlink" title="模版（NB网友）"></a>模版（NB网友）</h3><pre><code>#include&lt;bits/stdc++.h&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=1005;
+const int maxm=4e4+5;
+const int INF=0x3f3f3f3f;
+struct Edge{
+    int x,y,w;
+}edge[maxm];
+int vis[maxn];
+int id[maxn];//结点所属环编号
+int in[maxn],pre[maxn];//in[]为最小入边权,pre[]为其对应的起点
+int zhuLiu(int root,int n,int m){//root结点、点数、边数
+    int res=0;//最小树形图总权值
+    while(true){
+        for(int i=0;i&lt;n;i++)//初始化为无穷大
+            in[i]=INF;
+
+        //寻找每个点的最小入边
+        for(int i=0;i&lt;m;i++){//遍历每条边
+            int x=edge[i].x;
+            int y=edge[i].y;
+            if(edge[i].w&lt;in[y] &amp;&amp; x!=y){//更新最小入边
+                pre[y]=x;//记录前驱
+                in[y]=edge[i].w;//更新
+            }
+        }
+
+        //判断是否存在最小树形图
+        for(int i=0;i&lt;n;i++){
+            if(i==root)
+                continue;
+            if(in[i]==INF)//除根节点外的点存在孤立点
+                return -1;
+        }
+
+        //寻找所有的环
+        int cnt=0;//记录环数
+        in[root]=0;
+        memset(id,-1,sizeof(id));
+        memset(vis,-1,sizeof(vis));
+        for(int i=0;i&lt;n;i++){//标记每个环
+            res+=in[i];//记录权值
+
+            int y=i;
+            while(vis[y]!=i&amp;&amp;id[y]==-1&amp;&amp;y!=root){//寻找图中有向环
+                //三种情况会终止：找到出现同样标记的点、结点已属其他环、遍历到根
+                vis[y]=i;//标记
+                y=pre[y];//向上找
+            }
+
+            if(y!=root&amp;&amp;id[y]==-1){//没有遍历到根或没有找到结点属于其他环,说明找到有向环
+                for(int x=pre[y];x!=y;x=pre[x])//标记结点x为第几个环
+                    id[x]=cnt;//记录结点所属环号
+                id[y]=cnt++;//记录结点所属环号并累加
+            }
+        }
+        if(cnt==0)//无环
+                break;
+        for(int i=0;i&lt;n;i++)//可能存在独立点
+            if(id[i]==-1)//环数累加
+                id[i]=cnt++;
+
+        //建立新图,缩点重新标记
+        for(int i=0;i&lt;m;i++){
+            int x=edge[i].x;
+            int y=edge[i].y;
+            edge[i].x=id[x];
+            edge[i].y=id[y];
+
+            if(id[x]!=id[y])//两点不在同一环内,更新边权值
+                edge[i].w-=in[y];//x到y的距离为边权-in[y]
+        }
+
+        V=cnt;//以环数为下次操作的点数,继续上述操作,直到无环
+        root=id[root];
+    }
+    return res;
+}
+int main(){
+    int n,m;//n个点m条有向边
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=0;i&lt;m;i++){//建图
+        scanf(&quot;%d%d%d&quot;,&amp;edge[i].x,&amp;edge[i].y,&amp;edge[i].w);
+        if(edge[i].x==edge[i].y)//除去自环,即点到自身距离为INF
+            edge[i].w=INF;
+    }
+    int res=zhuLiu(0,n,m);
+    if(res==-1)
+        printf(&quot;No\n&quot;);
+    else
+        printf(&quot;%d\n&quot;,res);
+    return 0;
+}
+</code></pre><h3 id="模版（邝斌）"><a href="#模版（邝斌）" class="headerlink" title="模版（邝斌）"></a>模版（邝斌）</h3><pre><code>#include&lt;bits/stdc++.h&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=1005;
+const int maxm=4e4+5;
+const int INF=0x3f3f3f3f;
+struct Edge{
+    int u,v,cost;
+}edge[maxm];
+int pre[maxn],id[maxn],vis[maxn],in[maxn];
+int zhuliu(int root,int n,int m,Edge edge[]){
+    int res=0,u,v;
+    while(1){
+        for(int i=0;i&lt;n;i++) in[i]=INF;
+        for(int i=0;i&lt;m;i++)
+            if(edge[i].u!=edge[i].v&amp;&amp;edge[i].cost&lt;in[edge[i].v]){
+                pre[edge[i].v]=edge[i].u;
+                in[edge[i].v]=edge[i].cost;
+            }
+        for(int i=0;i&lt;n;i++)
+            if(i!=root&amp;&amp;in[i]==INF) return -1;
+        int tn=0;in[root]=0;
+        mem(id,-1);mem(vis,-1);
+
+        for(int i=0;i&lt;n;i++){
+            res+=in[i];v=i;
+            while(vis[v]!=i&amp;&amp;id[v]==-1&amp;&amp;v!=root){
+                vis[v]=i;v=pre[v];
+            }
+            if(v!=root&amp;&amp;id[v]==-1){
+                for(int u=pre[v];u!=v;u=pre[u]) id[u]=tn;
+                id[v]=tn++;
+            }
+        }
+        if(tn==0) break;
+        for(int i=0;i&lt;n;i++)
+            if(id[i]==-1) id[i]=tn++;
+        for(int i=0;i&lt;m;){
+            v=edge[i].v;
+            edge[i].u=id[edge[i].u];
+            edge[i].v=id[edge[i].v];
+            if(edge[i].u!=edge[i].v) edge[i++].cost-=in[v];
+            else swap(edge[i],edge[--m]);
+        }
+        n=tn;root=id[root];
+    }
+    return res;
+}
+int g[maxn][maxn];
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);
+    int n,m,ca=0,T;cin&gt;&gt;T;
+    while(T--){
+        cin&gt;&gt;n&gt;&gt;m;
+        for(int i=0;i&lt;n;i++)
+            for(int j=0;j&lt;n;j++)
+                g[i][j]=INF;
+        int u,v,cost;
+        while(m--){
+            int u,v,cost;cin&gt;&gt;u&gt;&gt;v&gt;&gt;cost;
+            if(u==v) continue;
+            g[u][v]=min(g[u][v],cost);
+        }
+        int L=0;
+        for(int i=0;i&lt;n;i++)
+            for(int j=0;j&lt;n;j++)
+                if(g[i][j]&lt;INF){
+                    edge[L].u=i;edge[L].v=j;edge[L++].cost=g[i][j];
+                }
+        int ans=zhuliu(0,n,L,edge);
+        cout&lt;&lt;&quot;Case #&quot;&lt;&lt;ca++&lt;&lt;&quot;: &quot;;
+        if(ans==-1) cout&lt;&lt;&quot;no&quot;&lt;&lt;endl;
+        else cout&lt;&lt;ans&lt;&lt;endl;
+    }
+}
+</code></pre><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><pre><code>//POJ-3164 有定根的最小树形图
+题意：给出 n 个点 m 条有向边，首先给出从 1 号点到 n 号点的笛卡尔坐标，然后再给出 m 条边，1 号点始终为根节点，求最小树形图
+思路：朱刘算法第一题。。。边的权值用 double 型，求一下距离直接建图后，然后套模版。。。注意模版需要改为 double 型
 
 
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=105;
+const int maxm=1e4+5;
+const double INF=0x3f3f3f3f;
+struct Node{
+    double x,y;
+}node[maxn];
+struct Edge{
+    int u,v;double cost;
+}edge[maxm];
+double cal(Node a,Node b){
+    return sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+}
+int pre[maxn],id[maxn],vis[maxn];
+double in[maxn];
+double zhuliu(int root,int n,int m){
+    double res=0;int u,v;
+    while(1){
+        for(int i=0;i&lt;n;i++) in[i]=INF;
+        for(int i=0;i&lt;m;i++){
+            u=edge[i].u;v=edge[i].v;
+            if(u!=v&amp;&amp;edge[i].cost&lt;in[v]){
+                pre[v]=u;in[v]=edge[i].cost;
+            }
+        }
+        for(int i=0;i&lt;n;i++)
+            if(i!=root&amp;&amp;in[i]==INF) return -1;
+        int cnt=0;in[root]=0;
+        mem(id,-1);mem(vis,-1);
+
+        for(int i=0;i&lt;n;i++){
+            res+=in[i];v=i;
+            while(vis[v]!=i&amp;&amp;id[v]==-1&amp;&amp;v!=root){
+                vis[v]=i;v=pre[v];
+            }
+            if(v!=root&amp;&amp;id[v]==-1){
+                for(int u=pre[v];u!=v;u=pre[u]) id[u]=cnt;
+                id[v]=cnt++;
+            }
+        }
+        if(cnt==0) break;
+        for(int i=0;i&lt;n;i++)
+            if(id[i]==-1) id[i]=cnt++;
+        for(int i=0;i&lt;m;i++){
+            v=edge[i].v;
+            edge[i].u=id[edge[i].u];
+            edge[i].v=id[edge[i].v];
+            if(edge[i].u!=edge[i].v) edge[i].cost-=in[v];
+        }
+        n=cnt;root=id[root];
+    }
+    return res;
+}
+int main()
+{
+    int n,m;
+    while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF&amp;&amp;(n+m)){
+        for(int i=0;i&lt;n;i++) scanf(&quot;%lf%lf&quot;,&amp;node[i].x,&amp;node[i].y);
+        for(int i=0;i&lt;m;i++){
+            scanf(&quot;%d%d&quot;,&amp;edge[i].u,&amp;edge[i].v);
+            edge[i].u--;edge[i].v--;
+            if(edge[i].u!=edge[i].v) edge[i].cost=cal(node[edge[i].u],node[edge[i].v]);
+            else edge[i].cost=INF;
+        }
+        double ans=zhuliu(0,n,m);
+        if(ans==-1) printf(&quot;poor snoopy\n&quot;);
+        else printf(&quot;%.2f\n&quot;,ans);
+    }
+}
+</code></pre><hr>
+<pre><code>//HDU-2121 图不需要自己额外建(即题目给好了N个点,M条边),只是没有给定根
+
+题意：n 个点 m 条有向边，现要在 n 个点中选一个点作为首都，要求首都与其他点是可达的，
+给出 m 条道路修建要花费的价格，求最小花费并给出首都的序号，点的标号从 0 开始。
+
+无根最小树形图，构造根节点0，从0到各点建立权值大于整张图权值和的边（此处取sum+1），
+这样一来0为根节点求最小树形图，如果不存在最小树形图或者所得最小树形图的权值和不小于2*(sum+1)
+说明原图的最小树形图不存在，至于如何求编号最小的根节点，这个可以在求最短弧集合的时候得到，
+即如果一条边被加入最短弧集合且这条边的起点是0，那么这条边的终点就是所求最小树形图的根
+
+
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=1005;
+const int maxm=1e4+5;
+const int INF=0x3f3f3f3f;
+struct Edge{
+    int u,v,cost;
+}edge[maxm+maxn];
+int pos;//实际起点
+int pre[maxn],id[maxn],vis[maxn];
+int in[maxn];
+int zhuliu(int root,int n,int m){
+    int res=0;int u,v;
+    while(1){
+        for(int i=0;i&lt;n;i++) in[i]=INF;
+        for(int i=0;i&lt;m;i++){
+            if(edge[i].u!=edge[i].v&amp;&amp;edge[i].cost&lt;in[edge[i].v]){
+                pre[edge[i].v]=edge[i].u;in[edge[i].v]=edge[i].cost;
+                if(edge[i].u==root) pos=i;
+            }
+        }
+        for(int i=0;i&lt;n;i++)
+            if(i!=root&amp;&amp;in[i]==INF) return -1;
+        int cnt=0;in[root]=0;
+        mem(id,-1);mem(vis,-1);
+
+        for(int i=0;i&lt;n;i++){
+            res+=in[i];v=i;
+            while(vis[v]!=i&amp;&amp;id[v]==-1&amp;&amp;v!=root){
+                vis[v]=i;v=pre[v];
+            }
+            if(v!=root&amp;&amp;id[v]==-1){
+                for(int u=pre[v];u!=v;u=pre[u]) id[u]=cnt;
+                id[v]=cnt++;
+            }
+        }
+        if(cnt==0) break;
+        for(int i=0;i&lt;n;i++)
+            if(id[i]==-1) id[i]=cnt++;
+        for(int i=0;i&lt;m;i++){
+            v=edge[i].v;
+            edge[i].u=id[edge[i].u];
+            edge[i].v=id[edge[i].v];
+            if(edge[i].u!=edge[i].v) edge[i].cost-=in[v];
+            //else swap(edge[i],edge[--m]);
+        }
+        n=cnt;root=id[root];
+    }
+    return res;
+}
+int main()
+{
+    int n,m;
+    while(~scanf(&quot;%d%d&quot;,&amp;n,&amp;m)){
+        int sum=0;
+        for(int i=0;i&lt;m;i++){
+            scanf(&quot;%d%d%d&quot;,&amp;edge[i].u,&amp;edge[i].v,&amp;edge[i].cost);
+            edge[i].u++;edge[i].v++;sum+=edge[i].cost;
+        }
+        sum++;//去掉就WA
+        for(int i=0;i&lt;n;i++){
+            edge[i+m].u=0;edge[i+m].v=i+1;edge[i+m].cost=sum;
+        }
+        int ans=zhuliu(0,n+1,m+n);
+        ////若差值大于sum说明结点0的出度不止为1,即原图不是连通图
+        if(ans==-1||ans-sum&gt;=sum) printf(&quot;impossible\n&quot;);
+        else printf(&quot;%d %d\n&quot;,ans-sum,pos-m);
+        printf(&quot;\n&quot;);
+    }
+}
+</code></pre><hr>
+<pre><code>//HDU-4009 图需要自己建,同时也没有给定根
+
+题意：n户人家，每家对应一个三维坐标(x, y, z)，z代表这家的海拔高度。
+每家可以通过挖井获得水，也可以通过从别的人家引一条水渠获得水，其花费如下：
+1.挖井花费z*X；
+2.从不比自己低的人家引水渠花费Y*两家之间的曼哈顿距离；
+3.从比自己低的人家引水渠与2中的相同，但需要多花Z来购买一个水泵
+此外有的人家不允许一些人家从他们家引水渠，求使得所有人家都能获得水的最少花费
+
+思路：对应这个题,其初始点就可以设为这n个点,然后权值为在这个点建井的花费,而对于它给的其他边,我们直接在对应的两个点上建边即可,然后跑一下朱刘算法,就可得出答案
+
+
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;cmath&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=1005;
+const int maxm=1e4+5;
+const int INF=0x3f3f3f3f;
+struct Node{
+    int x,y,z;
+}node[maxn];
+struct Edge{
+    int u,v,cost;
+}edge[maxm+maxn*maxn];
+int dis(Node a,Node b){
+    return abs(a.x-b.x)+abs(a.y-b.y)+abs(a.z-b.z);
+}
+int pre[maxn],id[maxn],vis[maxn];
+int in[maxn];
+int zhuliu(int root,int n,int m){
+    int res=0;int u,v;
+    while(1){
+        for(int i=0;i&lt;n;i++) in[i]=INF;
+        for(int i=0;i&lt;m;i++){
+            if(edge[i].u!=edge[i].v&amp;&amp;edge[i].cost&lt;in[edge[i].v]){
+                pre[edge[i].v]=edge[i].u;in[edge[i].v]=edge[i].cost;
+            }
+        }
+        for(int i=0;i&lt;n;i++)
+            if(i!=root&amp;&amp;in[i]==INF) return -1;
+        int cnt=0;in[root]=0;
+        mem(id,-1);mem(vis,-1);
+
+        for(int i=0;i&lt;n;i++){
+            res+=in[i];v=i;
+            while(vis[v]!=i&amp;&amp;id[v]==-1&amp;&amp;v!=root){
+                vis[v]=i;v=pre[v];
+            }
+            if(v!=root&amp;&amp;id[v]==-1){
+                for(int u=pre[v];u!=v;u=pre[u]) id[u]=cnt;
+                id[v]=cnt++;
+            }
+        }
+        if(cnt==0) break;
+        for(int i=0;i&lt;n;i++)
+            if(id[i]==-1) id[i]=cnt++;
+        for(int i=0;i&lt;m;i++){
+            v=edge[i].v;
+            edge[i].u=id[edge[i].u];
+            edge[i].v=id[edge[i].v];
+            if(edge[i].u!=edge[i].v) edge[i].cost-=in[v];
+        }
+        n=cnt;root=id[root];
+    }
+    return res;
+}
+int main()
+{
+    int n,X,Y,Z;
+    while(~scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;X,&amp;Y,&amp;Z)&amp;&amp;(n+X+Y+Z)){
+        for(int i=0;i&lt;n;i++){
+            scanf(&quot;%d%d%d&quot;,&amp;node[i].x,&amp;node[i].y,&amp;node[i].z);
+        }
+        int cnt=0,a,b;
+        for(int i=0;i&lt;n;i++){
+            scanf(&quot;%d&quot;,&amp;a);
+            while(a--){
+                scanf(&quot;%d&quot;,&amp;b);
+                edge[cnt].cost=dis(node[i],node[--b])*Y;
+                if(node[b].z&gt;node[i].z) edge[cnt].cost+=Z;
+                edge[cnt].u=i;edge[cnt++].v=b;
+            }
+        }
+        for(int i=0;i&lt;n;i++){
+            edge[cnt].u=n;edge[cnt].v=i;edge[cnt++].cost=node[i].z*X;
+        }
+        printf(&quot;%d\n&quot;,zhuliu(n,n+1,cnt));
+    }
+}
+</code></pre>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/30/错排公式/" rel="next" title="错排公式">
+                <i class="fa fa-chevron-left"></i> 错排公式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -474,8 +1063,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,7 +1090,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -507,7 +1105,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   
                 </div>
@@ -522,7 +1124,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -576,6 +1182,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最小树形图"><span class="nav-text">最小树形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#朱刘算法"><span class="nav-text">朱刘算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版（NB网友）"><span class="nav-text">模版（NB网友）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模版（邝斌）"><span class="nav-text">模版（邝斌）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -602,7 +1225,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">1k</span>
+    <span title="站点总字数">14k</span>
   
 
   
@@ -611,7 +1234,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
   
 </div>
 
@@ -726,6 +1349,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -741,6 +1368,8 @@
 
   
 
+
+  
 
 
   
