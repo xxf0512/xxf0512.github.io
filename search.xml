@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[(转)为什么printf不能用%lf输出double型，而用%f？]]></title>
+    <title><![CDATA[(转)为什么printf()用%f输出double型，而scanf却用%lf]]></title>
     <url>%2F2019%2F07%2F16%2Fprintf%2F</url>
     <content type="text"><![CDATA[问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题15.2。 对于scanf，情况就完全不同了，它接受指针，这里没有类似的类型提升。（通过指针）向float存储和向double存储大不一样，因此，scanf区别%f和%lf。 下表列出了printf和scanf对于各种格式说明符可以接受的参数类型。 （严格地讲，%lf在printf下是未定义的，但是很多系统可能会接受它。要确保可移植性，就要坚持使用%f。）]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>其他</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[最小树形图]]></title>
@@ -36,6 +30,6 @@
   <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2F2019%2F04%2F21%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment 问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题15.2。 对于scanf，情况就完全不同了，它接受指针，这里没有类似的类型提升。（通过指针）向float存储和向double存储大不一样，因此，scanf区别%f和%lf。 下表列出了printf和scanf对于各种格式说明符可以接受的参数类型。 （严格地讲，%lf在printf下是未定义的，但是很多系统可能会接受它。要确保可移植性，就要坚持使用%f。）]]></content>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
 </search>

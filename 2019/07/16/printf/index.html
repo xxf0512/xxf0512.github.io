@@ -104,18 +104,17 @@
 
 
   <meta name="description" content="问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题1">
-<meta name="keywords" content="其他">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(转)为什么printf不能用%lf输出double型，而用%f？">
+<meta property="og:title" content="(转)为什么printf()用%f输出double型，而scanf却用%lf">
 <meta property="og:url" content="http://xxf0512.github.io/2019/07/16/printf/index.html">
 <meta property="og:site_name" content="XXF">
 <meta property="og:description" content="问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd60214ec0ed359e950a0e5e454825355?method=download&shareKey=e9b595dce2d3ba107887ff2e5bb0be93">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd0f65c319b1b0d9c69231a114d87dfd4?method=download&shareKey=2031a656948c7f60141d2f88436130c2">
-<meta property="og:updated_time" content="2019-07-16T11:23:57.579Z">
+<meta property="og:updated_time" content="2019-07-16T11:28:59.645Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(转)为什么printf不能用%lf输出double型，而用%f？">
+<meta name="twitter:title" content="(转)为什么printf()用%f输出double型，而scanf却用%lf">
 <meta name="twitter:description" content="问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题1">
 <meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEBd60214ec0ed359e950a0e5e454825355?method=download&shareKey=e9b595dce2d3ba107887ff2e5bb0be93">
 
@@ -135,7 +134,7 @@
   };
 </script>
 
-  <title>(转)为什么printf不能用%lf输出double型，而用%f？ | XXF</title>
+  <title>(转)为什么printf()用%f输出double型，而scanf却用%lf | XXF</title>
   
 
 
@@ -420,7 +419,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">(转)为什么printf不能用%lf输出double型，而用%f？
+          <h1 class="post-title" itemprop="name headline">(转)为什么printf()用%f输出double型，而scanf却用%lf
 
               
             
@@ -446,7 +445,7 @@
                 
               
 
-              <time title="创建时间：2019-07-16 19:21:28 / 修改时间：19:23:57" itemprop="dateCreated datePublished" datetime="2019-07-16T19:21:28+08:00">2019-07-16</time>
+              <time title="创建时间：2019-07-16 19:21:28 / 修改时间：19:28:59" itemprop="dateCreated datePublished" datetime="2019-07-16T19:21:28+08:00">2019-07-16</time>
             
 
             
@@ -456,24 +455,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/其他/" itemprop="url" rel="index"><span itemprop="name">其他</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -557,12 +538,6 @@
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/其他/" rel="tag"># 其他</a>
-          
-        </div>
       
 
       
@@ -660,9 +635,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">分类</span>
                   
                 </div>
@@ -679,9 +652,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
