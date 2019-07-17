@@ -103,20 +103,21 @@
 
 
 
-  <meta name="description" content="问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题1">
+  <meta name="description" content="LCA解决树上两点间的最近公共祖先，三种方式： 1.Tarjan 离线算法 O(n+q) 2.倍增 在线算法 O((n+q)*logn) 3.RMQ(ST表) 优秀的在线算法 O(nlogn+q) TarjanTarjan  算法求 LCA 的时间复杂度为 O(n+q) ，是一种离线算法，要用到并查集。（注：这里的复杂度其实应该不是 O(n+q) ，还需要考虑并查集操作的复杂度  ，但是由于在多数">
+<meta name="keywords" content="图论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(转)为什么printf()用%f输出double型，而scanf却用%lf">
-<meta property="og:url" content="http://xxf0512.github.io/2019/07/16/printf/index.html">
+<meta property="og:title" content="LCA">
+<meta property="og:url" content="http://xxf0512.github.io/2019/07/17/LCA/index.html">
 <meta property="og:site_name" content="XXF">
-<meta property="og:description" content="问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题1">
+<meta property="og:description" content="LCA解决树上两点间的最近公共祖先，三种方式： 1.Tarjan 离线算法 O(n+q) 2.倍增 在线算法 O((n+q)*logn) 3.RMQ(ST表) 优秀的在线算法 O(nlogn+q) TarjanTarjan  算法求 LCA 的时间复杂度为 O(n+q) ，是一种离线算法，要用到并查集。（注：这里的复杂度其实应该不是 O(n+q) ，还需要考虑并查集操作的复杂度  ，但是由于在多数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd60214ec0ed359e950a0e5e454825355?method=download&shareKey=e9b595dce2d3ba107887ff2e5bb0be93">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd0f65c319b1b0d9c69231a114d87dfd4?method=download&shareKey=2031a656948c7f60141d2f88436130c2">
-<meta property="og:updated_time" content="2019-07-16T11:28:59.645Z">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBcb269afa333f7485bba7eac607953182?method=download&shareKey=1883478c4a0b3fa56c4bdf6f4efc71d1">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/1209138/201707/1209138-20170729151024207-1541824194.png">
+<meta property="og:updated_time" content="2019-07-17T08:59:26.071Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(转)为什么printf()用%f输出double型，而scanf却用%lf">
-<meta name="twitter:description" content="问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？ 答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题1">
-<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEBd60214ec0ed359e950a0e5e454825355?method=download&shareKey=e9b595dce2d3ba107887ff2e5bb0be93">
+<meta name="twitter:title" content="LCA">
+<meta name="twitter:description" content="LCA解决树上两点间的最近公共祖先，三种方式： 1.Tarjan 离线算法 O(n+q) 2.倍增 在线算法 O((n+q)*logn) 3.RMQ(ST表) 优秀的在线算法 O(nlogn+q) TarjanTarjan  算法求 LCA 的时间复杂度为 O(n+q) ，是一种离线算法，要用到并查集。（注：这里的复杂度其实应该不是 O(n+q) ，还需要考虑并查集操作的复杂度  ，但是由于在多数">
+<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEBcb269afa333f7485bba7eac607953182?method=download&shareKey=1883478c4a0b3fa56c4bdf6f4efc71d1">
 
 
 
@@ -124,7 +125,7 @@
 
   
   
-  <link rel="canonical" href="http://xxf0512.github.io/2019/07/16/printf/">
+  <link rel="canonical" href="http://xxf0512.github.io/2019/07/17/LCA/">
 
 
 
@@ -134,7 +135,7 @@
   };
 </script>
 
-  <title>(转)为什么printf()用%f输出double型，而scanf却用%lf | XXF</title>
+  <title>LCA | XXF</title>
   
 
 
@@ -402,7 +403,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/07/16/printf/">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/07/17/LCA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XXF">
@@ -419,7 +420,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">(转)为什么printf()用%f输出double型，而scanf却用%lf
+          <h1 class="post-title" itemprop="name headline">LCA
 
               
             
@@ -445,7 +446,7 @@
                 
               
 
-              <time title="创建时间：2019-07-16 19:21:28 / 修改时间：19:28:59" itemprop="dateCreated datePublished" datetime="2019-07-16T19:21:28+08:00">2019-07-16</time>
+              <time title="创建时间：2019-07-17 16:59:59 / 修改时间：16:59:26" itemprop="dateCreated datePublished" datetime="2019-07-17T16:59:59+08:00">2019-07-17</time>
             
 
             
@@ -455,6 +456,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图论/" itemprop="url" rel="index"><span itemprop="name">图论</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -478,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">380</span>
+                <span title="本文字数">15k</span>
               
 
               
@@ -492,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">13 分钟</span>
               
             </div>
           
@@ -512,13 +531,591 @@
       
 
       
-        <p>问：有人告诉我不能在printf中使用%lf。为什么printf()用%f输出double型，而scanf却用%lf呢？</p>
-<p>答：printf的%f说明符的确既可以输出float型又可以输出double型。 根据”默认参数提升”规则（在printf这样的函数的可变参数列表中 ，不论作用域内有没有原型，都适用这一规则）float型会被提升为double型。因此printf()只会看到双精度数。参见问题15.2。</p>
-<p>对于scanf，情况就完全不同了，它接受指针，这里没有类似的类型提升。（通过指针）向float存储和向double存储大不一样，因此，scanf区别%f和%lf。</p>
-<p>下表列出了printf和scanf对于各种格式说明符可以接受的参数类型。<br><img src="https://note.youdao.com/yws/api/personal/file/WEBd60214ec0ed359e950a0e5e454825355?method=download&amp;shareKey=e9b595dce2d3ba107887ff2e5bb0be93" alt="1"></p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/WEBd0f65c319b1b0d9c69231a114d87dfd4?method=download&amp;shareKey=2031a656948c7f60141d2f88436130c2" alt="2"></p>
-<p>（严格地讲，%lf在printf下是未定义的，但是很多系统可能会接受它。要确保可移植性，就要坚持使用%f。）</p>
+        <h3 id="LCA"><a href="#LCA" class="headerlink" title="LCA"></a>LCA</h3><pre><code>解决树上两点间的最近公共祖先，三种方式：
+1.Tarjan 离线算法 O(n+q)
+2.倍增 在线算法 O((n+q)*logn)
+3.RMQ(ST表) 优秀的在线算法 O(nlogn+q)
+</code></pre><h4 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h4><pre><code>Tarjan  算法求 LCA 的时间复杂度为 O(n+q) ，是一种离线算法，要用到并查集。（注：这里的复杂度其实应该不是 O(n+q) ，还需要考虑并查集操作的复杂度
+ ，但是由于在多数情况下，路径压缩并查集的单次操作复杂度可以看做 O(1)，所以写成了 O(n+q) 。）
 
+Tarjan 算法基于 dfs ，在 dfs 的过程中，对于每个节点位置的询问做出相应的回答。
+
+dfs 的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，
+那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续 dfs 。
+</code></pre><h5 id="板子1-NBWY"><a href="#板子1-NBWY" class="headerlink" title="板子1(NBWY)"></a>板子1(NBWY)</h5><pre><code>//离线Tarjan O(n+q) from NBWY
+//POJ-1470
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int maxn=905;
+vector&lt;int&gt; G[maxn],query[maxn];
+int ans[maxn],fa[maxn];
+bool vis[maxn],in[maxn];
+int n,m;
+void init(){
+    for(int i=1;i&lt;=n;i++){
+        G[i].clear();query[i].clear();
+        fa[i]=i;in[i]=0;ans[i]=0;vis[i]=0;
+    }
+}
+int find(int x){return fa[x]==x?x:find(fa[x]);}
+void add_edge(int u,int v){G[u].push_back(v);}
+void add_query(int u,int v){query[u].push_back(v);}
+void Tarjan(int u){
+    vis[u]=1;
+    int size=query[u].size();
+    for(int i=0;i&lt;size;i++){
+        int v=query[u][i];
+        if(vis[v]) ans[find(v)]++;
+    }
+    size=G[u].size();
+    for(int i=0;i&lt;size;i++){
+        int v=G[u][i];
+        if(!vis[v]){
+            Tarjan(v);fa[v]=u;
+        }
+    }
+}
+int main()
+{
+    while(~scanf(&quot;%d&quot;,&amp;n)){
+        init();
+        int u,v;
+        for(int i=0;i&lt;n;i++){
+            scanf(&quot;%d:(%d)&quot;,&amp;u,&amp;m);
+            while(m--){
+                scanf(&quot;%d&quot;,&amp;v);in[v]=1;
+                add_edge(u,v);add_edge(v,u);
+            }
+        }
+        scanf(&quot;%d&quot;,&amp;m);
+        while(m--){
+            scanf(&quot; (%d %d)&quot;,&amp;u,&amp;v);
+            add_query(u,v);add_query(v,u);
+        }
+        for(int i=1;i&lt;=n;i++)
+            if(!in[i]){
+                Tarjan(i);break;
+            }
+        for(int i=1;i&lt;=n;i++)
+            if(ans[i]) printf(&quot;%d:%d\n&quot;,i,ans[i]);
+    }
+}
+</code></pre><h5 id="板子2-Kuangbin"><a href="#板子2-Kuangbin" class="headerlink" title="板子2(Kuangbin)"></a>板子2(Kuangbin)</h5><pre><code>/*
+POJ 1470
+离线处理
+G++  1204ms 8788K
+C++  954ms  8304K
+*/
+
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;math.h&gt;
+#include&lt;vector&gt;
+using namespace std;
+
+const int MAXN=1000;
+const int MAXM=500000;//最大查询数
+
+
+int F[MAXN];//并查集
+int r[MAXN];//并查集中集合的个数
+bool vis[MAXN];//访问标记
+int ancestor[MAXN];//祖先
+struct Node
+{
+    int to,next;
+}edge[MAXN*2];
+
+int head[MAXN];
+int tol;
+void addedge(int a,int b)
+{
+    edge[tol].to=b;
+    edge[tol].next=head[a];
+    head[a]=tol++;
+    edge[tol].to=a;
+    edge[tol].next=head[b];
+    head[b]=tol++;
+}
+
+
+struct Query
+{
+    int q,next;
+    int index;//查询编号
+}query[MAXM*2];//查询数
+int answer[MAXM];//查询结果
+int cnt;
+int h[MAXM];
+int tt;
+int Q;//查询个数
+
+
+void add_query(int a,int b,int i)
+{
+    query[tt].q=b;
+    query[tt].next=h[a];
+    query[tt].index=i;
+    h[a]=tt++;
+    query[tt].q=a;
+    query[tt].next=h[b];
+    query[tt].index=i;
+    h[b]=tt++;
+}
+
+void init(int n)
+{
+    for(int i=1;i&lt;=n;i++)
+    {
+        F[i]=-1;
+        r[i]=1;
+        vis[i]=false;
+        ancestor[i]=0;
+        tol=0;
+        tt=0;
+        cnt=0;//已经查询到的个数
+    }
+    memset(head,-1,sizeof(head));
+    memset(h,-1,sizeof(h));
+}
+int find(int x)
+{
+    if(F[x]==-1)return x;
+    return F[x]=find(F[x]);
+}
+
+void Union(int x,int y)//合并
+{
+    int t1=find(x);
+    int t2=find(y);
+    if(t1!=t2)
+    {
+        if(r[t1]&lt;=r[t2])
+        {
+            F[t1]=t2;
+            r[t2]+=r[t1];
+        }
+        else
+        {
+            F[t2]=t1;
+            r[t1]+=r[t2];
+        }
+    }
+}
+
+
+void LCA(int u)
+{
+// if(cnt&gt;=Q)return;//这个不能加，加了就WR了
+    ancestor[u]=u;
+    vis[u]=true;//这个一定要放在前面
+    for(int i=head[u];i!=-1;i=edge[i].next)
+    {
+        int v=edge[i].to;
+        if(vis[v])continue;
+        LCA(v);
+        Union(u,v);
+        ancestor[find(u)]=u;
+    }
+    for(int i=h[u];i!=-1;i=query[i].next)
+    {
+        int v=query[i].q;
+        if(vis[v])
+        {
+            answer[query[i].index]=ancestor[find(v)];
+            cnt++;//已经找到的答案数
+        }
+    }
+}
+
+int Count_num[MAXN];
+bool flag[MAXN];
+int main()
+{
+// freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+// freopen(&quot;out.txt&quot;,&quot;w&quot;,stdout);
+    int N;
+    int u,v,m;
+    char ch;
+    while(scanf(&quot;%d&quot;,&amp;N)!=EOF)
+    {
+        init(N);
+        memset(flag,false,sizeof(flag));
+        for(int i=1;i&lt;=N;i++)
+        {
+            scanf(&quot;%d:(%d)&quot;,&amp;u,&amp;m);
+            while(m--)
+            {
+                scanf(&quot;%d&quot;,&amp;v);
+                flag[v]=true;
+                addedge(u,v);
+            }
+        }
+        scanf(&quot;%d&quot;,&amp;Q);
+        for(int i=0;i&lt;Q;i++)
+        {
+            cin&gt;&gt;ch;
+            scanf(&quot;%d%d&quot;,&amp;u,&amp;v);
+            cin&gt;&gt;ch;
+            add_query(u,v,i);
+        }
+        int root;
+        for(int i=1;i&lt;=N;i++)
+        if(!flag[i])
+        {
+            root=i;
+            break;
+        }
+        LCA(root);
+
+        memset(Count_num,0,sizeof(Count_num));
+        for(int i=0;i&lt;Q;i++)
+        Count_num[answer[i]]++;
+        for(int i=1;i&lt;=N;i++)
+        if(Count_num[i]&gt;0)
+            printf(&quot;%d:%d\n&quot;,i,Count_num[i]);
+    }
+    return 0;
+}
+</code></pre><hr>
+<h4 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h4><pre><code>我们可以用倍增来在线求 LCA ，时间和空间复杂度分别是 O((n+q)logn) 和 O(nlogn) 。
+
+　对于这个算法，我们从最暴力的算法开始：
+　1.如果 a 和 b 深度不同，先把深度调浅，使他变得和浅的那个一样
+　2.现在已经保证了 a 和 b 的深度一样，所以我们只要把两个一起一步一步往上移动，直到他们到达同一个节点，也就是他们的最近公共祖先了。
+</code></pre><p><img src="https://note.youdao.com/yws/api/personal/file/WEBcb269afa333f7485bba7eac607953182?method=download&amp;shareKey=1883478c4a0b3fa56c4bdf6f4efc71d1" alt="1"></p>
+<h5 id="板子1-zhouzhendong"><a href="#板子1-zhouzhendong" class="headerlink" title="板子1(zhouzhendong)"></a>板子1(zhouzhendong)</h5><pre><code>//在线倍增 O((n+q)logn)
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int N=10000+5;
+vector &lt;int&gt; son[N];
+int T,n,depth[N],fa[N][20],in[N],a,b;
+void dfs(int prev,int rt){
+    depth[rt]=depth[prev]+1;
+    fa[rt][0]=prev;
+    for (int i=1;i&lt;20;i++)
+        fa[rt][i]=fa[fa[rt][i-1]][i-1];
+    for (int i=0;i&lt;son[rt].size();i++)
+        dfs(rt,son[rt][i]);
+}
+int LCA(int x,int y){
+    if (depth[x]&lt;depth[y])
+        swap(x,y);
+    for (int i=19;i&gt;=0;i--)
+        if (depth[x]-(1&lt;&lt;i)&gt;=depth[y])
+            x=fa[x][i];
+    if (x==y)
+        return x;
+    for (int i=19;i&gt;=0;i--)
+        if (fa[x][i]!=fa[y][i])
+            x=fa[x][i],y=fa[y][i];
+    return fa[x][0];
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;T);
+    while (T--){
+        scanf(&quot;%d&quot;,&amp;n);
+        for (int i=1;i&lt;=n;i++)
+            son[i].clear();
+        memset(in,0,sizeof in);
+        for (int i=1;i&lt;n;i++){
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            son[a].push_back(b);
+            in[b]++;
+        }
+        depth[0]=-1;
+        int rt=0;
+        for (int i=1;i&lt;=n&amp;&amp;rt==0;i++)
+            if (in[i]==0)
+                rt=i;
+        dfs(0,rt);
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        printf(&quot;%d\n&quot;,LCA(a,b));
+    }
+    return 0;
+}
+</code></pre><h5 id="板子2-Kuangbin-1"><a href="#板子2-Kuangbin-1" class="headerlink" title="板子2(Kuangbin)"></a>板子2(Kuangbin)</h5><pre><code>//倍增(Kuangbin) POJ1330
+#include&lt;bits/stdc++.h&gt;
+#define mem(a,b) memset(a,b,sizeof(a))
+using namespace std;
+const int maxn=1e4+5;
+const int h=20;
+struct Edge{int to,nxt;}edge[maxn*2];
+int head[maxn],tot;
+void add_edge(int u,int v){edge[tot].to=v;edge[tot].nxt=head[u];head[u]=tot++;}
+void init(){tot=0;mem(head,-1);}
+int fa[maxn][h];//fa[i][j]表示结点i的第2^j个祖先
+int depth[maxn];//深度数组
+void bfs(int r){
+    queue&lt;int&gt; que;depth[r]=0;
+    fa[r][0]=r;que.push(r);
+    while(!que.empty()){
+        int tmp=que.front();que.pop();
+        for(int i=1;i&lt;h;i++)
+            fa[tmp][i]=fa[fa[tmp][i-1]][i-1];
+        for(int i=head[tmp];i!=-1;i=edge[i].nxt){
+            int v=edge[i].to;if(v==fa[tmp][0]) continue;
+            depth[v]=depth[tmp]+1;fa[v][0]=tmp;
+            que.push(v);
+        }
+    }
+}
+int LCA(int u,int v){
+    if(depth[u]&gt;depth[v]) swap(u,v);
+    int hu=depth[u],hv=depth[v];
+    int tu=u,tv=v;
+    for(int det=hv-hu,i=0;det;det&gt;&gt;=1,i++)
+        if(det&amp;1) tv=fa[tv][i];
+    if(tu==tv) return tu;
+    for(int i=h-1;i&gt;=0;i--){
+        if(fa[tu][i]==fa[tv][i]) continue;
+        tu=fa[tu][i];tv=fa[tv][i];
+    } 
+    return fa[tu][0];
+}
+bool flag[maxn];
+int main()
+{
+    int T,n,u,v;scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        scanf(&quot;%d&quot;,&amp;n);init();mem(flag,0);
+        for(int i=1;i&lt;n;i++){
+            scanf(&quot;%d%d&quot;,&amp;u,&amp;v);add_edge(u,v);add_edge(v,u);flag[v]=1;
+        }
+        int root;
+        for(int i=1;i&lt;=n;i++)
+            if(!flag[i]){root=i;break;}
+        bfs(root);
+        scanf(&quot;%d%d&quot;,&amp;u,&amp;v);
+        printf(&quot;%d\n&quot;,LCA(u,v));
+    }
+}
+</code></pre><hr>
+<h4 id="RMQ-ST"><a href="#RMQ-ST" class="headerlink" title="RMQ(ST)"></a>RMQ(ST)</h4><pre><code>一种O(nlogn)预处理+O(1)查询的在线算法(优秀)
+一个子树中深度最浅的节点必定是该子树的树根。两个节点的 LCA 不仅是两个节点的最近公共祖先，
+而且是囊括这两个节点的最小子树的根，即囊括这两个节点的最小子树中的深度最小的节点
+
+如何得到这个子树根节点呢？
+
+现在，我们稍微修改一下 dfs 序，搞一个欧拉序。
+欧拉序，就是每次从 father(x) 进入节点 x 或者从子节点回溯到 x 都要把 x 这个编号扔到一个数组的最后。
+这样最终会得到一个长度约为 2n 的数列。（考虑每一个节点贡献为 2 ，分别是从其父亲进入该节点，和从该节点回到其父亲）
+下图这棵树的一个欧拉序为  8,5,9,5,8,4,6,15,6,7,6,4,10,11,10,16,3,16,12,16,10,2,10,4,8,1,14,1,13,1,8
+
+再注意到，一对点的 LCA 不仅是囊括这两个节点的最小子树中的深度最小的节点，还是连接这对点的简单路径上深度最小的点。
+而且从离开 a 到进入 b 的这段欧拉序必然包括所有这对点之间的简单路径上的所有点，所以我们考虑求得这段欧拉序中所包含的节点中的 深度最小的点即其 LCA 。
+从 a 到 b 的这段欧拉序会包含这棵子树中的其他节点，但是不会影响这个最浅点的求得，因为“一对点的 LCA 是囊括这两个节点的最小子树中的深度最小的节点”。
+显然， a 到 b 这段欧拉序是个连续区间。
+
+你可以用线段树维护，但是线段树太 low 了。
+现在我们考虑通过预处理来 O(1) 获得这个最浅点。
+于是我们要学习一个叫做 ST表 的东西来搞定这个。（和之前倍增中处理的 fa 数组差不多）
+</code></pre><p><img src="https://images2017.cnblogs.com/blog/1209138/201707/1209138-20170729151024207-1541824194.png" alt="欧拉序"></p>
+<h5 id="板子1-Vector-from-CSL"><a href="#板子1-Vector-from-CSL" class="headerlink" title="板子1(Vector from CSL)"></a>板子1(Vector from CSL)</h5><pre><code>//RMQ O(nlogn+q) CSL
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=4e4+5;
+vector&lt;int&gt; edge[maxn],sp;
+int dep[maxn],dfn[maxn];
+pair&lt;int,int&gt; dp[21][maxn&lt;&lt;1];
+void init(int n){
+    for(int i=0;i&lt;=n;i++) edge[i].clear();
+    sp.clear();
+}
+void dfs(int u,int fa){
+    dep[u]=dep[fa]+1;
+    dfn[u]=sp.size();//欧拉序列
+    sp.push_back(u);
+    for(auto&amp; v:edge[u]){
+        if(v==fa) continue;
+        dfs(v,u);sp.push_back(u);
+    }
+}
+void initrmq(){
+    int n=sp.size();
+    for(int i=0;i&lt;n;i++) dp[0][i]={dfn[sp[i]],sp[i]};
+    for(int i=1;(1&lt;&lt;i)&lt;=n;i++)//注意从1开始 ST表维护最小时间戳
+        for(int j=0;j+(1&lt;&lt;i)-1&lt;n;j++)
+            dp[i][j]=min(dp[i-1][j],dp[i-1][j+(1&lt;&lt;(i-1))]);
+}
+int lca(int u,int v){
+    int l=dfn[u],r=dfn[v];
+    if(l&gt;r) swap(l,r);
+    int k=31-__builtin_clz(r-l+1);
+    return min(dp[k][l],dp[k][r-(1&lt;&lt;k)+1]).second;
+}
+int main()
+{
+    /* */
+}
+</code></pre><h5 id="验板子-HDU-2586-Vector"><a href="#验板子-HDU-2586-Vector" class="headerlink" title="验板子(HDU - 2586 Vector)"></a>验板子(HDU - 2586 Vector)</h5><pre><code>//RMQ O(nlogn+q) CSL
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=5e4+5;
+struct Edge{
+    int to,w;
+    Edge(int t,int W):to(t),w(W){}
+};
+vector&lt;Edge&gt; edge[maxn];
+vector&lt;int&gt; sp;
+int dep[maxn],dfn[maxn];
+pair&lt;int,int&gt; dp[21][maxn&lt;&lt;1];
+int dist[maxn];
+void init(int n){
+    for(int i=0;i&lt;=n;i++) {edge[i].clear();dep[i]=dist[i]=0;}
+    sp.clear();
+}
+void dfs(int u,int fa){
+    dep[u]=dep[fa]+1;
+    dfn[u]=sp.size();
+    sp.push_back(u);
+    for(auto&amp; v:edge[u]){
+        if(v.to==fa) continue;
+        dist[v.to]=dist[u]+v.w;
+        dfs(v.to,u);sp.push_back(u);
+    }
+}
+void initrmq(){
+    int n=sp.size();
+    for(int i=0;i&lt;n;i++) dp[0][i]={dfn[sp[i]],sp[i]};
+    for(int i=1;(1&lt;&lt;i)&lt;=n;i++)
+        for(int j=0;j+(1&lt;&lt;i)-1&lt;n;j++)
+            dp[i][j]=min(dp[i-1][j],dp[i-1][j+(1&lt;&lt;(i-1))]);
+}
+int lca(int u,int v){
+    int l=dfn[u],r=dfn[v];
+    if(l&gt;r) swap(l,r);
+    int k=31-__builtin_clz(r-l+1);
+    return min(dp[k][l],dp[k][r-(1&lt;&lt;k)+1]).second;
+}
+int main()
+{
+    int T;scanf(&quot;%d&quot;,&amp;T);
+    int u,v,w;
+    while(T--){
+        int n,m;scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        init(n);
+        for(int i=1;i&lt;n;i++){
+            scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+            edge[u].push_back(Edge(v,w));
+            edge[v].push_back(Edge(u,w));
+        }
+        dfs(1,0);initrmq();
+        while(m--){
+            scanf(&quot;%d%d&quot;,&amp;u,&amp;v);
+            printf(&quot;%d\n&quot;,dist[u]+dist[v]-2*dist[lca(u,v)]);
+        }
+    }
+}
+</code></pre><h5 id="验板子-HDU-2586-前向星"><a href="#验板子-HDU-2586-前向星" class="headerlink" title="验板子(HDU - 2586 前向星)"></a>验板子(HDU - 2586 前向星)</h5><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=4e4+5;
+struct Edge{
+    int to,w,nxt;
+}edge[maxn&lt;&lt;1];
+int tot,head[maxn];
+vector&lt;int&gt; sp;
+int dep[maxn],dfn[maxn];
+pair&lt;int,int&gt; dp[21][maxn&lt;&lt;1];
+int dist[maxn];
+void Addedge(int u,int v,int w){
+    edge[tot].to=v;edge[tot].w=w;edge[tot].nxt=head[u];head[u]=tot++;
+}
+void init(int n){
+    for(int i=0;i&lt;=n;i++) {head[i]=-1;dep[i]=dist[i]=0;}
+    sp.clear();tot=0;
+}
+void dfs(int u,int fa){
+    dep[u]=dep[fa]+1;
+    dfn[u]=sp.size();
+    sp.push_back(u);
+    for(int i=head[u];i!=-1;i=edge[i].nxt){
+        int v=edge[i].to;
+        if(v==fa) continue;
+        dist[v]=dist[u]+edge[i].w;
+        dfs(v,u);sp.push_back(u);
+    }
+}
+void initrmq(){
+    int n=sp.size();
+    for(int i=0;i&lt;n;i++) dp[0][i]={dfn[sp[i]],sp[i]};
+    for(int i=1;(1&lt;&lt;i)&lt;=n;i++)
+        for(int j=0;j+(1&lt;&lt;i)-1&lt;n;j++)
+            dp[i][j]=min(dp[i-1][j],dp[i-1][j+(1&lt;&lt;(i-1))]);
+}
+int lca(int u,int v){
+    int l=dfn[u],r=dfn[v];
+    if(l&gt;r) swap(l,r);
+    int k=31-__builtin_clz(r-l+1);
+    return min(dp[k][l],dp[k][r-(1&lt;&lt;k)+1]).second;
+}
+int main()
+{
+    int T;scanf(&quot;%d&quot;,&amp;T);
+    int u,v,w;
+    while(T--){
+        int n,m;scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        init(n);
+        for(int i=1;i&lt;n;i++){
+            scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+            Addedge(u,v,w);Addedge(v,u,w);
+        }
+        dfs(1,0);initrmq();
+        while(m--){
+            scanf(&quot;%d%d&quot;,&amp;u,&amp;v);
+            printf(&quot;%d\n&quot;,dist[u]+dist[v]-2*dist[lca(u,v)]);
+        }
+    }
+}
+</code></pre><hr>
+<h4 id="题目总结"><a href="#题目总结" class="headerlink" title="题目总结"></a>题目总结</h4><pre><code>LCA题目总结
+好像LCA的题目并不多，现在就做了10道左右，但是找不到别的了，在此做个小总结，将来有更好的题目会不断更新
+
+解决LCA问题，一般用3种方法
+
+1.朴素方法：两个点都一直沿路径往上走，直到有某一个节点被经过两次并且是第一次出现这样的点，那么这个就是LCA
+
+此方法最好理解，但是用得不多，但不代表没作用，有些题目还是需要用到的
+
+2.LCA转RMQ（在线算法）：一般是将LCA转为RMQ问题，用ST算法求解，当然求解RMQ问题有很多方法，不过ST比较常用而已，这样做能及时回答每一个询问
+
+3.Tarjan算法（离线算法）：利用Tarjan算法，不过要先读入所有询问再一并回答，建议认真学习Tarjan算法本质
+
+
+
+******具体问题具体分析，但是可以使用Tarjan算法的时候推荐使用Tarjan算法，代码量少速度快，另外Tarjan算法容易产生变形，值得深究*************
+</code></pre><hr>
+<h4 id="待补题"><a href="#待补题" class="headerlink" title="待补题"></a>待补题</h4><pre><code>poj 1986 Distance Queries
+模板题，直接求LCA
+
+hdu 2874 Connections between cities
+模板题，不过不是树是森林，所以某些点不存在LCA，要做判断
+
+zoj 3195 Design the city
+任然算是模板题，上面的题要求两点间的最短距离，这里要求3点间的最短距离，其实就是两两之间求一次LCA并计算出距离，然后相加除以2即可
+
+hdu 3078 Network
+LCA + 修改点权值 + 排序：每个点有初始的权值，一边查询一边伴随着修改某些点的权值，查询是从a到b路径中第k大的权值是多少。不需要太多的技巧，修改操作就直接修改，查询操作先求LCA，然后从a走到b保存下所有的权值，排序，然后直接输出即可
+
+poj 2763 Housewife Wind
+LCA + 修改边权：一边查询两点间的距离，一边修改某些边权。对于修改了某些边的边权，就要从此开始遍历下面的子孙后代更改他们的dir值（点到根的距离）。也不需要太多技巧，直接按题意实现即可，不过时间比较糟糕，用线段树或树状数组可以对修改操作进行优化，时间提升很多
+
+poj 3694 Network
+连通分量 + LCA ： 先缩点，再求LCA，并且不断更新，这题用了朴素方法来找LCA，并且在路径上做了一些操作
+
+poj 3417 Network
+LCA + Tree DP  :  在运行Tarjan处理完所有的LCA询问后，进行一次树DP，树DP不难，但是要想到用树DP并和这题结合还是有点难度
+
+poj 3728 The merchant
+LCA + 并查集的变形，优化：好题，难题，思维和代码实现都很有难度，需要很好地理解Tarjan算法中并查集的本质然后灵活变形，需要记录很多信息（有点dp的感觉）
+
+hdu 3830 Checkers
+LCA + 二分：好题，有一定思维难度。先建立出二叉树模型，然后将要查询的两个点调整到深度一致，然后二分LCA所在的深度，然后检验
+</code></pre>
       
     </div>
 
@@ -539,6 +1136,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/图论/" rel="tag"># 图论</a>
+          
+        </div>
+      
 
       
       
@@ -548,8 +1151,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/15/最小树形图/" rel="next" title="最小树形图">
-                <i class="fa fa-chevron-left"></i> 最小树形图
+              <a href="/2019/07/16/printf/" rel="next" title="(转)为什么printf()用%f输出double型，而scanf却用%lf">
+                <i class="fa fa-chevron-left"></i> (转)为什么printf()用%f输出double型，而scanf却用%lf
               </a>
             
           </div>
@@ -557,10 +1160,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/17/LCA/" rel="prev" title="LCA">
-                LCA <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -604,8 +1203,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -709,6 +1317,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LCA"><span class="nav-text">LCA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tarjan"><span class="nav-text">Tarjan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#板子1-NBWY"><span class="nav-text">板子1(NBWY)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#板子2-Kuangbin"><span class="nav-text">板子2(Kuangbin)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#倍增"><span class="nav-text">倍增</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#板子1-zhouzhendong"><span class="nav-text">板子1(zhouzhendong)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#板子2-Kuangbin-1"><span class="nav-text">板子2(Kuangbin)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RMQ-ST"><span class="nav-text">RMQ(ST)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#板子1-Vector-from-CSL"><span class="nav-text">板子1(Vector from CSL)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验板子-HDU-2586-Vector"><span class="nav-text">验板子(HDU - 2586 Vector)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#验板子-HDU-2586-前向星"><span class="nav-text">验板子(HDU - 2586 前向星)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目总结"><span class="nav-text">题目总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#待补题"><span class="nav-text">待补题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
