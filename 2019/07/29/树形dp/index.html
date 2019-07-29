@@ -103,20 +103,18 @@
 
 
 
-  <meta name="description" content="线段树NB网友Blog(https://blog.csdn.net/huangzihaoal/article/details/81813454)  线段树，是一种二叉搜索树。它将一段区间划分为若干单位区间，每一个节点都储存着一个区间。 它功能强大，支持区间求和，区间最大值，区间修改，单点修改等操作。 线段树的每一个节点都储存着一段区间[L…R]的信息，其中叶子节点L=R。  它的大致思想是：将一段">
-<meta name="keywords" content="数据结构">
+  <meta name="description" content="树形DP树形DP主要有三种题型： 1.最大独立子集问题(父节点与子节点不能共存) 2.数的直径(一棵树上的两个节点间的路径长度的最大值) 3.树的重心(将节点x去掉后，树所形成的各个连通块的节点数最少)  最大独立子集问题洛谷P1352 没有上司的舞会题意：一棵树，n个点，每人一个权值，父节点与子节点不能同时选，求子集最大权 思路：dfs，在递归的回溯阶段完成计算dp[i][0]-&amp;gt;不选i节">
+<meta name="keywords" content="动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线段树">
-<meta property="og:url" content="http://xxf0512.github.io/2019/07/26/线段树/index.html">
+<meta property="og:title" content="树形dp">
+<meta property="og:url" content="http://xxf0512.github.io/2019/07/29/树形dp/index.html">
 <meta property="og:site_name" content="XXF">
-<meta property="og:description" content="线段树NB网友Blog(https://blog.csdn.net/huangzihaoal/article/details/81813454)  线段树，是一种二叉搜索树。它将一段区间划分为若干单位区间，每一个节点都储存着一个区间。 它功能强大，支持区间求和，区间最大值，区间修改，单点修改等操作。 线段树的每一个节点都储存着一段区间[L…R]的信息，其中叶子节点L=R。  它的大致思想是：将一段">
+<meta property="og:description" content="树形DP树形DP主要有三种题型： 1.最大独立子集问题(父节点与子节点不能共存) 2.数的直径(一棵树上的两个节点间的路径长度的最大值) 3.树的重心(将节点x去掉后，树所形成的各个连通块的节点数最少)  最大独立子集问题洛谷P1352 没有上司的舞会题意：一棵树，n个点，每人一个权值，父节点与子节点不能同时选，求子集最大权 思路：dfs，在递归的回溯阶段完成计算dp[i][0]-&amp;gt;不选i节">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20180819213931568?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1YW5nemloYW9hbA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2019-07-26T15:07:49.145Z">
+<meta property="og:updated_time" content="2019-07-28T13:54:59.859Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线段树">
-<meta name="twitter:description" content="线段树NB网友Blog(https://blog.csdn.net/huangzihaoal/article/details/81813454)  线段树，是一种二叉搜索树。它将一段区间划分为若干单位区间，每一个节点都储存着一个区间。 它功能强大，支持区间求和，区间最大值，区间修改，单点修改等操作。 线段树的每一个节点都储存着一段区间[L…R]的信息，其中叶子节点L=R。  它的大致思想是：将一段">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20180819213931568?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1YW5nemloYW9hbA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:title" content="树形dp">
+<meta name="twitter:description" content="树形DP树形DP主要有三种题型： 1.最大独立子集问题(父节点与子节点不能共存) 2.数的直径(一棵树上的两个节点间的路径长度的最大值) 3.树的重心(将节点x去掉后，树所形成的各个连通块的节点数最少)  最大独立子集问题洛谷P1352 没有上司的舞会题意：一棵树，n个点，每人一个权值，父节点与子节点不能同时选，求子集最大权 思路：dfs，在递归的回溯阶段完成计算dp[i][0]-&amp;gt;不选i节">
 
 
 
@@ -124,7 +122,7 @@
 
   
   
-  <link rel="canonical" href="http://xxf0512.github.io/2019/07/26/线段树/">
+  <link rel="canonical" href="http://xxf0512.github.io/2019/07/29/树形dp/">
 
 
 
@@ -134,7 +132,7 @@
   };
 </script>
 
-  <title>线段树 | XXF</title>
+  <title>树形dp | XXF</title>
   
 
 
@@ -402,7 +400,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/07/26/线段树/">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/07/29/树形dp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XXF">
@@ -419,7 +417,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线段树
+          <h1 class="post-title" itemprop="name headline">树形dp
 
               
             
@@ -445,12 +443,24 @@
                 
               
 
-              <time title="创建时间：2019-07-26 23:05:57 / 修改时间：23:07:49" itemprop="dateCreated datePublished" datetime="2019-07-26T23:05:57+08:00">2019-07-26</time>
+              <time title="创建时间：2019-07-29 22:36:50" itemprop="dateCreated datePublished" datetime="2019-07-29T22:36:50+08:00">2019-07-29</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-28 21:54:59" itemprop="dateModified" datetime="2019-07-28T21:54:59+08:00">2019-07-28</time>
               
             
           </span>
@@ -467,7 +477,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/动态规划/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a></span>
 
                 
                 
@@ -496,7 +506,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">10k</span>
               
 
               
@@ -510,7 +520,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -530,368 +540,336 @@
       
 
       
-        <h4 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h4><pre><code>NB网友Blog(https://blog.csdn.net/huangzihaoal/article/details/81813454)
+        <h3 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h3><pre><code>树形DP主要有三种题型：
+1.最大独立子集问题(父节点与子节点不能共存)
+2.数的直径(一棵树上的两个节点间的路径长度的最大值)
+3.树的重心(将节点x去掉后，树所形成的各个连通块的节点数最少)
+</code></pre><hr>
+<h4 id="最大独立子集问题"><a href="#最大独立子集问题" class="headerlink" title="最大独立子集问题"></a>最大独立子集问题</h4><h5 id="洛谷P1352-没有上司的舞会"><a href="#洛谷P1352-没有上司的舞会" class="headerlink" title="洛谷P1352 没有上司的舞会"></a>洛谷P1352 没有上司的舞会</h5><pre><code>题意：一棵树，n个点，每人一个权值，父节点与子节点不能同时选，求子集最大权
+思路：dfs，在递归的回溯阶段完成计算dp[i][0]-&gt;不选i节点取得的最大值  dp[i][1]-&gt;选i节点取得的最大值
 
-线段树，是一种二叉搜索树。它将一段区间划分为若干单位区间，每一个节点都储存着一个区间。
-它功能强大，支持区间求和，区间最大值，区间修改，单点修改等操作。
-线段树的每一个节点都储存着一段区间[L…R]的信息，其中叶子节点L=R。
-
-它的大致思想是：将一段大区间平均地划分成2个小区间，每一个小区间都再平均分成2个更小区间……以此类推，
-直到每一个区间的L等于R（这样这个区间仅包含一个节点的信息，无法被划分）。通过对这些区间进行修改、查询，来实现对大区间的修改、查询。
-这样一来，每一次修改、查询的时间复杂度都只为O(logn)
-
-但是，可以用线段树维护的问题必须满足区间加法，否则是不可能将大问题划分成子问题来解决的。
-</code></pre><p><img src="https://img-blog.csdn.net/20180819213931568?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h1YW5nemloYW9hbA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="线段树"></p>
-<hr>
-<h3 id="初阶线段树"><a href="#初阶线段树" class="headerlink" title="初阶线段树"></a>初阶线段树</h3><h4 id="单点修改区间查询"><a href="#单点修改区间查询" class="headerlink" title="单点修改区间查询"></a>单点修改区间查询</h4><h5 id="区间求和"><a href="#区间求和" class="headerlink" title="区间求和"></a>区间求和</h5><pre><code>//HDU 1166 单点更新区间求和
 #include&lt;bits/stdc++.h&gt;
 using namespace std;
-#define lson l,m,rt&lt;&lt;1
-#define rson m+1,r,rt&lt;&lt;1|1
-const int maxn=1e5+5;
-int sum[maxn&lt;&lt;2],a[maxn],n;
-void pushup(int rt) {sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];}
-void build(int l,int r,int rt){
-    if(l==r) {sum[rt]=a[l];return;}
-    int m=(l+r)&gt;&gt;1;build(lson);build(rson);pushup(rt);
-}
-void update(int p,int t,int l,int r,int rt){
-    if(l==r) {sum[rt]+=t;return;}
-    int m=(l+r)&gt;&gt;1;
-    if(p&lt;=m) update(p,t,lson);
-    else update(p,t,rson);
-    pushup(rt);
-}
-int query(int L,int R,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r) return sum[rt];
-    int m=(l+r)&gt;&gt;1,ans=0;
-    if(L&lt;=m) ans+=query(L,R,lson);
-    if(R&gt;m) ans+=query(L,R,rson);
-    return ans;
+const int maxn=6e3+5;
+int r[maxn],boss[maxn],dp[maxn][2],n,l,k;
+vector&lt;int&gt; G[maxn];
+void dfs(int u){
+    for(auto &amp;v:G[u]){
+        dfs(v);//v是u的子节点，回溯需注意
+        dp[u][0]+=max(dp[v][1],dp[v][0]);//不选u,则v可选或不选
+        dp[u][1]+=dp[v][0];//选u,则v不能选
+    }
+    dp[u][1]+=r[u];//选u,需要加上自身的权值
 }
 int main()
 {
-    ios::sync_with_stdio(0);cin.tie(0);
-    int t;cin&gt;&gt;t;int ca=1;
-    while(t--){
-        cin&gt;&gt;n;for(int i=1;i&lt;=n;i++) cin&gt;&gt;a[i];
-        cout&lt;&lt;&quot;Case &quot;&lt;&lt;ca++&lt;&lt;&quot;:&quot;&lt;&lt;endl;build(1,n,1);string s;
-        while(cin&gt;&gt;s){
-            if(s[0]==&apos;E&apos;) break;int x,y;cin&gt;&gt;x&gt;&gt;y;
-            if(s[0]==&apos;Q&apos;) cout&lt;&lt;query(x,y,1,n,1)&lt;&lt;endl;
-            else if(s[0]==&apos;A&apos;) update(x,y,1,n,1);
-            else update(x,-y,1,n,1);
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;r[i]);
+    while(~scanf(&quot;%d%d&quot;,&amp;l,&amp;k),l+k){
+        boss[l]=k;G[k].push_back(l);
+    }
+    for(int i=1;i&lt;=n;i++){
+        if(boss[i]==0){//从树的根出发，即入度为0的点
+            dfs(i);printf(&quot;%d\n&quot;,max(dp[i][0],dp[i][1]));break;
         }
     }
 }
-</code></pre><h5 id="区间最值"><a href="#区间最值" class="headerlink" title="区间最值"></a>区间最值</h5><pre><code>//HDU-1754 单点更新区间最值
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define lson l,m,rt&lt;&lt;1
-#define rson m+1,r,rt&lt;&lt;1|1
-const int maxn=2e5+5;
-int ans[maxn&lt;&lt;2],a[maxn],n,m;
-void pushup(int rt) {ans[rt]=max(ans[rt&lt;&lt;1],ans[rt&lt;&lt;1|1]);}
-void build(int l,int r,int rt){
-    if(l==r) {ans[rt]=a[l];return;}
-    int m=(l+r)&gt;&gt;1;build(lson);build(rson);pushup(rt);
-}
-void update(int p,int t,int l,int r,int rt){
-    if(l==r){ans[rt]=t;return;}
-    int m=(l+r)&gt;&gt;1;
-    if(p&lt;=m) update(p,t,lson);
-    else update(p,t,rson);
-    pushup(rt); 
-}
-int query(int L,int R,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r) return ans[rt];
-    int m=(l+r)&gt;&gt;1,ret=0;
-    if(L&lt;=m) ret=max(ret,query(L,R,lson));
-    if(R&gt;m) ret=max(ret,query(L,R,rson));
-    return ret;
-}
-int main()
-{
-    ios::sync_with_stdio(0);cin.tie(0);
-    while(cin&gt;&gt;n&gt;&gt;m){
-        for(int i=1;i&lt;=n;i++) cin&gt;&gt;a[i];
-        build(1,n,1);char c;int x,y;
-        while(cin&gt;&gt;c&gt;&gt;x&gt;&gt;y){
-            if(c==&apos;U&apos;) update(x,y,1,n,1);
-            else cout&lt;&lt;query(x,y,1,n,1)&lt;&lt;endl;
-        }
-    }
-}
-</code></pre><h4 id="区间修改区间查询"><a href="#区间修改区间查询" class="headerlink" title="区间修改区间查询"></a>区间修改区间查询</h4><pre><code>需要lazy标记
-</code></pre><h5 id="区间替换"><a href="#区间替换" class="headerlink" title="区间替换"></a>区间替换</h5><pre><code>//HDU-1698 区间替换
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define lson l,m+1,rt&lt;&lt;1
-#define rson m+1,r,rt&lt;&lt;1|1
-const int maxn=1e5+5;
-int sum[maxn&lt;&lt;2],lazy[maxn&lt;&lt;2],a[maxn],n;
-void pushup(int rt){
-    sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];
-}
-void pushdown(int rt,int m){
-    if(lazy[rt]){
-        lazy[rt&lt;&lt;1]=lazy[rt&lt;&lt;1|1]=lazy[rt];
-        sum[rt&lt;&lt;1]=(m-(m&gt;&gt;1))*lazy[rt];
-        sum[rt&lt;&lt;1|1]=(m&gt;&gt;1)*lazy[rt];
-        lazy[rt]=0;
-    }
-}
-void build(int l,int r,int rt){
-    lazy[rt]=0;
-    if(l==r) {sum[rt]=a[l];return;}
-    int m=(l+r)&gt;&gt;1;
-    build(lson);build(rson);pushup(rt);
-}
-void update(int L,int R,int c,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r){
-        lazy[rt]=c;sum[rt]=(r-l+1)*c;return;
-    }
-    pushdown(rt,r-l+1);
-    int m=(l+r)&gt;&gt;1;
-    if(L&lt;=m) update(L,R,c,lson);
-    if(R&gt;m) update(L,R,c,rson);
-    pushup(rt);
-}
-int query(int L,int R,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r) return sum[rt];
-    pushdown(rt,r-l+1);
-    int m=(l+r)&gt;&gt;1;
-    int ans=0;
-    if(L&lt;=m) ans+=query(L,R,lson);
-    if(R&gt;m) ans+=query(L,R,rson);
-    cout&lt;&lt;ans&lt;&lt;endl;
-}
-int main()
-{
-    ios::sync_with_stdio(0);cin.tie(0);
-    int t,n,m,ca=1;cin&gt;&gt;t;
-    while(t--){
-        cin&gt;&gt;n&gt;&gt;m;
-        for(int i=1;i&lt;=n;i++) cin&gt;&gt;a[i];
-        build(1,n,1);
-        while(m--){
-            int x,y,z;cin&gt;&gt;x&gt;&gt;y&gt;&gt;z;
-            update(x,y,z,1,n,1);
-        }
-        cout&lt;&lt;&quot;Case &quot;&lt;&lt;ca++&lt;&lt;&quot;: The total value of the hook is &quot;&lt;&lt;sum[1]&lt;&lt;&quot;.&quot;&lt;&lt;endl;
-    }
-}
-</code></pre><h5 id="区间增减"><a href="#区间增减" class="headerlink" title="区间增减"></a>区间增减</h5><pre><code>//POJ-3468 区间增减
-#include&lt;iostream&gt;
-typedef long long ll;
-using namespace std;
-#define lson l,m,rt&lt;&lt;1
-#define rson m+1,r,rt&lt;&lt;1|1
-const int maxn=1e5+5;
-ll sum[maxn&lt;&lt;2],lazy[maxn&lt;&lt;2],a[maxn];
-int n,m;
-void pushup(int rt){
-    sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];
-}
-void build(int l,int r,int rt){
-    lazy[rt]=0;
-    if(l==r) {sum[rt]=a[l];return;}
-    int m=(l+r)&gt;&gt;1;
-    build(lson);build(rson);pushup(rt);
-}
-void pushdown(int rt,int m){
-    if(lazy[rt]){
-        lazy[rt&lt;&lt;1]+=lazy[rt];
-        lazy[rt&lt;&lt;1|1]+=lazy[rt];
-        sum[rt&lt;&lt;1]+=(m-(m&gt;&gt;1))*lazy[rt];
-        sum[rt&lt;&lt;1|1]+=((m&gt;&gt;1))*lazy[rt];
-        lazy[rt]=0;        
-    }   
-}
-void update(int L,int R,int c,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r){sum[rt]+=(r-l+1)*c;lazy[rt]+=c;return;}
-    pushdown(rt,r-l+1);
-    int m=(l+r)&gt;&gt;1;
-    if(L&lt;=m) update(L,R,c,lson);
-    if(R&gt;m) update(L,R,c,rson);
-    pushup(rt);
-}
-ll query(int L,int R,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r) return sum[rt];
-    pushdown(rt,r-l+1);
-    int m=(l+r)&gt;&gt;1;
-    ll ans=0;
-    if(L&lt;=m) ans+=(ll)query(L,R,lson);
-    if(R&gt;m) ans+=(ll)query(L,R,rson);
-    return ans;
-}
+</code></pre><h5 id="洛谷P2015-二叉苹果树"><a href="#洛谷P2015-二叉苹果树" class="headerlink" title="洛谷P2015 二叉苹果树"></a>洛谷P2015 二叉苹果树</h5><pre><code>题意：一棵树(规定每个节点的子节点要么为0、要么为2),每个树枝上有权值，现减边，求保留m条边最多能留住多少权值。
+思路：树形DP
+要使得一棵树割掉k个节点后整棵树权值和最大。这个题目挺恶心人的处理起来也麻烦。因为虽然这题目保证是二叉树，但是他输入时并没有给我们两个点的先后顺序。也就是他输入u,v,w，你不知道u是v的父亲还是v是u的父亲。网上有很多人写这个题解时为了方便就乱搞，判断什么如果那个点左儿子为空就成为左儿子否则成为右儿子的什么鬼。
 
+正确的姿势应该是用边表存储。像我的做法就是拿边表存储之后弄一个find函数找出每一个节点的父亲。
+我还多做了一个其实可以不用这么做的无用功：我又跑了一遍枚举找出每个节点的左右儿子。前面麻烦的事干完，接下来我们就可以考虑dp了。
+
+由于题目给的权值都是边权，我们就可以进行一个骚操作：把每条边的权值都下移到那条边通向的儿子节点上，然后给根节点的权值置0。
+因为我们给了根节点1一个0的权值，所以我们要保留的节点数就从q变成q+1了！然后我们可以继续进行骚操作，用dp(i,j)表示保留j个节点，于是我们一开始就dp根节点：dp(1,q+1)。那么这个dp的函数该怎么写呢？
+
+我们设某一个子树要保留j个节点，而根节点是一定要保存的，因为如果你一开始就把根节点剪掉了就啥都没了嘛。所以根节点的以两个儿子为根的子树就总共要保存j-1个节点。
+有了思路，我们就可以设左子树保存k个节点，然后我们来枚举这个k，于是右子树就可以推出来是保存j-k-1个节点啦。然后我们就来找状态转移方程和最大值。
+
+首先我们来想，当j=0时，也就是某棵子树上取0个点时。取0个点答案当然是0。然后我们可以按照刚才的思路，给左儿子分配可以保留k个节点，给右儿子分配可以保留j-k-1个
+节点，于是我们就枚举k，然后记忆化搜索一波：如果f[某个子节点][k]==0就说明这个节点还没访问过，答案还没有更新，我们就来把这个节点和这个k值dp一遍，作为待会dp
+时需要的条件（dp前必须把需要的东西准备好，这就是在准备东西。）然后就可以推出状态转移方程为：
+f[i][j]=max(f[i][j],f[son[i][0]][k]+f[son[i][1]][j-k-1]+dis[i]);
+f[i][j]=max(f[i][j],儿子节点分配后的最大值加上i节点的权值。
+
+#include&lt;bits/stdc++.h&gt;
+#define pii pair&lt;int,int&gt;
+using namespace std;
+const int maxn=105;
+int fa[maxn],son[maxn][2],dis[maxn],dp[maxn][maxn];
+bool vis[maxn];
+vector&lt;pii&gt; edge[maxn];
+void addedge(int u,int v,int w){
+    edge[u].push_back(pii(v,w));
+}
+void find(int x){
+    for(auto &amp;v:edge[x]){
+        if(vis[v.first]==0){//如果x边的出点还没被标记过
+            fa[v.first]=x;vis[v.first]=1;
+            find(v.first);
+        }
+    }
+}
+void solve(int i,int j){//树形DP的函数
+    if(j==0) dp[i][j]=0;//如果要保留0个点，最大值当然是0了
+    else if(son[i][0]==0&amp;&amp;son[i][1]==0) dp[i][j]=dis[i];//如果没有儿子节点，最大值就是它本身的价值。
+    else{
+        for(int k=0;k&lt;j;k++){//k不能=j，否则j-k-1就会变成负数，是没有意义的，注意边界。
+            if(dp[son[i][0]][k]==0) solve(son[i][0],k);
+            if(dp[son[i][1]][j-k-1]==0) solve(son[i][1],j-k-1);
+            dp[i][j]=max(dp[i][j],dp[son[i][0]][k]+dp[son[i][1]][j-k-1]+dis[i]);//状态转移方程
+        }
+    }
+}
 int main()
 {
-    ios::sync_with_stdio(0);cin.tie(0);
-    while(cin&gt;&gt;n&gt;&gt;m){
-        for(int i=1;i&lt;=n;i++) cin&gt;&gt;a[i];
-        build(1,n,1);
-        char c;int x,y,z;
-        while(m--){
-            cin&gt;&gt;c&gt;&gt;x&gt;&gt;y;
-            if(c==&apos;Q&apos;) cout&lt;&lt;query(x,y,1,n,1)&lt;&lt;endl;
-            else {cin&gt;&gt;z;update(x,y,z,1,n,1);}
+    int n,m;scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;n;i++){
+        int u,v,w;scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+        addedge(u,v,w);addedge(v,u,w);
+    }
+    vis[1]=1;find(1);
+    for(int i=1;i&lt;=n;i++){//这是找每个节点的左右儿子的过程
+        int v=-1;
+        for(auto &amp;j:edge[i]){
+            if(fa[j.first]==i){//如果i是j.first点的爸爸的话
+                son[i][++v]=j.first;
+                dis[j.first]=j.second;
+                if(v==1) break;//v==1时说明i节点的两个儿子都找到了，所以就直接break掉减少枚举量
+            }
         }
+    }
+    solve(1,m+1);
+    printf(&quot;%d\n&quot;,dp[1][m+1]);
+}
+</code></pre><h5 id="洛谷P2014-选课"><a href="#洛谷P2014-选课" class="headerlink" title="洛谷P2014 选课"></a>洛谷P2014 选课</h5><pre><code>题意：有的课程有先修课，每门课有权值，求修m门课能获得的最大权值
+思路：不一定是二叉树，实际上是多叉树，需要转换为二叉树，多叉树转换时儿子变为左儿子son[i][0],兄弟变为右儿子；插入兄弟时需要循环查找最后一个兄弟，再插入；
+
+#include&lt;bits/stdc++.h&gt;
+#define pii pair&lt;int,int&gt;
+using namespace std;
+const int maxn=305;
+int fa[maxn],son[maxn][2],val[maxn],dp[maxn][maxn];//son[][0]-&gt;左儿子 son[][1]-&gt;兄弟
+vector&lt;pii&gt; edge[maxn];
+int dfs(int i,int j){
+    if(i==0||j==0) return 0;//递归边界返回0
+    if(dp[i][j]) return dp[i][j];//记忆化
+    dp[i][j]=dfs(son[i][1],j);//(dfs入口从0节点进入)0节点作为祖先的大儿子，祖先的其他儿子都是他的兄弟(因此不存在森林)
+    for(int k=0;k&lt;j;k++){
+        dp[i][j]=max(dp[i][j],dfs(son[i][0],k)+dfs(son[i][1],j-k-1)+val[i]);//转移方程
+    }
+    return dp[i][j];//记得返回
+}
+int main()
+{
+    int n,m;scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++){
+        int u,w;scanf(&quot;%d%d&quot;,&amp;u,&amp;w);
+        val[i]=w;
+        if(son[u][0]==0) son[u][0]=i;//没有左儿子直接插
+        else{//有左儿子
+            int x=son[u][0];//x-&gt;左儿子
+            while(son[x][1]) x=son[x][1];//变为左儿子的兄弟
+            son[x][1]=i;
+        }
+    }
+    printf(&quot;%d\n&quot;,dfs(son[0][0],m));//递归入口注意-&gt; 0
+}
+</code></pre><h5 id="HDU-1054-Strategic-Game"><a href="#HDU-1054-Strategic-Game" class="headerlink" title="HDU-1054(Strategic Game)"></a>HDU-1054(Strategic Game)</h5><pre><code>题意：一棵树求最小边覆盖
+思路：二分图最小覆盖(建双向边故最大匹配/2) or 树形dp
+    实测前者436ms  VS  后者182ms
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=1505;
+int n,dp[maxn][2];
+bool fa[maxn];
+vector&lt;int&gt; G[maxn];
+inline void init(int n){
+    for(int i=0;i&lt;n;i++) G[i].clear(),fa[i]=0,dp[i][0]=0,dp[i][1]=1;
+}
+inline void addedge(int u,int v){G[u].push_back(v);}
+void dfs(int u){
+    for(auto &amp;v:G[u]){
+        dfs(v);
+        dp[u][0]+=dp[v][1];//不选u点则其孩子节点必须选
+        dp[u][1]+=min(dp[v][0],dp[v][1]);//选了u则其孩子可选可不选
+    }
+}
+int main()
+{
+    while(~scanf(&quot;%d&quot;,&amp;n)){
+        init(n);
+        for(int i=0;i&lt;n;i++){
+            int u,v,c;
+            scanf(&quot;%d:(%d)&quot;,&amp;u,&amp;c);
+            while(c--){
+                scanf(&quot;%d&quot;,&amp;v);
+                addedge(u,v);fa[v]=1;
+            }
+        }
+        int r=0;for(int i=0;i&lt;n;i++) if(!fa[i]) {r=i;break;}
+        dfs(r);
+        printf(&quot;%d\n&quot;,min(dp[r][0],dp[r][1]));
     }
 }
 </code></pre><hr>
-<h3 id="中阶线段树"><a href="#中阶线段树" class="headerlink" title="中阶线段树"></a>中阶线段树</h3><h4 id="乘法线段树"><a href="#乘法线段树" class="headerlink" title="乘法线段树"></a>乘法线段树</h4><pre><code>//https://www.luogu.org/problem/P3373
-题意：三种操作：将某区间每一个数乘上x、将某区间每一个数加上x、求出某区间每一个数的和
-思路：注意加法和乘法的优先级，维护两种lazy标记。
-输入：               输出：
-    5 5 38                17
-    1 5 4 2 3             2
-    2 1 4 1
-    3 2 5
-    1 2 4 2
-    2 3 5 5
-    3 1 4
+<h4 id="树的直径"><a href="#树的直径" class="headerlink" title="树的直径"></a>树的直径</h4><pre><code>1.两遍bfs，何苦dp
+2.树形dp
+</code></pre><h5 id="POJ-1985-Cow-Marathon"><a href="#POJ-1985-Cow-Marathon" class="headerlink" title="POJ-1985 Cow Marathon"></a>POJ-1985 Cow Marathon</h5><pre><code>求树的直径裸题,边带权，第一次随机找一点bfs看最远能走到哪(比如v),再以v为起点bfs找最远点
 
-#include&lt;bits/stdc++.h&gt;
-#define lson l,m,rt&lt;&lt;1
-#define rson m+1,r,rt&lt;&lt;1|1
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#include&lt;vector&gt;
+#include&lt;queue&gt;
+#include&lt;cstring&gt;
+#define pii pair&lt;int,int&gt;
 using namespace std;
 const int maxn=1e5+5;
-typedef long long ll;
-ll sum[maxn&lt;&lt;2],mlz[maxn&lt;&lt;2],plz[maxn&lt;&lt;2];
-ll n,m,p;
-inline void pushup(int rt){sum[rt]=(sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1])%p;}
-inline void Build(int l,int r,int rt){
-    mlz[rt]=1;plz[rt]=0;
-    if(l==r){ll t;cin&gt;&gt;t;sum[rt]=t%p;return;}
-    int m=(l+r)&gt;&gt;1;Build(lson);Build(rson);pushup(rt);
-}
-inline void pushdown(int rt,int m){
-    ll k1=mlz[rt],k2=plz[rt];
-    sum[rt&lt;&lt;1]=(sum[rt&lt;&lt;1]*k1+(m-(m&gt;&gt;1))*k2)%p;//左边和乘以乘法lazy+元素总数*加法lazy
-    sum[rt&lt;&lt;1|1]=(sum[rt&lt;&lt;1|1]*k1+((m&gt;&gt;1))*k2)%p;//右边和乘以乘法lazy+元素总数*加法lazy
-    mlz[rt&lt;&lt;1]=(mlz[rt&lt;&lt;1]*k1)%p;//乘法标记向左下推
-    mlz[rt&lt;&lt;1|1]=(mlz[rt&lt;&lt;1|1]*k1)%p;//乘法标记向右下推
-    plz[rt&lt;&lt;1]=(plz[rt&lt;&lt;1]*k1+k2)%p;//左下加法lazy*父节点的乘法lazy+左下乘法lazy
-    plz[rt&lt;&lt;1|1]=(plz[rt&lt;&lt;1|1]*k1+k2)%p;//右下加法lazy*父节点的乘法lazy+左下乘法lazy
-    mlz[rt]=1;plz[rt]=0;//lazy标记置位
-}
-inline void add(int L,int R,int x,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r){
-        sum[rt]+=(r-l+1)*x%p;
-        plz[rt]=(plz[rt]+x)%p;//修改加法lazy
-        return;
+int n,m,d[maxn];
+bool vis[maxn];
+vector&lt;pii&gt; edge[maxn];
+int bfs(int s,int f){
+    memset(vis,0,sizeof(vis));
+    memset(d,0,sizeof(d));
+    queue&lt;int&gt; que;que.push(s);
+    int ans=s,MAX=0;
+    d[s]=0;vis[s]=1;
+    while(!que.empty()){
+        int t=que.front();que.pop();
+        for(int i=0;i&lt;edge[t].size();i++){
+            int v=edge[t][i].first;
+            if(vis[v]) continue;
+            d[v]=d[t]+edge[t][i].second;
+            vis[v]=1;que.push(v);
+            if(MAX&lt;d[v]){
+                MAX=d[v];ans=v;
+            }
+        }
     }
-    pushdown(rt,r-l+1);
-    int m=(l+r)&gt;&gt;1;
-    if(L&lt;=m) add(L,R,x,lson);
-    if(R&gt;m) add(L,R,x,rson);
-    pushup(rt);
+    if(f==0) return ans;
+    else return MAX;
 }
-inline void mul(int L,int R,int x,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r){
-        sum[rt]=sum[rt]*x%p;
-        mlz[rt]=(mlz[rt]*x)%p;//乘以一个数后，加法的lazy标记应该也被乘以这个数
-        plz[rt]=(plz[rt]*x)%p;//修改乘法lazy
-        return;
+int main()
+{
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);int q=0;
+    for(int i=1;i&lt;=m;i++){
+        int j,k,l,ch;scanf(&quot;%d %d %d %c&quot;,&amp;j,&amp;k,&amp;l,&amp;ch);
+        edge[j].push_back(pii(k,l));
+        edge[k].push_back(pii(j,l));
     }
-    pushdown(rt,r-l+1);
-    int m=(l+r)&gt;&gt;1;
-    if(L&lt;=m) mul(L,R,x,lson);
-    if(R&gt;m) mul(L,R,x,rson);
-    pushup(rt);
+    int v=bfs(1,0);
+    int ans=bfs(v,1);
+    printf(&quot;%d\n&quot;,ans);
 }
-inline ll query(int L,int R,int l,int r,int rt){
-    if(L&lt;=l&amp;&amp;R&gt;=r) {return sum[rt];}
-    pushdown(rt,r-l+1);//查询记得将lazy下推
-    int m=(l+r)&gt;&gt;1;
-    ll ans=0;
-    if(L&lt;=m) ans+=query(L,R,lson);
-    if(R&gt;m) ans+=query(L,R,rson);
+</code></pre><h5 id="2019牛客多校-四-A-meeting"><a href="#2019牛客多校-四-A-meeting" class="headerlink" title="2019牛客多校(四) A-meeting"></a>2019牛客多校(四) A-meeting</h5><pre><code>题意：一棵树上有n个点，边权均为1，k个人在不同的k个点上(1&lt;k&lt;=n)求这k个人汇聚到同一点上的最长时间
+思路：两遍bfs求关键点子树的半径，先求直径，再除以2向上取整，注意求最远距离时遇到关键点才更新最大值
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=1e5+5;
+vector&lt;int&gt; G[maxn];
+bool vis[maxn],vis1[maxn];
+int n,k,d1[maxn],vis2[maxn];
+int bfs1(int s){
+    queue&lt;int&gt; que;que.push(s);vis1[s]=1;int ans=s;
+    while(!que.empty()){
+        int u=que.front();que.pop();
+        for(auto&amp; v:G[u]){
+            if(!vis1[v]){
+                if(vis[v]) ans=v;
+                que.push(v);vis1[v]=1;
+            }
+        }
+    }
     return ans;
 }
-
+int bfs2(int s){
+    queue&lt;int&gt; que;que.push(s);vis2[s]=1;int ans=0;
+    while(!que.empty()){
+        int u=que.front();que.pop();
+        for(auto&amp; v:G[u]){
+            if(!vis2[v]){
+                vis2[v]=vis2[u]+1;que.push(v);
+                if(vis[v]) ans=vis2[v];
+            }
+        }
+    }
+    return ans;
+}
 int main()
 {
     ios::sync_with_stdio(0);cin.tie(0);
-    cin&gt;&gt;n&gt;&gt;m&gt;&gt;p;Build(1,n,1);
-    for(int i=0;i&lt;m;i++){
-        int f,a,b,c;cin&gt;&gt;f;
-        if(f==1){
-            cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;c%=p;mul(a,b,c,1,n,1);
-        }
-        else if(f==2){
-            cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;c%=p;add(a,b,c,1,n,1);
-        }
-        else{
-            cin&gt;&gt;a&gt;&gt;b;cout&lt;&lt;query(a,b,1,n,1)%p&lt;&lt;endl;
+    cin&gt;&gt;n&gt;&gt;k;
+    for(int i=1;i&lt;n;i++){
+        int u,v;cin&gt;&gt;u&gt;&gt;v;
+        G[u].push_back(v);G[v].push_back(u);
+    }
+    int t;
+    while(k--) {cin&gt;&gt;t;vis[t]=1;}
+    int s=bfs1(t);
+    double ans=bfs2(s)-1;
+    cout&lt;&lt;ceil(ans/2)&lt;&lt;endl;
+}
+</code></pre><h5 id="HDU-2196-Computer"><a href="#HDU-2196-Computer" class="headerlink" title="HDU-2196 Computer"></a>HDU-2196 Computer</h5><pre><code>讲解来自NB网友
+
+首先第一个dfs求出所有每个节点i在其子树中的正向最大距离和正向次大距离和dist[i][0]和dist[i][1]（如果i节点在子树中最大距离经过了2号儿子，那么次大距离就是不经过2号儿子的最大距离）。
+并且还要标记longest[i]=j表示节点i在其子树中的最大距离经过了节点j（即j是i的一个儿子）。
+
+由上步我们获得了正向最大距离，正向次大距离和最大距离的儿子节点标记。画图可以知道我们建立的这棵树，i节点的最远距离只有两种选择：
+i节点所在子树的最大距离，或者i节点连接它的父节点所能到达的最大距离。（即前者往下走，后者先往上走之后很可能也往下走）
+
+所以我们只要求出反向最大距离dist[i][2]（即i节点往它的父节点走所能到达的最大距离）就可以知道i节点在整个树中能走的最大距离了。
+
+dist[i][2]求法：i节点往它的父节j点走，如果它的父节点的正向最大距离不经过i的话，那么dist[i][2]要不就是它父节点的反向最大距离+W[i][j]要不就是它父节点的正向最大距离+ W[i][j].
+
+如果它的父节点的正向最大距离经过i的话，那么dist[i][2]要不就是它父节点的反向最大距离+W[i][j]要不就是它父节点的正向次大距离+ W[i][j].
+
+
+#include&lt;bits/stdc++.h&gt;
+#define pii pair&lt;int,int&gt;
+using namespace std;
+const int maxn=1e4+5;
+vector&lt;pii&gt; edge[maxn];
+int dp[maxn][3],id[maxn];
+void dfs1(int u,int f){//第一个dfs求出子树的最大和次大和
+    for(auto &amp;v:edge[u]){
+        if(v.first==f) continue;
+        dfs1(v.first,u);
+        if(dp[u][0]&lt;dp[v.first][0]+v.second){//记录最大和，记录经过哪个儿子最大
+            dp[u][0]=dp[v.first][0]+v.second;id[u]=v.first;
         }
     }
+    for(auto &amp;v:edge[u]){
+        if(v.first==f||id[u]==v.first) continue;//跳过这个儿子在里面找一个最大的就是这点次大的
+        dp[u][1]=max(dp[u][1],dp[v.first][0]+v.second);
+    }
 }
-</code></pre><h5 id="根号线段树"><a href="#根号线段树" class="headerlink" title="根号线段树"></a>根号线段树</h5><pre><code>//HDU-4027 根号线段树
-题意：两种操作：将某区间每一个数取根号、求出某区间每一个数的和
-思路：注意优化，如果区间和位区间长度，则无需取根号，1e18的数取根号6~7次变为1
-输入：                      输出：
-    10                          Case #1:
-    1 2 3 4 5 6 7 8 9 10                19
-    5                                   7
-    0 1 10                              6
-    1 1 10
-    1 1 5
-    0 5 8
-    1 4 8
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-#define lson l,m,rt&lt;&lt;1
-#define rson m+1,r,rt&lt;&lt;1|1
-const int maxn=1e5+5;
-typedef long long ll;
-ll sum[maxn&lt;&lt;2];
-void PushUP(int rt){sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];}
-void build(int l,int r,int rt){
-    if(l==r){scanf(&quot;%lld&quot;,&amp;sum[rt]);return;}
-    int m=(l+r)&gt;&gt;1;build(lson);build(rson);PushUP(rt);
-}
-void Sqrt(int L,int R,int l,int r,int rt)
-{
-    if(l==r){sum[rt]=sqrt(sum[rt]);return;}
-    if(L&lt;=l&amp;&amp;R&gt;=r&amp;&amp;sum[rt]==r-l+1) return;//如果区间内的所有数都是1则不必更新
-    int m=(l+r)&gt;&gt;1;
-    if(L&lt;=m) Sqrt(L,R,lson);
-    if(m&lt;R) Sqrt(L,R,rson);
-    PushUP(rt);
-}
-ll query(int L,int R,int l,int r,int rt)
-{
-    if(L&lt;=l&amp;&amp;r&lt;=R) return sum[rt];
-    int m=(l+r)&gt;&gt;1;
-    ll ans=0;
-    if(L&lt;=m) ans+=query(L,R,lson);
-    if(R&gt;m) ans+=query(L,R,rson);
-    return ans;
+void dfs2(int u,int f){//更新先往父亲节点走一步的最大和
+    for(auto &amp;v:edge[u]){
+        if(v.first==f) continue;
+        //难点，每个父亲都有两种方式，一个是再往父亲走一步，一个是走父亲的子树，max(dp[u][2], dp[u][1])，这个就体现出这两步了，注意不经过这个点直接走子树最大和的那个点
+        if(v.first==id[u]) dp[v.first][2]=max(dp[u][2],dp[u][1])+v.second;//这个是针对儿子，所以是dp[v.first][2]=，体现了先走一步父亲，经过就走次大的，再走最大的就重复了一段
+        else dp[v.first][2]=max(dp[u][2],dp[u][0])+v.second;
+        dfs2(v.first,u);//因为dfs1更新了所有子树的特点，子树的信息可以直接用了，父节点的信息从一步步dfs下去都已经更新好了，上面的也是可以直接用，每一步都看看是不是走父亲的父亲更好，一直更新最优
+    }
 }
 int main()
 {
-    int n,m,t=0;
-    while(scanf(&quot;%d&quot;,&amp;n)==1)
-    {
-        int a,b,c;
-        build(1,n,1);
-        scanf(&quot;%d&quot;,&amp;m);
-        printf(&quot;Case #%d:\n&quot;,++t);
-        while(m--)
-        {
-            scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
-            if(b&gt;c) swap(b,c);
-            if(a)
-                printf(&quot;%lld\n&quot;,query(b,c,1,n,1));
-            else
-                Sqrt(b,c,1,n,1);
+    int n;
+    while(~scanf(&quot;%d&quot;,&amp;n)){
+        int a,b;memset(dp,0,sizeof(dp));
+        for(int i=1;i&lt;=n;i++) edge[i].clear();
+        for(int i=2;i&lt;=n;i++){
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            edge[i].push_back(pii(a,b));
+            edge[a].push_back(pii(i,b));        
         }
-        printf(&quot;\n&quot;);
+        dfs1(1,-1);
+        dfs2(1,-1);//1为根节点
+        for(int i=1;i&lt;=n;i++) printf(&quot;%d\n&quot;,max(dp[i][0],dp[i][2]));
     }
-    return 0;
 }
 </code></pre>
       
@@ -916,7 +894,7 @@ int main()
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
         </div>
       
@@ -929,8 +907,8 @@ int main()
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/26/博弈常见模型/" rel="next" title="博弈常见模型">
-                <i class="fa fa-chevron-left"></i> 博弈常见模型
+              <a href="/2019/07/27/分层图最短路/" rel="next" title="最短路与分层图最短路">
+                <i class="fa fa-chevron-left"></i> 最短路与分层图最短路
               </a>
             
           </div>
@@ -939,8 +917,8 @@ int main()
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/27/分层图最短路/" rel="prev" title="最短路与分层图最短路">
-                最短路与分层图最短路 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/29/数位dp/" rel="prev" title="数位dp">
+                数位dp <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1122,7 +1100,7 @@ int main()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#线段树"><span class="nav-text">线段树</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#初阶线段树"><span class="nav-text">初阶线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单点修改区间查询"><span class="nav-text">单点修改区间查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区间求和"><span class="nav-text">区间求和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间最值"><span class="nav-text">区间最值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区间修改区间查询"><span class="nav-text">区间修改区间查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#区间替换"><span class="nav-text">区间替换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间增减"><span class="nav-text">区间增减</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中阶线段树"><span class="nav-text">中阶线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#乘法线段树"><span class="nav-text">乘法线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#根号线段树"><span class="nav-text">根号线段树</span></a></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#树形DP"><span class="nav-text">树形DP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最大独立子集问题"><span class="nav-text">最大独立子集问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#洛谷P1352-没有上司的舞会"><span class="nav-text">洛谷P1352 没有上司的舞会</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#洛谷P2015-二叉苹果树"><span class="nav-text">洛谷P2015 二叉苹果树</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#洛谷P2014-选课"><span class="nav-text">洛谷P2014 选课</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-1054-Strategic-Game"><span class="nav-text">HDU-1054(Strategic Game)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#树的直径"><span class="nav-text">树的直径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#POJ-1985-Cow-Marathon"><span class="nav-text">POJ-1985 Cow Marathon</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2019牛客多校-四-A-meeting"><span class="nav-text">2019牛客多校(四) A-meeting</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-2196-Computer"><span class="nav-text">HDU-2196 Computer</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
