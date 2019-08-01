@@ -112,7 +112,7 @@
 <meta property="og:description" content="网络流重在建图,再套模版 -最大流、最小割、最大匹配、最大权闭合图 模版模版1(Dinic-SPFA from CSL  O(nnm))#include&amp;lt;bits/stdc++.h&amp;gt; using namespace std; const int maxn=1e4+5; struct Edge{     int from,to,cap,flow;     Edge(int u,int v">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdn.net/2018082410112922?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NjI3ODQz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2019-07-30T14:57:24.203Z">
+<meta property="og:updated_time" content="2019-08-01T03:11:37.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络流">
 <meta name="twitter:description" content="网络流重在建图,再套模版 -最大流、最小割、最大匹配、最大权闭合图 模版模版1(Dinic-SPFA from CSL  O(nnm))#include&amp;lt;bits/stdc++.h&amp;gt; using namespace std; const int maxn=1e4+5; struct Edge{     int from,to,cap,flow;     Edge(int u,int v">
@@ -445,12 +445,24 @@
                 
               
 
-              <time title="创建时间：2019-07-30 22:57:51 / 修改时间：22:57:24" itemprop="dateCreated datePublished" datetime="2019-07-30T22:57:51+08:00">2019-07-30</time>
+              <time title="创建时间：2019-07-30 22:57:51" itemprop="dateCreated datePublished" datetime="2019-07-30T22:57:51+08:00">2019-07-30</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-01 11:11:37" itemprop="dateModified" datetime="2019-08-01T11:11:37+08:00">2019-08-01</time>
               
             
           </span>
@@ -496,7 +508,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">28k</span>
+                <span title="本文字数">33k</span>
               
 
               
@@ -510,7 +522,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">26 分钟</span>
+                <span title="阅读时长">30 分钟</span>
               
             </div>
           
@@ -1356,7 +1368,7 @@ int main()
     printf(&quot;%d\n&quot;,ans);
 }
 </code></pre><hr>
-<h5 id="10-餐巾计划问题-最小费用最大流"><a href="#10-餐巾计划问题-最小费用最大流" class="headerlink" title="10.餐巾计划问题(最小费用最大流)"></a>10.餐巾计划问题(最小费用最大流)</h5><pre><code>题意：一个餐厅在相继的 n 天里，每天需用的餐巾数不尽相同。假设第 i 天需要 ri ​​ 块餐巾。餐厅可以购买新的餐巾，每块餐巾的费用为 P 分；
+<h5 id="10-餐巾计划问题-最小费用最大流-好难啊"><a href="#10-餐巾计划问题-最小费用最大流-好难啊" class="headerlink" title="10.餐巾计划问题(最小费用最大流)(好难啊!!!)"></a>10.餐巾计划问题(最小费用最大流)(好难啊!!!)</h5><pre><code>题意：一个餐厅在相继的 n 天里，每天需用的餐巾数不尽相同。假设第 i 天需要 ri ​​ 块餐巾。餐厅可以购买新的餐巾，每块餐巾的费用为 P 分；
 或者把旧餐巾送到快洗部，洗一块需 M 天，其费用为 F 分；或者送到慢洗部，洗一块需 N 天，其费用为 S 分（S&lt;F）。 
 每天结束时，餐厅必须决定将多少块脏的餐巾送到快洗部，多少块餐巾送到慢洗部，以及多少块保存起来延期送洗。
 但是每天洗好的餐巾和购买的新餐巾数之和，要满足当天的需求量。 试设计一个算法为餐厅合理地安排好 n 天中餐巾使用计划,使总的花费最小。
@@ -1447,7 +1459,125 @@ int main()
     int ans=Mc.MincostMAXflow(s,t,cost);
     printf(&quot;%d\n&quot;,cost);
 }
-</code></pre>
+</code></pre><hr>
+<h5 id="11-航空路线问题-最小费用最大流-输出路径"><a href="#11-航空路线问题-最小费用最大流-输出路径" class="headerlink" title="11.航空路线问题(最小费用最大流-输出路径)"></a>11.航空路线问题(最小费用最大流-输出路径)</h5><pre><code>题意：给定一张航空图，图中顶点代表城市，边代表两个城市间的直通航线。现要求找出一条满足下述限制条件的且途经城市最多的旅行路线：
+从最西端城市出发，单向从西向东途经若干城市到达最东端城市，然后再单向从东向西飞回起点（可途经若干城市）；
+除起点城市外，任何城市只能访问一次。对于给定的航空图，试设计一个算法找出一条满足要求的最佳航空旅行路线。
+
+分析：问题转化为求两条不相交的路径且路径之和最长。考虑拆点，连一条容量为1费用为−1的边(1和n的容量为2)。跑最小费用最大流求解，若最大流不等于2则无解。
+
+建图不难，输出方案调死我了 *.*  被傻屌网友忽悠半天，最后写了个dfs水过去了。。。
+从起点开始dfs，
+第一趟走到终点，第二趟从起点再次走到终点，两个路径以终点分隔，把第二条路径倒过来输出就可以了
+
+
+map&lt;string,int&gt; mmp;
+map&lt;int,string&gt; mmp1;
+bool vis[maxn];
+vector&lt;int&gt; ANS,ans1;
+void dfs(int u,int n){
+    if(u&lt;=n+1&amp;&amp;!vis[u]) ANS.push_back(u);vis[u]=1;
+    for(auto &amp;v:Mc.G[u+n]){
+        if((Mc.edges[v].flow&gt;0)&amp;&amp;!vis[Mc.edges[v].to]) dfs(Mc.edges[v].to,n);
+    }
+}
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);
+    int n,m;cin&gt;&gt;n&gt;&gt;m;int S=1,T=2*n;
+    string s;Mc.init(n*2);
+    for(int i=1;i&lt;=n;i++){
+        cin&gt;&gt;s;mmp[s]=i;mmp1[i]=s;
+    }
+    for(int i=2;i&lt;n;i++) Mc.AddEdge(i,i+n,1,-1);
+    Mc.AddEdge(1,1+n,2,-1);Mc.AddEdge(n,n*2,2,-1);
+    for(int i=1;i&lt;=m;i++){
+        string a,b;cin&gt;&gt;a&gt;&gt;b;
+        int A=mmp[a],B=mmp[b];
+        if(A&gt;B) swap(A,B);
+        if(A==1&amp;&amp;B==n) Mc.AddEdge(n+1,n,2,0);//起点到终点的直达路线的费用应该为0
+        Mc.AddEdge(A+n,B,1,0);
+    }
+    ll cost=0;
+    int ans=Mc.MincostMAXflow(S,T,cost);
+    if(ans!=2) {cout&lt;&lt;&quot;No Solution!&quot;&lt;&lt;endl;return 0;}
+    cout&lt;&lt;-cost-2&lt;&lt;endl;dfs(1,n);
+    int f=0;
+    for(int i=0;i&lt;ANS.size();i++){
+        if(ANS[i]==n) {f=1;cout&lt;&lt;mmp1[ANS[i]]&lt;&lt;endl;}
+        else if(f) ans1.push_back(ANS[i]);
+        else cout&lt;&lt;mmp1[ANS[i]]&lt;&lt;endl;
+    }
+    reverse(ans1.begin(),ans1.end());
+    for(int i=0;i&lt;ans1.size();i++) cout&lt;&lt;mmp1[ans1[i]]&lt;&lt;endl;
+    cout&lt;&lt;mmp1[1]&lt;&lt;endl;
+}
+</code></pre><hr>
+<h5 id="12-软件补丁问题-待补-太难了"><a href="#12-软件补丁问题-待补-太难了" class="headerlink" title="12.软件补丁问题(待补-太难了!!!)"></a>12.软件补丁问题(待补-太难了!!!)</h5><hr>
+<h5 id="13-星际转移问题-分层图动态加边-最大流"><a href="#13-星际转移问题-分层图动态加边-最大流" class="headerlink" title="13.星际转移问题(分层图动态加边-最大流)"></a>13.星际转移问题(分层图动态加边-最大流)</h5><pre><code>题意：现有n个太空站位于地球与月球之间，且有m艘公共交通太空船在其间来回穿梭。每个太空站可容纳无限多的人，而每艘太空船i只可容纳Hi个人。每艘太空船将周期性地停靠一系列的太空站，例如：1,3,4 表示该太空船将周期性地停靠太空站134134134⋯ 
+每一艘太空船从一个太空站驶往任一太空站耗时均为1。人们只能在太空船停靠太空站（或月球、地球）时上、下船。初始时所有人全在地球上，太空船全在初始站。试设计一个算法，找出让所有人尽快地全部转移到月球上的运输方案。
+
+分析：建立分层图。从S向每一天的地球连一条容量为inf的边；从每一天的月球向T连一条容量为inf的边；从每一天的节点向下一天的对应节点连一条容量为inf的边；
+对于每一艘飞船，从每一天的位置向下一天的位置连一条容量为Hi的边。枚举天数建图，跑最大流直到不小于总人数即可
+
+注意：每次枚举一个新的天数，加一层新的边。在重新跑网络流之前要记得把上次跑网络流的流量清空，因为上一次残留的流量会对重新跑的网络流造成误差。
+
+int h[maxn],r[maxn],p[maxn][50],pos[maxn];
+int main()
+{
+    int n,m,k;scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);n+=2;
+    int S=0,T=10000;Dic.init(T+2);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;h[i],&amp;r[i]);
+        for(int j=0;j&lt;r[i];j++){//地球-&gt;1  月球-&gt;n  太空站-&gt;2~n-1
+            int t;scanf(&quot;%d&quot;,&amp;t);p[i][j]=t+1;
+            if(p[i][j]==0) p[i][j]=n;//p[i][j]记录飞船i，在循环运动到相对第j个位置 所处的绝对位置
+        }
+    }
+    Dic.AddEdge(S,1,INF);Dic.AddEdge(n,T,INF);//建源点和汇点
+    int ans=0;
+    while(ans&lt;100){
+        ans++;
+        Dic.AddEdge(S,ans*n+1,INF);Dic.AddEdge(ans*n+n,T,INF);//地球连源点、月球连汇点
+        for(int i=1;i&lt;=m;i++){
+            int u=p[i][pos[i]];pos[i]=(pos[i]+1)%r[i];//pos记录飞船i在其循环运动中的第几个位置
+            int v=p[i][pos[i]];Dic.AddEdge(n*ans+u-n,n*ans+v,h[i]);//飞船在星球间运动
+        }
+        for(int i=2;i&lt;n;i++) Dic.AddEdge(ans*n-n+i,ans*n+i,INF);//对每个星球，前一天的星球应该向下一天连一条边
+        for(auto &amp;v:Dic.edges) v.flow=0;//清空残余流量
+        int FLOW=Dic.Maxflow(S,T);
+        if(FLOW&gt;=k) {printf(&quot;%d\n&quot;,ans);return 0;}
+    }
+    printf(&quot;0\n&quot;);return 0;//无解输出0
+}
+</code></pre><hr>
+<h5 id="13-负载平衡-费用流，循环建图-双向边"><a href="#13-负载平衡-费用流，循环建图-双向边" class="headerlink" title="13.负载平衡(费用流，循环建图-双向边)"></a>13.负载平衡(费用流，循环建图-双向边)</h5><pre><code>题意：公司有 n 个沿铁路运输线环形排列的仓库，每个仓库存储的货物数量不等。如何用最少搬运量可以使 n 个仓库的库存数量相同。搬运货物时，只能在相邻的仓库之间搬运。
+
+分析：由于总量是固定的，我们可以得出每个仓库的最终储货量，令 ai 表示原有储货量-最终储货量。对于每一个仓库，拆成两个点 xi 和 yi ，一个代表供应，一个代表需求。
+若 ai&gt;0 ，从 S 向 xi 连一条容量为 ai 费用为 0 的边；若 ai&lt;0 ，从 yi 向 T 连一条容量为 −ai 费用为 0 的边；
+对于两个相邻的顶点 j ，从 xi 分别向 xj 和 yj 连一条容量为 inf 费用为 1 的边。跑最小费用最大流即可。
+
+注意：由于相邻的可以相互运输，于是仓库之间需要建双向边，如：1右→2左 且 1左←2右，注意费用是单位长度的费用！！！
+
+int a[maxn];
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);
+    int n,m;cin&gt;&gt;n;int S=0,T=2*n+1;Mc.init(2*n+2);
+    int sum=0;
+    for(int i=1;i&lt;=n;i++) {cin&gt;&gt;a[i];sum+=a[i];}
+    sum/=n;
+    for(int i=1;i&lt;=n;i++){
+        Mc.AddEdge(S,i,a[i],0);Mc.AddEdge(i+n,T,sum,0);
+        Mc.AddEdge(i,i+n,INF,0);
+    }
+    for(int i=2;i&lt;=n;i++) Mc.AddEdge(i-1+n,i,INF,1);Mc.AddEdge(n+n,1,INF,1);//1右→2左
+    for(int i=1;i&lt;n;i++) Mc.AddEdge(i+1+n,i,INF,1);Mc.AddEdge(n+1,n,INF,1);//1左←2右
+    ll cost=0;Mc.MincostMAXflow(S,T,cost);
+    cout&lt;&lt;cost&lt;&lt;endl;
+}
+</code></pre><hr>
+<h5 id="14-深海机器人问题"><a href="#14-深海机器人问题" class="headerlink" title="14.深海机器人问题()"></a>14.深海机器人问题()</h5>
       
     </div>
 
@@ -1680,7 +1810,7 @@ int main()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络流"><span class="nav-text">网络流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模版"><span class="nav-text">模版</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模版1-Dinic-SPFA-from-CSL-O-nnm"><span class="nav-text">模版1(Dinic-SPFA from CSL  O(nnm))</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模版2-Dijkstr-MCMF-from-NBWY"><span class="nav-text">模版2(Dijkstr-MCMF from NBWY)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模版3-Dijkstr-Bellman-from-CSL"><span class="nav-text">模版3(Dijkstr-Bellman from CSL)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模版4-最大匹配"><span class="nav-text">模版4(最大匹配)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-飞行员配对方案问题-最大匹配"><span class="nav-text">1.飞行员配对方案问题(最大匹配)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-太空飞行计划（最大点权闭合子图）"><span class="nav-text">2.太空飞行计划（最大点权闭合子图）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-最小路径覆盖-二分图匹配"><span class="nav-text">3.最小路径覆盖(二分图匹配)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-魔术球-待补"><span class="nav-text">4.魔术球(待补)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-圆桌聚餐-最大流"><span class="nav-text">5.圆桌聚餐(最大流)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#6-最长递增子序列问题-最大流"><span class="nav-text">6.最长递增子序列问题(最大流)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-试题库问题-最大流"><span class="nav-text">7.试题库问题(最大流)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-机器人路径规划问题"><span class="nav-text">8.机器人路径规划问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-方格取数问题-最大点权独立集"><span class="nav-text">9.方格取数问题(最大点权独立集)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-餐巾计划问题-最小费用最大流"><span class="nav-text">10.餐巾计划问题(最小费用最大流)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络流"><span class="nav-text">网络流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模版"><span class="nav-text">模版</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模版1-Dinic-SPFA-from-CSL-O-nnm"><span class="nav-text">模版1(Dinic-SPFA from CSL  O(nnm))</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模版2-Dijkstr-MCMF-from-NBWY"><span class="nav-text">模版2(Dijkstr-MCMF from NBWY)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模版3-Dijkstr-Bellman-from-CSL"><span class="nav-text">模版3(Dijkstr-Bellman from CSL)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模版4-最大匹配"><span class="nav-text">模版4(最大匹配)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-飞行员配对方案问题-最大匹配"><span class="nav-text">1.飞行员配对方案问题(最大匹配)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-太空飞行计划（最大点权闭合子图）"><span class="nav-text">2.太空飞行计划（最大点权闭合子图）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-最小路径覆盖-二分图匹配"><span class="nav-text">3.最小路径覆盖(二分图匹配)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-魔术球-待补"><span class="nav-text">4.魔术球(待补)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-圆桌聚餐-最大流"><span class="nav-text">5.圆桌聚餐(最大流)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#6-最长递增子序列问题-最大流"><span class="nav-text">6.最长递增子序列问题(最大流)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-试题库问题-最大流"><span class="nav-text">7.试题库问题(最大流)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-机器人路径规划问题"><span class="nav-text">8.机器人路径规划问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-方格取数问题-最大点权独立集"><span class="nav-text">9.方格取数问题(最大点权独立集)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-餐巾计划问题-最小费用最大流-好难啊"><span class="nav-text">10.餐巾计划问题(最小费用最大流)(好难啊!!!)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-航空路线问题-最小费用最大流-输出路径"><span class="nav-text">11.航空路线问题(最小费用最大流-输出路径)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-软件补丁问题-待补-太难了"><span class="nav-text">12.软件补丁问题(待补-太难了!!!)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-星际转移问题-分层图动态加边-最大流"><span class="nav-text">13.星际转移问题(分层图动态加边-最大流)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-负载平衡-费用流，循环建图-双向边"><span class="nav-text">13.负载平衡(费用流，循环建图-双向边)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-深海机器人问题"><span class="nav-text">14.深海机器人问题()</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1713,7 +1843,7 @@ int main()
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">127k</span>
   
 
   
@@ -1722,7 +1852,7 @@ int main()
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">1:56</span>
   
 </div>
 
