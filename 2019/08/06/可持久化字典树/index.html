@@ -103,14 +103,18 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="日程表">
-<meta property="og:url" content="http://xxf0512.github.io/schedule/index.html">
+  <meta name="description" content="可持久化01字典树(最大异或和)From https://blog.csdn.net/calabash_boy/article/details/77806849  可持久化01字典树：可以理解成在字典树的每个节点上弄了个前缀和一样的东西吧，重点在空间复用。 每个字典树节点增加sum域，记录前边数字中有多少个数字走到这个节点。 每次加入一个新的数字，都开一个“全新”的字典树，把每个树的根都记下来。">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可持久化01字典树">
+<meta property="og:url" content="http://xxf0512.github.io/2019/08/06/可持久化字典树/index.html">
 <meta property="og:site_name" content="XXF">
+<meta property="og:description" content="可持久化01字典树(最大异或和)From https://blog.csdn.net/calabash_boy/article/details/77806849  可持久化01字典树：可以理解成在字典树的每个节点上弄了个前缀和一样的东西吧，重点在空间复用。 每个字典树节点增加sum域，记录前边数字中有多少个数字走到这个节点。 每次加入一个新的数字，都开一个“全新”的字典树，把每个树的根都记下来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-21T10:47:25.651Z">
+<meta property="og:updated_time" content="2019-08-06T15:03:24.241Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日程表">
+<meta name="twitter:title" content="可持久化01字典树">
+<meta name="twitter:description" content="可持久化01字典树(最大异或和)From https://blog.csdn.net/calabash_boy/article/details/77806849  可持久化01字典树：可以理解成在字典树的每个节点上弄了个前缀和一样的东西吧，重点在空间复用。 每个字典树节点增加sum域，记录前边数字中有多少个数字走到这个节点。 每次加入一个新的数字，都开一个“全新”的字典树，把每个树的根都记下来。">
 
 
 
@@ -118,7 +122,7 @@
 
   
   
-  <link rel="canonical" href="http://xxf0512.github.io/schedule/">
+  <link rel="canonical" href="http://xxf0512.github.io/2019/08/06/可持久化字典树/">
 
 
 
@@ -128,7 +132,7 @@
   };
 </script>
 
-  <title>日程表 | XXF</title>
+  <title>可持久化01字典树 | XXF</title>
   
 
 
@@ -305,7 +309,7 @@
         
         
           
-          <li class="menu-item menu-item-schedule menu-item-active">
+          <li class="menu-item menu-item-schedule">
 
     
     
@@ -376,76 +380,495 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/08/06/可持久化字典树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XXF">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XXF">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">日程表
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">可持久化01字典树
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-06 23:03:56 / 修改时间：23:03:24" itemprop="dateCreated datePublished" datetime="2019-08-06T23:03:56+08:00">2019-08-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h4 id="可持久化01字典树-最大异或和"><a href="#可持久化01字典树-最大异或和" class="headerlink" title="可持久化01字典树(最大异或和)"></a>可持久化01字典树(最大异或和)</h4><pre><code>From https://blog.csdn.net/calabash_boy/article/details/77806849
+
+可持久化01字典树：可以理解成在字典树的每个节点上弄了个前缀和一样的东西吧，重点在空间复用。
+每个字典树节点增加sum域，记录前边数字中有多少个数字走到这个节点。
+每次加入一个新的数字，都开一个“全新”的字典树，把每个树的根都记下来。
+这个新的字典树包括了之前加入的所有数字，也包括当前数字，但是这样超级浪费空间，怎么办呢？
+我们知道 加入一个新的数字，和上一棵树最多只会有32个点不同。
+那么新树和上一个树不变的点就直接用上一棵树的就行了（两个树相同的部分重合起来，不需要新开点来存了），把新的点的sum给更新了就行了。
+
+查询：查询区间[l,r]时，同时查root[l-1]和root[r]这两棵树，同时往下走，如果sum不同，
+说明[l,r]区间内的某个数字出现在这条链路上，那么就可以往这个方向走。
+然后取抑或最大操作和普通01字典树无异，都是贪心的高位能取不同就不同，
+否则取相同（相同和不同必然可以取一个，要不然岂不是说明这个区间内没有数字了。。。）
+
+
+模版：
+/*
+给出一个长度为N的正整数数组A，再给出Q个查询，每个查询包括3个数，L, R, X (L &lt;= R)。
+求A[L] 至 A[R] 这R - L + 1个数中，与X 进行异或运算(Xor)，得到的最大值是多少？
+*/
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn=1e5+5;
+const int sigama=31;
+struct Trie_Endurance{
+    //next每个节点指向的两个节点的位置，sum每个节点出现的次数，root每棵01Trie根节点的位置
+    int next[maxn&lt;&lt;5][2],sum[maxn&lt;&lt;5],root[maxn],sz=0;
+    void init(){
+        for(int i=0;i&lt;sz;i++) next[i][0]=next[i][1]=sum[i]=root[i]=0;
+        sz=0;
+    }
+    void insert(int val,int &amp;x,int pre){
+        x=++sz;int now=x;//新建一个版本
+        for(int i=sigama;i&gt;=0;i--){
+            //当前版本的Trie节点指向前一个Trie版本的节点，复制，节省空间
+            next[now][0]=next[pre][0];next[now][1]=next[pre][1];
+            sum[now]=sum[pre]+1;
+            int id=((val&gt;&gt;i)&amp;1);
+            next[now][id]=++sz;//新开的节点
+            now=next[now][id];pre=next[pre][id];
+        }
+        sum[now]=sum[pre]+1;
+    }
+    int query(int val,int x,int y){
+        int ans=0;
+        for(int i=sigama;i&gt;=0;i--){
+            int id=((val&gt;&gt;i)&amp;1);
+            if(sum[next[y][id^1]]-sum[next[x][id^1]]&gt;0){//说明比之前的版本大
+                ans|=(1&lt;&lt;i);x=next[x][id^1];y=next[y][id^1];//当前位两者异或一定为1,找最大值嘛
+            }//实际上 ans|=(1&lt;&lt;i) &lt;=&gt; ans+=(1&lt;&lt;i)
+            else{
+                x=next[x][id];y=next[y][id];
+            }
+        }
+        return ans;
+    }
+}Ta;
+int main()
+{
+    int n,m,x;scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++){//以元素下标作为版本号
+        scanf(&quot;%d&quot;,&amp;x);Ta.insert(x,Ta.root[i],Ta.root[i-1]);
+    }
+    while(m--){
+        int l,r;scanf(&quot;%d%d%d&quot;,&amp;x,&amp;l,&amp;r);
+        l++;r++;
+        printf(&quot;%d\n&quot;,Ta.query(x,Ta.root[l-1],Ta.root[r]));
+    }
+}
+</code></pre><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><h5 id="HYSBZ-3261-最大异或和"><a href="#HYSBZ-3261-最大异或和" class="headerlink" title="HYSBZ-3261 最大异或和"></a>HYSBZ-3261 最大异或和</h5><pre><code>题意：给定一个非负整数序列{a}，初始长度为N。
+    有M个操作，有以下两种操作类型：
+    1.A x：添加操作，表示在序列末尾添加一个数x，序列的长度N+1。
+    2.Q l r x：询问操作，你需要找到一个位置p，满足l&lt;=p&lt;=r，使得：
+    a[p]^a[p+1]^.^a[N]^x 最大，输出最大是多少。
+思路：可持久化01字典树中维护a[1]^a[2]^..^a[i];
+    查询时 传入a[1]^[2]^...a[n]^x即可 得到[l,r]中p-&gt;a[p]^a[p+1]^.^a[N]^x 最大
+    因为(a[1]^a[2]^..^a[i])^(a[1]^[2]^...a[n]^x)=(a[i+1]^[i+2]^...a[n]^x)
+
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn=6e5+5;//n+m
+const int sigama=23;
+struct Trie_Endurance{
+    int next[maxn&lt;&lt;5][2],sum[maxn&lt;&lt;5],root[maxn],tot;
+    void init(){
+        for(int i=0;i&lt;=tot;i++) next[i][0]=next[i][1]=sum[i]=root[i]=0;
+        tot=0;
+    }
+    void insert(int val,int &amp;x,int pre){
+        x=++tot;int now=x;
+        for(int i=sigama;i&gt;=0;i--){
+            next[now][0]=next[pre][0];next[now][1]=next[pre][1];
+            sum[now]=sum[pre]+1;
+            int id=((val&gt;&gt;i)&amp;1);
+            next[now][id]=++tot;
+            now=next[now][id];pre=next[pre][id];
+        }
+        sum[now]=sum[pre]+1;
+    }
+    int query(int val,int x,int y){
+        int ans=0;
+        for(int i=sigama;i&gt;=0;i--){
+            int id=((val&gt;&gt;i)&amp;1);
+            if(sum[next[y][id^1]]-sum[next[x][id^1]]&gt;0){
+                ans|=(1&lt;&lt;i);x=next[x][id^1];y=next[y][id^1];
+            }
+            else{
+                x=next[x][id];y=next[y][id];
+            }
+        }
+        return ans;
+    }
+}Ta;
+int a[maxn];
+int main()
+{
+    int n,m;scanf(&quot;%d%d&quot;,&amp;n,&amp;m);Ta.init();
+    Ta.insert(a[1],Ta.root[1],Ta.root[1]);
+    int now=2;
+    for(;now&lt;=n+1;now++){
+        int t;scanf(&quot;%d&quot;,&amp;t);a[now]=a[now-1]^t;
+        Ta.insert(a[now],Ta.root[now],Ta.root[now-1]);
+    }
+    now=n+1;
+    while(m--){
+        char op[2];scanf(&quot;%s&quot;,op);
+        if(op[0]==&apos;A&apos;){
+            int t;scanf(&quot;%d&quot;,&amp;t);a[now]=a[now-1]^t;
+            Ta.insert(a[now],Ta.root[now],Ta.root[now-1]);
+        }
+        else{
+            int l,r,x;scanf(&quot;%d%d%d&quot;,&amp;l,&amp;r,&amp;x);
+            printf(&quot;%d\n&quot;,Ta.query(a[now]^x,Ta.root[l-1],Ta.root[r]));
+        }        
+    }
+}
+</code></pre><h5 id="HDU-6191-dfs序-可持久化01字典树"><a href="#HDU-6191-dfs序-可持久化01字典树" class="headerlink" title="HDU-6191 dfs序 + 可持久化01字典树"></a>HDU-6191 dfs序 + 可持久化01字典树</h5><pre><code>题意：给你一棵树，每个点都有权值，q次询问，每次询问给你u和x，问以u为根的子树与x的异或值最大为多少
+思路：按照dfs序建可持久化字典树，以u为根的子树的字典树=以u为根的子树的最后一个节点的字典树-u按照dfs的前一个节点的字典树。然后就可以在线查询了。
+
+下面模版来自CSL 我用之前的模版不知道为啥会T *.*
+
+
+#include&lt;bits/stdc++.h&gt;
+#define clr(a,x) memset(a,x,sizeof(a))
+using namespace std;
+typedef long long ll;
+const int maxn=1e5+5;
+const int sigama=30;
+struct Trie_Endurance{
+    int next[maxn&lt;&lt;5][2],sum[maxn&lt;&lt;5],root[maxn],tot;
+    inline int newnode(){
+        clr(next[tot],0);sum[tot]=0;return tot++;
+    }
+    inline void init(){
+        tot=0;clr(root,0);root[0]=newnode();
+    }
+    inline void insert(int val,int now,int pre){
+        root[now]=newnode();
+        int u=root[now],v=root[pre];
+        for(int i=sigama;i&gt;=0;i--){
+            int id=((val&gt;&gt;i)&amp;1);
+            sum[u]=sum[v]+1;
+            next[u][id]=newnode();
+            next[u][id^1]=next[v][id^1];
+            u=next[u][id];v=next[v][id];
+        }
+        sum[u]=sum[v]+1;
+    }
+    inline int query(int val,int x,int y){//返回区间[x,y]中与x异或值最大的那个值 ans∈[x,y]
+        int ans=0,u=root[x],v=root[y];
+        for(int i=sigama;i&gt;=0;i--){
+            int id=((val&gt;&gt;i)&amp;1);
+            int t=sum[next[v][id^1]]-sum[next[u][id^1]];
+            if(t&gt;0) id^=1;ans |=id&lt;&lt;i;
+            u=next[u][id];v=next[v][id];
+        }
+        return ans;
+    }
+}Ta;
+
+int n,q,dfn,a[maxn],in[maxn],out[maxn];
+vector&lt;int&gt; G[maxn];
+inline void dfs(int u){
+    Ta.insert(a[u],dfn+1,dfn);in[u]=++dfn;
+    for(auto &amp;v:G[u]) dfs(v);
+    out[u]=dfn;
+}
+int main()
+{
+    while(~scanf(&quot;%d%d&quot;,&amp;n,&amp;q)){
+        Ta.init();dfn=0;
+        for(int i=1;i&lt;=n;i++) G[i].clear();
+        for(int i=1;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;a[i]);
+        for(int i=2;i&lt;=n;i++){
+            int v;scanf(&quot;%d&quot;,&amp;v);
+            G[v].push_back(i);
+        }
+        dfs(1);
+        while(q--){
+            int u,x;scanf(&quot;%d%d&quot;,&amp;u,&amp;x);
+            int l=in[u],r=out[u];
+            printf(&quot;%d\n&quot;,x^Ta.query(x,l-1,r));
+        }      
+    }
+}
+
+
+
+之前的模版TLE了:
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn=1e5+5;
+const int sigama=30;
+struct Trie_Endurance{
+    int next[maxn&lt;&lt;5][2],sum[maxn&lt;&lt;5],root[maxn],tot;
+    void init(){
+        for(int i=0;i&lt;=tot;i++) next[i][0]=next[i][1]=sum[i]=root[i]=0;
+        tot=0;
+    }
+    void insert(int val,int &amp;x,int pre){
+        x=++tot;int now=x;
+        for(int i=sigama;i&gt;=0;i--){
+            next[now][0]=next[pre][0];next[now][1]=next[pre][1];
+            sum[now]=sum[pre]+1;
+            int id=((val&gt;&gt;i)&amp;1);
+            next[now][id]=++tot;
+            now=next[now][id];pre=next[pre][id];
+        }
+        sum[now]=sum[pre]+1;
+    }
+    int query(int val,int x,int y){
+        int ans=0;
+        for(int i=sigama;i&gt;=0;i--){
+            int id=((val&gt;&gt;i)&amp;1);
+            if(sum[next[y][id^1]]-sum[next[x][id^1]]&gt;0){
+                ans|=(1&lt;&lt;i);x=next[x][id^1];y=next[y][id^1];
+            }
+            else{
+                x=next[x][id];y=next[y][id];
+            }
+        }
+        return ans;
+    }
+}Ta;
+
+int n,q,tot,a[maxn],in[maxn],num[maxn],out[maxn];
+vector&lt;int&gt; G[maxn];
+void dfs(int u,int pre){
+    in[u]=++tot;num[tot]=u;
+    for(auto &amp;v:G[u]){
+        if(v==pre) continue;
+        dfs(v,u);
+    }
+    out[u]=tot;
+}
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);
+    while(cin&gt;&gt;n&gt;&gt;q){
+        for(int i=0;i&lt;=n;i++) G[i].clear();
+        for(int i=1;i&lt;=n;i++) cin&gt;&gt;a[i];
+        for(int i=2;i&lt;=n;i++){
+            int v;cin&gt;&gt;v;
+            G[v].push_back(i);
+        }
+        tot=0;dfs(1,0);Ta.init();
+        for(int i=1;i&lt;=n;i++){
+            Ta.insert(num[i],Ta.root[i],Ta.root[i-1]);
+        }
+        while(q--){
+            int u,x;cin&gt;&gt;u&gt;&gt;x;
+            int l=in[u],r=out[u];//cout&lt;&lt;l&lt;&lt;&quot; &quot;&lt;&lt;r&lt;&lt;endl;
+            cout&lt;&lt;Ta.query(x,Ta.root[l-1],Ta.root[r])&lt;&lt;endl;
+        }      
+    }
+}
+</code></pre>
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/06/字典树与01字典树/" rel="next" title="字典树与01字典树">
+                <i class="fa fa-chevron-left"></i> 字典树与01字典树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -474,8 +897,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -599,6 +1031,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#可持久化01字典树-最大异或和"><span class="nav-text">可持久化01字典树(最大异或和)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HYSBZ-3261-最大异或和"><span class="nav-text">HYSBZ-3261 最大异或和</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-6191-dfs序-可持久化01字典树"><span class="nav-text">HDU-6191 dfs序 + 可持久化01字典树</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
