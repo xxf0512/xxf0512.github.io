@@ -112,7 +112,7 @@
 <meta property="og:description" content="背包问题参考背包九讲的内容，首先给定一个有容量的背包(限定条件)，再给出每件(种)物品的价值和体积，背包问题大致可分为以下几种： 1.01背包(n个物品，对每个物品选或不选) 2.完全背包(n种物品，每种可取无数件，每件物品选或不选) 3.多重背包(n种物品，每种可取k[i]件,不选/选/选几件) 4.分组背包(n组物品，每组最多选一件，选/不选) 5.二维费用背包(两个维度的限制条件) 6.混合">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.acwing.com/media/article/image/2018/10/18/1_bb51ecbcd2-QQ%E5%9B%BE%E7%89%8720181018170337.png">
-<meta property="og:updated_time" content="2019-07-23T06:06:53.810Z">
+<meta property="og:updated_time" content="2019-08-17T02:40:09.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="背包问题">
 <meta name="twitter:description" content="背包问题参考背包九讲的内容，首先给定一个有容量的背包(限定条件)，再给出每件(种)物品的价值和体积，背包问题大致可分为以下几种： 1.01背包(n个物品，对每个物品选或不选) 2.完全背包(n种物品，每种可取无数件，每件物品选或不选) 3.多重背包(n种物品，每种可取k[i]件,不选/选/选几件) 4.分组背包(n组物品，每组最多选一件，选/不选) 5.二维费用背包(两个维度的限制条件) 6.混合">
@@ -445,12 +445,24 @@
                 
               
 
-              <time title="创建时间：2019-07-23 14:03:07 / 修改时间：14:06:53" itemprop="dateCreated datePublished" datetime="2019-07-23T14:03:07+08:00">2019-07-23</time>
+              <time title="创建时间：2019-07-23 14:03:07" itemprop="dateCreated datePublished" datetime="2019-07-23T14:03:07+08:00">2019-07-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-17 10:40:09" itemprop="dateModified" datetime="2019-08-17T10:40:09+08:00">2019-08-17</time>
               
             
           </span>
@@ -496,7 +508,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">15k</span>
+                <span title="本文字数">18k</span>
               
 
               
@@ -510,7 +522,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">14 分钟</span>
+                <span title="阅读时长">17 分钟</span>
               
             </div>
           
@@ -671,7 +683,7 @@ int main()
         cout&lt;&lt;dp[V]&lt;&lt;endl;
     }
 </code></pre><hr>
-<h4 id="多重背包-待补单调队列优化"><a href="#多重背包-待补单调队列优化" class="headerlink" title="多重背包(待补单调队列优化)"></a>多重背包(待补单调队列优化)</h4><pre><code>多重背包中每个物品可使用的次数是有限制条件的，因此要假如第三重循环，限制选的次数。
+<h4 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h4><pre><code>多重背包中每个物品可使用的次数是有限制条件的，因此要假如第三重循环，限制选的次数。
 注意：背包问题中第一重循环是物品种类 ，第二重是背包体积 ，第三重是限制条件
 多重背包的优化： 二进制优化、单调队列优化
 
@@ -926,7 +938,8 @@ int main()
         cout&lt;&lt;dp[V]&lt;&lt;endl;
     }
 </code></pre><hr>
-<h4 id="有依赖的背包问题-待补"><a href="#有依赖的背包问题-待补" class="headerlink" title="有依赖的背包问题(待补)"></a>有依赖的背包问题(待补)</h4><p><img src="https://www.acwing.com/media/article/image/2018/10/18/1_bb51ecbcd2-QQ%E5%9B%BE%E7%89%8720181018170337.png" alt="有依赖背包"></p>
+<h4 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h4><pre><code>待补
+</code></pre><p><img src="https://www.acwing.com/media/article/image/2018/10/18/1_bb51ecbcd2-QQ%E5%9B%BE%E7%89%8720181018170337.png" alt="有依赖背包"></p>
 <pre><code>有 N 个物品和一个容量是 V 的背包。
 物品之间具有依赖关系，且依赖关系组成一棵树的形状。如果选择一个物品，则必须选择它的父节点。
 
@@ -1108,6 +1121,109 @@ int main() {
             if(V&lt;0) break;
         }
     }
+</code></pre><hr>
+<h4 id="超大背包"><a href="#超大背包" class="headerlink" title="超大背包"></a>超大背包</h4><h5 id="体积超大、价值适合"><a href="#体积超大、价值适合" class="headerlink" title="体积超大、价值适合"></a>体积超大、价值适合</h5><pre><code>给出N个物品，所有物品的的价值总和V不会超过5000，但是背包的体积B和物品的体积超大(1e10)，求背包能装出来的最大价值
+
+这种背包问题显然要以价值为突破口，转化一下dp的含义，令dp[i][j]-&gt;从前i个物品中选出价值总和为j的物品的最小的体积，
+那么求最大价值时按照V从大到小遍历dp即可，当dp[i][j]&lt;=B时输出j即可
+
+FZU-2214
+#include&lt;iostream&gt;
+using namespace std;
+typedef long long ll;
+const ll INF=1e12;
+int v[505];
+ll w[505],dp[5005];
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    int T;cin&gt;&gt;T;
+    while(T--){
+        int n,V=0;ll B;cin&gt;&gt;n&gt;&gt;B;
+        for(int i=1;i&lt;=n;i++) cin&gt;&gt;w[i]&gt;&gt;v[i],V+=v[i];
+        for(int i=1;i&lt;=V;i++) dp[i]=INF;dp[0]=0;//注意初始化
+        for(int i=1;i&lt;=n;i++)
+            for(int j=V;j&gt;=v[i];j--)
+                dp[j]=min(dp[j],dp[j-v[i]]+w[i]);
+        for(int i=V;i&gt;=0;i--){
+            if(dp[i]&lt;=B){
+                cout&lt;&lt;i&lt;&lt;endl;break;
+            }
+        }
+
+    }
+}
+</code></pre><h5 id="体积超大、价值超大"><a href="#体积超大、价值超大" class="headerlink" title="体积超大、价值超大"></a>体积超大、价值超大</h5><pre><code>这种题目显然不能dp了，因为数组开不下，记录不了状态，那怎么做呢。往往会设置一个比较小的物品数量，使得可以折半枚举。
+给你N(N≤40)个物品，物品的单个价值和重量都达到10^15问你在背包容量为W下背包所能装出来的最大价值
+
+采用折半枚举法，先把前2^20个物品的组合先枚举预处理出来2^20个w、v。
+然后如果我们能对于这枚举出来的前 2^20 个和后面 2^20 个物品的某个组合结合然后找出最优的结果，最后从这 2^20 个最优结果中再取最优就是答案，问题就是如何对于预处理出来的前 2^20 个组合与后面结合产生最优。
+假设现在背包容量为 C ，在前 2^20 个物品组合中取出一个，价值为 vi 重量为 wi ，那么如果我们能从后 2^20 个中找出一个组合使得其在满足重量 w&apos; ≤ C - wi 的情况下价值最大
+
+只要对于后 2^20 个的所有组合处理出其重量和价值，然后根据重量排序且根据价值去重
+这样就能用二分查找来加快查找速度！
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+typedef long long ll;
+const int maxn=40;
+const ll INF=0x3f3f3f3f3f3f3f3f;
+pair&lt;ll,ll&gt; pi[1&lt;&lt;(maxn/2)];//(重量，价值)
+ll w[maxn],v[maxn],N,W;
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    cin&gt;&gt;N&gt;&gt;W;
+    for(int i=0;i&lt;N;i++) cin&gt;&gt;v[i]&gt;&gt;w[i];
+
+    //枚举前半部分 O(2^N/2)
+    int N2=N/2;
+    for(int i=0;i&lt;(1&lt;&lt;N2);i++){
+        ll sw=0,sv=0;
+        for(int j=0;j&lt;N2;j++){
+            if(i&gt;&gt;j&amp;1){//按二进制枚举
+                sw+=w[j];sv+=v[j];
+            }
+        }
+        pi[i]=make_pair(sw,sv);
+    }
+
+    //去除多余的元素：使得对i&lt;j有 sw[i]&lt;=sw[j]并且sv[i]&gt;=sv[j]
+    sort(pi,pi+(1&lt;&lt;N2));//按照第一键值（重量）排序
+
+    int num=1;
+    for(int i=1;i&lt;(1&lt;&lt;N2);i++)
+        if(pi[num-1].second&lt;pi[i].second)//当i的重量大于num-1的重量且价值小于num-1的价值时，i被放弃
+            pi[num++]=pi[i];
+
+    ll ans=0;
+    for(int i=0;i&lt;(1&lt;&lt;(N-N2));i++){//枚举后半段的组合
+        ll sw=0,sv=0;
+        for(int j=0;j&lt;(N-N2);j++){
+            if(i&gt;&gt;j&amp;1){
+                sw+=w[N2+j];sv+=v[N2+j];
+            }
+        }
+        if(sw&lt;=W){//在前半段的组合中找到体积小于等于W-sw的第一个即价值最大的那个
+            int idx=(lower_bound(pi,pi+num,make_pair(W-sw,INF))-pi)-1;
+            pair&lt;ll,ll&gt;tmp=pi[idx];
+            ans=max(ans,sv+tmp.second);
+        }
+    }
+    cout&lt;&lt;ans&lt;&lt;endl;
+}
+/*
+
+体积 价值
+4 5
+4 2
+5 2
+2 1
+8 3
+
+13
+
+*/
 </code></pre>
       
     </div>
@@ -1345,7 +1461,7 @@ int main() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背包问题"><span class="nav-text">背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#01背包"><span class="nav-text">01背包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#01背包题目"><span class="nav-text">01背包题目</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HDU-2995-小数-概率-背包"><span class="nav-text">HDU-2995 小数/概率 背包</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CF-366C-转化为01背包"><span class="nav-text">CF-366C 转化为01背包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完全背包"><span class="nav-text">完全背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多重背包-待补单调队列优化"><span class="nav-text">多重背包(待补单调队列优化)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合背包"><span class="nav-text">混合背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维费用背包"><span class="nav-text">二维费用背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组背包"><span class="nav-text">分组背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有依赖的背包问题-待补"><span class="nav-text">有依赖的背包问题(待补)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背包问题求方案数"><span class="nav-text">背包问题求方案数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背包问题求具有方案"><span class="nav-text">背包问题求具有方案</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背包问题"><span class="nav-text">背包问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#01背包"><span class="nav-text">01背包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#01背包题目"><span class="nav-text">01背包题目</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HDU-2995-小数-概率-背包"><span class="nav-text">HDU-2995 小数/概率 背包</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CF-366C-转化为01背包"><span class="nav-text">CF-366C 转化为01背包</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完全背包"><span class="nav-text">完全背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多重背包"><span class="nav-text">多重背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合背包"><span class="nav-text">混合背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维费用背包"><span class="nav-text">二维费用背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组背包"><span class="nav-text">分组背包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有依赖的背包问题"><span class="nav-text">有依赖的背包问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背包问题求方案数"><span class="nav-text">背包问题求方案数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背包问题求具有方案"><span class="nav-text">背包问题求具有方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#超大背包"><span class="nav-text">超大背包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#体积超大、价值适合"><span class="nav-text">体积超大、价值适合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#体积超大、价值超大"><span class="nav-text">体积超大、价值超大</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1378,7 +1494,7 @@ int main() {
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">167k</span>
+    <span title="站点总字数">169k</span>
   
 
   
@@ -1387,7 +1503,7 @@ int main() {
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">2:32</span>
+    <span title="站点阅读时长">2:34</span>
   
 </div>
 
