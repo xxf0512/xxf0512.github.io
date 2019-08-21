@@ -103,14 +103,21 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://xxf0512.github.io/categories/index.html">
+  <meta name="description" content="斜率优化DPNB网友 https://www.cnblogs.com/Paul-Guderian/p/7259491.html 数形结合，利用斜率优化DP转移的复杂度(降一维) 凑成 Y(j)−Y(k)/X(j)−X(k) &amp;lt;(或&amp;gt;) f(i)形式，最后套套模版 一种是维护凸包(理解起来容易，好像是IO选手最爱？)：     取 &amp;lt; 或&amp;lt;= 时，需要维护一个右下凸包 求最小">
+<meta name="keywords" content="动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="斜率dp">
+<meta property="og:url" content="http://xxf0512.github.io/2019/08/21/斜率dp/index.html">
 <meta property="og:site_name" content="XXF">
+<meta property="og:description" content="斜率优化DPNB网友 https://www.cnblogs.com/Paul-Guderian/p/7259491.html 数形结合，利用斜率优化DP转移的复杂度(降一维) 凑成 Y(j)−Y(k)/X(j)−X(k) &amp;lt;(或&amp;gt;) f(i)形式，最后套套模版 一种是维护凸包(理解起来容易，好像是IO选手最爱？)：     取 &amp;lt; 或&amp;lt;= 时，需要维护一个右下凸包 求最小">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-30T13:58:05.004Z">
+<meta property="og:image" content="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BE.PNG?raw=true">
+<meta property="og:image" content="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BEdp%E6%96%B9%E7%A8%8B.PNG?raw=true">
+<meta property="og:updated_time" content="2019-08-21T11:39:24.837Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="斜率dp">
+<meta name="twitter:description" content="斜率优化DPNB网友 https://www.cnblogs.com/Paul-Guderian/p/7259491.html 数形结合，利用斜率优化DP转移的复杂度(降一维) 凑成 Y(j)−Y(k)/X(j)−X(k) &amp;lt;(或&amp;gt;) f(i)形式，最后套套模版 一种是维护凸包(理解起来容易，好像是IO选手最爱？)：     取 &amp;lt; 或&amp;lt;= 时，需要维护一个右下凸包 求最小">
+<meta name="twitter:image" content="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BE.PNG?raw=true">
 
 
 
@@ -118,7 +125,7 @@
 
   
   
-  <link rel="canonical" href="http://xxf0512.github.io/categories/">
+  <link rel="canonical" href="http://xxf0512.github.io/2019/08/21/斜率dp/">
 
 
 
@@ -128,7 +135,7 @@
   };
 </script>
 
-  <title>分类 | XXF</title>
+  <title>斜率dp | XXF</title>
   
 
 
@@ -271,7 +278,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -376,105 +383,490 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/08/21/斜率dp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XXF">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XXF">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">分类
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
+          <h1 class="post-title" itemprop="name headline">斜率dp
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-21 19:39:53 / 修改时间：19:39:24" itemprop="dateCreated datePublished" datetime="2019-08-21T19:39:53+08:00">2019-08-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
               
               
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/动态规划/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a></span>
+
                 
-                  
-                
-              
-                
-                  
                 
               
-                
-                  
-                
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
               
-                
-                  
-                
+
               
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
                 
-                  
+                  <span class="post-meta-item-text">本文字数：</span>
                 
+                <span title="本文字数">9.1k</span>
               
-              目前共计 5 个分类
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
             </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/动态规划/">动态规划</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/博弈论/">博弈论</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/图论/">图论</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/递推/">递推</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h4 id="斜率优化DP"><a href="#斜率优化DP" class="headerlink" title="斜率优化DP"></a>斜率优化DP</h4><pre><code>NB网友 https://www.cnblogs.com/Paul-Guderian/p/7259491.html
+数形结合，利用斜率优化DP转移的复杂度(降一维)
+凑成 Y(j)−Y(k)/X(j)−X(k) &lt;(或&gt;) f(i)形式，最后套套模版
+一种是维护凸包(理解起来容易，好像是IO选手最爱？)：
+    取 &lt; 或&lt;= 时，需要维护一个右下凸包 求最小值
+    取 &gt; 或&gt;= 时，需要维护一个左上凸包 求最大值
+
+我比较容易接受另一种方法：优化式子(利用决策的单调性)，下面的题基本上都是这样做的
+</code></pre><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><h5 id="HDU-3507-一维下凸包"><a href="#HDU-3507-一维下凸包" class="headerlink" title="HDU-3507 一维下凸包"></a>HDU-3507 一维下凸包</h5><pre><code>题意：要输出N个数字a[N]，输出的时候可以连续连续的输出，每连续输出一串，它的费用是&quot;这串数字和的平方加上一个常数M&quot;。
+思路：dp[i]表示输出到i的时候最少的花费，sum[i]表示从a[1]到a[i]的数字和。于是方程就是：dp[i]=min(dp[j]+M+(sum[i]-sum[j])^2)；
+很显然这个是一个二维的。题目的数字有500000个，二维铁定超时了。需要斜率优化降成一维的。
+
+#include&lt;bits/stdc++.h&gt;
+#define fi first
+#define se second
+#define pb(x) push_back(x)
+#define eb(x) emplace_back(x)
+#define mem(a,b) memset(a,b,sizeof(a))
+#define all(x) x.begin(),x.end()
+#define fastinout ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+using namespace std;
+typedef unsigned long long ull;
+typedef long long ll;
+typedef double db;
+typedef pair&lt;int,int&gt; pii;
+typedef pair&lt;ll,ll&gt; pll;
+typedef vector&lt;int&gt; vi;
+typedef vector&lt;ll&gt; vl;
+const double eps=1e-6;
+const int inf=0x3f3f3f3f;
+const ll INF=0x3f3f3f3f3f3f3f3f;
+const int mod=998244353;
+const int maxn=5e5+5;
+const int maxk=2005;
+/***********************************************/
+int dp[maxn],sum[maxn],q[maxn],n,m;
+int getdp(int i,int j){
+    return dp[j]+(sum[i]-sum[j])*(sum[i]-sum[j])+m;
+}
+int getup(int j,int k){
+    return (dp[j]+sum[j]*sum[j])-(dp[k]+sum[k]*sum[k]);
+}
+int getdown(int j,int k){
+    return (sum[j]-sum[k])*2;
+}
+void solve(){
+    int head=0,tail=0;q[tail++]=0;
+    for(int i=1;i&lt;=n;i++){
+        while(head+1&lt;tail&amp;&amp;getup(q[head+1],q[head])&lt;=sum[i]*getdown(q[head+1],q[head])) head++;
+        dp[i]=getdp(i,q[head]);
+        while(head+1&lt;tail&amp;&amp;getup(i,q[tail-1])*getdown(q[tail-1],q[tail-2])&lt;=getup(q[tail-1],q[tail-2])*getdown(i,q[tail-1])) tail--;
+        q[tail++]=i;
+    }
+    cout&lt;&lt;dp[n]&lt;&lt;endl;
+}
+int main(){
+    fastinout;
+    while(cin&gt;&gt;n&gt;&gt;m){
+        sum[0]=0;dp[0]=0;
+        for(int i=1;i&lt;=n;i++){
+            int t;cin&gt;&gt;t;
+            sum[i]=sum[i-1]+t;
+        }
+        solve();
+    }
+}
+</code></pre><hr>
+<h5 id="HDU-2829-二维下凸包"><a href="#HDU-2829-二维下凸包" class="headerlink" title="HDU-2829 二维下凸包"></a>HDU-2829 二维下凸包</h5><pre><code>题意：一条直线上n站,炸铁路使得定义的和最小。
+思路：用dp[i][x]表示前i个点，炸掉x条边可以破坏的最大值，答案就是tot-dp[n][m]
+dp[i][x]=max{dp[j][x-1]+sum[j]*(sum[i]-sum[j])}  x-1&lt;j&lt;i
+假设在计算i时，k&lt;j,j比k点优,dp[k][x-1]+sum[k]*(sum[i]-sum[k])&lt;=dp[j][x-1]+sum[j]*(sum[i]-sum[j])
+化简得 ((sum[j]*sum[j]-dp[j][x-1])-(sum[k]*sum[k]-dp[k][x-1]))/(sum[j]-sum[k]&lt;=sum[i]
+yj=sum[j]*sum[j]-dp[j][x-1]    xj=sum[j]  (yj-yk)/(xj-xk)&lt;=sum[i]
+维护下凸包
+
+const int maxn=1005;
+int dp[maxn][maxn],sum[maxn],a[maxn],q[maxn],n,m,tot;
+int getdp(int i,int x,int j){
+    return dp[j][x-1]+sum[j]*(sum[i]-sum[j]);
+}
+int getup(int j,int x,int k){
+    return sum[j]*sum[j]-dp[j][x-1]-(sum[k]*sum[k]-dp[k][x-1]);
+}
+int getdown(int j,int k){
+    return sum[j]-sum[k];
+}
+void solve(){
+    memset(dp,0,sizeof(dp));
+    int head=0,tail=0;
+    for(int x=1;x&lt;=m;x++){
+        head=tail=0;q[tail++]=x;
+        for(int i=x+1;i&lt;=n;i++){
+            while(head+1&lt;tail&amp;&amp;getup(q[head+1],x,q[head])&lt;=sum[i]*getdown(q[head+1],q[head])) head++;
+            dp[i][x]=getdp(i,x,q[head]);
+            while(head+1&lt;tail&amp;&amp;getup(i,x,q[tail-1])*getdown(q[tail-1],q[tail-2])&lt;=getup(q[tail-1],x,q[tail-2])*getdown(i,q[tail-1])) tail--;
+            q[tail++]=i;
+        }
+    }
+    cout&lt;&lt;tot-dp[n][m]&lt;&lt;endl;
+}
+int main()
+{
+    fastinout;
+    while(cin&gt;&gt;n&gt;&gt;m){
+        if(n==0&amp;&amp;m==0) break;
+        sum[0]=0;tot=0;
+        for(int i=1;i&lt;=n;i++) cin&gt;&gt;a[i],sum[i]=sum[i-1]+a[i];
+        for(int i=n;i&gt;1;i--) tot+=a[i]*sum[i-1];
+        solve();
+    }
+}
+</code></pre><hr>
+<h5 id="玩具装箱-一维下凸包"><a href="#玩具装箱-一维下凸包" class="headerlink" title="玩具装箱 一维下凸包"></a>玩具装箱 一维下凸包</h5><pre><code>https://loj.ac/problem/10188
+题意：太多了，说不清楚，就是一维下凸包
+思路：dp[i]=Min{dp[j]+(sum[i]-sum[j]+i-j-L-1)^2} [0&lt;=j&lt;i]
+    下面就是化简了，L+1-&gt;L  sum[i]+i-&gt;sum[i]  sum[j]+j-&gt;sum[j]
+    于是 dp[i]=Min{dp[j]+(sum[i]-(sum[j]+L))^2} [0&lt;=j&lt;i]
+    假设 k&lt;j 且j比k更优 为什么这样做呢？ 因为 sum[j]&gt;sum[k] 留个疑问 下面解释
+    由假设可得：dp[j]+(sum[i]-(sum[j]+L))^2 &lt;= dp[k]+(sum[i]-(sum[k]+L))^2
+    化简之后：(dp[j]+(sum[j]+L)^2)-(dp[k]+(sum[k]+L)^2) &lt;= sum[i]*(sum[j]-sum[k])
+    下面要把 (sum[j]-sum[k]) 除到左边去 上面的疑问这里就得到了解答 因为不用变号hhh
+
+    接下来就是斜率优化的套路了，getdp、getup、getdown三件套 + solve(优先队列维护右下凸包(直接用上面的就好了) )
+    注意爆int
+
+const int maxn=5e4+5;
+ll dp[maxn],sum[maxn],L;
+int q[maxn],n;
+ll getdp(int i,int j){
+    return dp[j]+(sum[i]-sum[j]-L)*(sum[i]-sum[j]-L);
+}
+ll getup(int j,int k){
+    return (dp[j]+(sum[j]+L)*(sum[j]+L))-(dp[k]+(sum[k]+L)*(sum[k]+L));
+}
+ll getdown(int j,int k){
+    return (sum[j]-sum[k])*2;
+}
+void solve(){
+    int head=0,tail=0;q[tail++]=0;
+    for(int i=1;i&lt;=n;i++){
+        while(head+1&lt;tail&amp;&amp;getup(q[head+1],q[head])&lt;=sum[i]*getdown(q[head+1],q[head])) head++;
+        dp[i]=getdp(i,q[head]);
+        while(head+1&lt;tail&amp;&amp;getup(i,q[tail-1])*getdown(q[tail-1],q[tail-2])&lt;=getup(q[tail-1],q[tail-2])*getdown(i,q[tail-1])) tail--;
+        q[tail++]=i;
+    }
+    cout&lt;&lt;dp[n]&lt;&lt;endl;
+}
+int main(){
+    fastinout;
+    while(cin&gt;&gt;n&gt;&gt;L){
+        sum[0]=0;dp[0]=0;L++;
+        for(int i=1;i&lt;=n;i++) cin&gt;&gt;sum[i];
+        for(int i=1;i&lt;=n;i++) sum[i]+=sum[i-1];
+        for(int i=1;i&lt;=n;i++) sum[i]+=i;
+        solve();
+    }
+}
+</code></pre><hr>
+<h5 id="仓库建设-一维下凸包"><a href="#仓库建设-一维下凸包" class="headerlink" title="仓库建设 一维下凸包"></a>仓库建设 一维下凸包</h5><pre><code>https://loj.ac/problem/10189
+</code></pre><p><img src="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BE.PNG?raw=true" alt="仓库建设"></p>
+<p><img src="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BEdp%E6%96%B9%E7%A8%8B.PNG?raw=true" alt="仓库建设dp"></p>
+<pre><code>const int maxn=1e6+5;
+ll dp[maxn];
+int q[maxn],n;
+ll x[maxn],c[maxn],p[maxn],g[maxn];
+ll getdp(int i,int j){
+    return dp[j]+x[i]*(p[i-1]-p[j])+g[i-1]-g[j]+c[i];
+}
+ll getup(int j,int k){
+    return (dp[j]-g[j])-(dp[k]-g[k]);
+}
+ll getdown(int j,int k){
+    return p[j]-p[k];
+}
+void solve(){
+    int head=0,tail=0;q[tail++]=0;
+    for(int i=1;i&lt;=n;i++){
+        while(head+1&lt;tail&amp;&amp;getup(q[head+1],q[head])&lt;=x[i]*getdown(q[head+1],q[head])) head++;
+        dp[i]=getdp(i,q[head]);
+        while(head+1&lt;tail&amp;&amp;getup(i,q[tail-1])*getdown(q[tail-1],q[tail-2])&lt;=getup(q[tail-1],q[tail-2])*getdown(i,q[tail-1])) tail--;
+        q[tail++]=i;
+    }
+    cout&lt;&lt;dp[n]&lt;&lt;endl;
+}
+int main(){
+    fastinout;cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;i++) cin&gt;&gt;x[i]&gt;&gt;p[i]&gt;&gt;c[i];
+    for(int i=1;i&lt;=n;i++) g[i]+=g[i-1]-x[i]*p[i];
+    for(int i=1;i&lt;=n;i++) p[i]+=p[i-1];
+    solve();
+}
+</code></pre><hr>
+<h5 id="土地购买-一维下凸包"><a href="#土地购买-一维下凸包" class="headerlink" title="土地购买 一维下凸包"></a>土地购买 一维下凸包</h5><pre><code>https://vjudge.net/problem/HYSBZ-1597
+题意：买n块矩形土地，同时买几块的花费取决于这几块中的 最大长*最大宽 求最小花费
+思路：这种不是序列的dp，往往我们要把数据变成一个有序序列，那怎么sort呢？
+观察一下，设一个长度很大的土地长a宽b，另一块土地长c宽d,且a&gt;b，若c&lt;d那就另一块不会产生贡献，丢掉就行了，否则存下来后面dp。
+所以首先按长排个序，然后向上面一样去掉无用的，那剩下来的土地的宽将是降序的，下面dp。
+长升序，宽降序。dp[i]=Min{dp[j]+node[i].a*node[j+1].b} 设j&gt;k且j比k优
+列式移项化简得到：(dp[j]-dp[k])/(node[k+1].b-node[j+1].b)&lt;=node[i].a; 注意分子分母的区别，但是不影响，依然维护一个下凸包
+
+const int maxn=5e4+5;
+struct Node{
+    ll a,b;
+    bool operator&lt; (const Node&amp; y)const {return a==y.a?b&lt;y.b:a&lt;y.a;}
+}node[maxn];
+ll dp[maxn];int q[maxn],n;
+ll getdp(int i,int j){
+    return dp[j]+node[i].a*node[j+1].b;
+}
+ll getup(int j,int k){
+    return dp[j]-dp[k];
+}
+ll getdown(int j,int k){
+    return node[k+1].b-node[j+1].b;
+}
+void solve(){
+    int head=0,tail=0;q[tail++]=0;
+    for(int i=1;i&lt;=n;i++){
+        while(head+1&lt;tail&amp;&amp;getup(q[head+1],q[head])&lt;=node[i].a*getdown(q[head+1],q[head])) head++;
+        dp[i]=getdp(i,q[head]);
+        while(head+1&lt;tail&amp;&amp;getup(i,q[tail-1])*getdown(q[tail-1],q[tail-2])&lt;=getup(q[tail-1],q[tail-2])*getdown(i,q[tail-1])) tail--;
+        q[tail++]=i;
+    }
+    cout&lt;&lt;dp[n]&lt;&lt;endl;
+}
+int main()
+{
+    fastinout;cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;i++) cin&gt;&gt;node[i].a&gt;&gt;node[i].b;
+    sort(node+1,node+1+n);int t=0;
+    for(int i=1;i&lt;=n;i++){
+        while(t&amp;&amp;node[t].b&lt;=node[i].b)t--;node[++t]=node[i];
+    }n=t;
+    solve();
+}
+</code></pre><hr>
+<h5 id="特别行动队-一维上凸包"><a href="#特别行动队-一维上凸包" class="headerlink" title="特别行动队 一维上凸包"></a>特别行动队 一维上凸包</h5><pre><code>题意：n个士兵分为若干组，使得战斗力总和最大。每组战斗力 X = a*x*x + b*x + c(其中x是这组士兵战斗力之和，X是定义的战斗力)
+思路：n-&gt;1e6 显然斜率dp。dp[i]-&gt;前i个人组成的军队的最大战斗力，dp[i]=Max{dp[j]+a*x*x+b*x+c};其中x=sum[i]-sum[j]
+假设 j&gt;k 且 j优于k 那么：dp[j]+a*(sum[i]-sum[j])*(sum[i]-sum[j])+b*(sum[i]-sum[j])+c &gt;= dp[k]+a*(sum[i]-sum[k])*(sum[i]-sum[k])+b*(sum[i]-sum[k])+c
+化简移项：(dp[j]+a*sum[j]*sum[j]-b*sum[j])-(dp[k]+a*sum[k]*sum[k]-b*sum[k]) &gt;= 2*a*sum[i]*(sum[j]-sum[k])
+然后就是单调队列优化了 做了这几题也发现了一个规律：在入队出队的过程中符号与上面的式子相同 如本题的 &gt;=
+
+const int maxn=1e5+5;
+ll dp[maxn],sum[maxn],x[maxn],a,b,c;
+int q[maxn],n;
+ll getdp(int i,int j){
+    return dp[j]+a*(sum[i]-sum[j])*(sum[i]-sum[j])+b*(sum[i]-sum[j])+c;
+}
+ll getup(int j,int k){
+    return (dp[j]+a*sum[j]*sum[j]-b*sum[j])-(dp[k]+a*sum[k]*sum[k]-b*sum[k]);
+}
+ll getdown(int j,int k){
+    return sum[j]-sum[k];
+}
+void solve(){
+    int head=0,tail=0;q[tail++]=0;
+    for(int i=1;i&lt;=n;i++){
+        while(head+1&lt;tail&amp;&amp;getup(q[head+1],q[head])&gt;=2*a*sum[i]*getdown(q[head+1],q[head])) head++;
+        dp[i]=getdp(i,q[head]);
+        while(head+1&lt;tail&amp;&amp;getup(i,q[tail-1])*getdown(q[tail-1],q[tail-2])&gt;=getup(q[tail-1],q[tail-2])*getdown(i,q[tail-1])) tail--;
+        q[tail++]=i;
+    }
+    cout&lt;&lt;dp[n]&lt;&lt;endl;
+}
+int main()
+{
+    fastinout;cin&gt;&gt;n&gt;&gt;a&gt;&gt;b&gt;&gt;c;
+    for(int i=1;i&lt;=n;i++) cin&gt;&gt;x[i];
+    for(int i=1;i&lt;=n;i++) sum[i]=sum[i-1]+x[i];
+    solve();
+}
+</code></pre><hr>
+<h5 id="待补"><a href="#待补" class="headerlink" title="待补"></a>待补</h5><pre><code>防御准备
+序列分割
+BZOJ-3437
+BZOJ-4518
+</code></pre>
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/13/树状数组/" rel="next" title="树状数组">
+                <i class="fa fa-chevron-left"></i> 树状数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
@@ -503,8 +895,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -628,6 +1029,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#斜率优化DP"><span class="nav-text">斜率优化DP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-3507-一维下凸包"><span class="nav-text">HDU-3507 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-2829-二维下凸包"><span class="nav-text">HDU-2829 二维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#玩具装箱-一维下凸包"><span class="nav-text">玩具装箱 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#仓库建设-一维下凸包"><span class="nav-text">仓库建设 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#土地购买-一维下凸包"><span class="nav-text">土地购买 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特别行动队-一维上凸包"><span class="nav-text">特别行动队 一维上凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#待补"><span class="nav-text">待补</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
