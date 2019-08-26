@@ -113,7 +113,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BE.PNG?raw=true">
 <meta property="og:image" content="https://github.com/xxf0512/xxf0512.github.io/blob/master/images/picture/%E6%96%9C%E7%8E%87dp-%E4%BB%93%E5%BA%93%E5%BB%BA%E8%AE%BEdp%E6%96%B9%E7%A8%8B.PNG?raw=true">
-<meta property="og:updated_time" content="2019-08-21T15:22:34.442Z">
+<meta property="og:updated_time" content="2019-08-21T11:39:24.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="斜率dp">
 <meta name="twitter:description" content="斜率优化DPNB网友 https://www.cnblogs.com/Paul-Guderian/p/7259491.html 数形结合，利用斜率优化DP转移的复杂度(降一维) 凑成 Y(j)−Y(k)/X(j)−X(k) &amp;lt;(或&amp;gt;) f(i)形式，最后套套模版 一种是维护凸包(理解起来容易，好像是IO选手最爱？)：     取 &amp;lt; 或&amp;lt;= 时，需要维护一个右下凸包 求最小">
@@ -446,7 +446,7 @@
                 
               
 
-              <time title="创建时间：2019-08-21 19:39:53 / 修改时间：23:22:34" itemprop="dateCreated datePublished" datetime="2019-08-21T19:39:53+08:00">2019-08-21</time>
+              <time title="创建时间：2019-08-21 19:39:53 / 修改时间：19:39:24" itemprop="dateCreated datePublished" datetime="2019-08-21T19:39:53+08:00">2019-08-21</time>
             
 
             
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">9.1k</span>
               
 
               
@@ -511,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -803,56 +803,6 @@ int main()
     solve();
 }
 </code></pre><hr>
-<h5 id="Wood-Processing-二维"><a href="#Wood-Processing-二维" class="headerlink" title="Wood Processing 二维"></a>Wood Processing 二维</h5><pre><code>2019牛客多校第十场J： https://ac.nowcoder.com/acm/contest/890/J
-题意：把n块木板分为k组，同时去掉每组中多出来的部分，使得其高度相同,求去掉木料的最小值
-思路：先按高度排序，为什么呢? 因为选在一组的木板们必定是 高度相邻的，这样才能使得去掉的最少
-    考虑留下来的最多，设dp[i][j]-&gt;前i个分为j组  那么dp[i][j]=Max{dp[k][j-1]+(sumw[i]-sumw[k])*node[i].h} [1&lt;=k&lt;j] (sumw[i]-&gt;前i个木块的宽度之和)
-    假设 k&gt;l 且k比l更优 于是(dp[k][j-1]+(sumw[i]-sumw[k])*node[i].h) &gt;= (dp[l][j-1]+(sumw[i]-sumw[l])*node[i].h)
-    化化简移移项： dp[k][j-1]-dp[l][j-1] &gt;= node[i].h*(sumw[k]-sumw[l])
-    下面就是单调队列的套路了。。。因为一个SB错误WA了三个小时 orz
-    注意中间会爆ll 要开 int_128 (感觉1e7再怎么乘也不会爆ll啊 哭了 *.*)
-
-typedef __int128 ll;
-const int maxn=5e3+5;
-const int maxk=2005;
-struct Node{
-    long long w,h;
-    bool operator&lt; (const Node&amp; t) const{
-        return h==t.h?w&gt;t.w:h&gt;t.h;
-    }
-}node[maxn];
-ll dp[maxn][maxk],sumw[maxn],tot;
-int q[maxn],n,K;
-ll getdp(int i,int j,int k){
-    return dp[k][j-1]+(sumw[i]-sumw[k])*node[i].h;
-}
-ll getup(int k,int l,int j){
-    return dp[k][j-1]-dp[l][j-1];
-}
-ll getdown(int k,int l){
-    return sumw[k]-sumw[l];
-}
-void solve(){
-    for(int j=1;j&lt;=K;j++){
-        int head=0,tail=0;q[tail++]=0;
-        for(int i=1;i&lt;=n;i++){
-            while(head+1&lt;tail&amp;&amp;getup(q[head+1],q[head],j)&gt;=node[i].h*getdown(q[head+1],q[head])) head++;
-            dp[i][j]=getdp(i,j,q[head]);                                                                    //开始这里少减了个1 |
-            while(head+1&lt;tail&amp;&amp;getup(i,q[tail-1],j)*getdown(q[tail-1],q[tail-2])&gt;=getup(q[tail-1],q[tail-2],j)*getdown(i,q[tail-1])) tail--;
-            q[tail++]=i;
-        }
-    }
-    cout&lt;&lt;(long long)(tot-dp[n][K])&lt;&lt;endl;
-}
-int main()
-{
-    fastinout;cin&gt;&gt;n&gt;&gt;K;tot=0;
-    for(int i=1;i&lt;=n;i++) cin&gt;&gt;node[i].w&gt;&gt;node[i].h,tot+=node[i].w*node[i].h;
-    sort(node+1,node+1+n);
-    for(int i=1;i&lt;=n;i++) sumw[i]=sumw[i-1]+node[i].w;
-    solve();
-}
-</code></pre><hr>
 <h5 id="待补"><a href="#待补" class="headerlink" title="待补"></a>待补</h5><pre><code>防御准备
 序列分割
 BZOJ-3437
@@ -976,7 +926,7 @@ BZOJ-4518
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1009,7 +959,11 @@ BZOJ-4518
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1040,7 +994,11 @@ BZOJ-4518
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1104,7 +1062,7 @@ BZOJ-4518
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#斜率优化DP"><span class="nav-text">斜率优化DP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-3507-一维下凸包"><span class="nav-text">HDU-3507 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-2829-二维下凸包"><span class="nav-text">HDU-2829 二维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#玩具装箱-一维下凸包"><span class="nav-text">玩具装箱 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#仓库建设-一维下凸包"><span class="nav-text">仓库建设 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#土地购买-一维下凸包"><span class="nav-text">土地购买 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特别行动队-一维上凸包"><span class="nav-text">特别行动队 一维上凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Wood-Processing-二维"><span class="nav-text">Wood Processing 二维</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#待补"><span class="nav-text">待补</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#斜率优化DP"><span class="nav-text">斜率优化DP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-3507-一维下凸包"><span class="nav-text">HDU-3507 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HDU-2829-二维下凸包"><span class="nav-text">HDU-2829 二维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#玩具装箱-一维下凸包"><span class="nav-text">玩具装箱 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#仓库建设-一维下凸包"><span class="nav-text">仓库建设 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#土地购买-一维下凸包"><span class="nav-text">土地购买 一维下凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特别行动队-一维上凸包"><span class="nav-text">特别行动队 一维上凸包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#待补"><span class="nav-text">待补</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1137,7 +1095,7 @@ BZOJ-4518
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">217k</span>
+    <span title="站点总字数">216k</span>
   
 
   
