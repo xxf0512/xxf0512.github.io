@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="XXF">
 <meta property="og:description" content="一维树状数组 &amp;amp; 二维树状数组 &amp;amp; 三维树状数组* 树状数组 - 动态维护前缀和O(logn)或前缀最值 查询O(logn),常数小于线段树 * 利用二进制数的性质，关键在: lowbit(int x){return x&amp;amp;(-x)}; * 解决二维偏序问题(如逆序对)  一维树状数组单点更新区间查询#include&amp;lt;bits/stdc++.h&amp;gt; using na">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-16T03:11:01.636Z">
+<meta property="og:updated_time" content="2019-08-25T03:11:13.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树状数组">
 <meta name="twitter:description" content="一维树状数组 &amp;amp; 二维树状数组 &amp;amp; 三维树状数组* 树状数组 - 动态维护前缀和O(logn)或前缀最值 查询O(logn),常数小于线段树 * 利用二进制数的性质，关键在: lowbit(int x){return x&amp;amp;(-x)}; * 解决二维偏序问题(如逆序对)  一维树状数组单点更新区间查询#include&amp;lt;bits/stdc++.h&amp;gt; using na">
@@ -460,7 +460,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-16 11:11:01" itemprop="dateModified" datetime="2019-08-16T11:11:01+08:00">2019-08-16</time>
+                <time title="修改时间：2019-08-25 11:11:13" itemprop="dateModified" datetime="2019-08-25T11:11:13+08:00">2019-08-25</time>
               
             
           </span>
@@ -506,7 +506,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.6k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -520,7 +520,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">11 分钟</span>
               
             </div>
           
@@ -871,6 +871,85 @@ int main()
         }
     }
 }
+</code></pre><hr>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><h5 id="树状数组-求线段交点个数"><a href="#树状数组-求线段交点个数" class="headerlink" title="树状数组-求线段交点个数"></a>树状数组-求线段交点个数</h5><pre><code>//HDU-5862
+/*
+    扫描线+线段树维护竖直方向点个数的前缀和，把坐标离散化之后用一条垂直x轴的线去扫(想象垂直线) 对于平行x轴的线(水平线)，碰到左端点就在响应位置+1，碰到右端点就在之前的位置-1。(删掉之后这条水平线就不会产生贡献了)
+    对于垂直线,求其上端点到下端点之间的点的个数(区间内水平线的个数)
+*/
+
+const int maxn=1e5+5;
+struct Line{
+    int x,y,z;
+    Line(int x=0,int y=0,int z=0):x(x),y(y),z(z){}
+    bool operator&lt; (const Line&amp; l){
+        return x&lt;l.x||(x==l.x&amp;&amp;z&lt;l.z);
+    }
+}a[maxn],b[maxn],c[maxn*2];
+int val[maxn&lt;&lt;2],cnt;
+int id(int x){return lower_bound(val+1,val+1+cnt,x)-val;}
+struct BIT{
+    int a[maxn*5];
+    void init(){mem(a,0);}
+    int lowbit(int x){return x&amp;(-x);}
+    void update(int x,int v){
+        for(int i=x;i&lt;=maxn&lt;&lt;2;i+=lowbit(i)) a[i]+=v;
+    }
+    int query(int x){
+        int res=0;
+        for(int i=x;i&gt;0;i-=lowbit(i)) res+=a[i];
+        return res;
+    }
+    int solve(int l,int r){
+        return query(r)-query(l-1);
+    }
+}Tree;
+int main()
+{
+    fastinout;int T;cin&gt;&gt;T;
+    while(T--){
+        Tree.init();
+        int k,na=0,nb=0,nc=0;
+        cnt=0;cin&gt;&gt;k;
+        for(int i=1;i&lt;=k;i++){
+            int x1,x2,y1,y2;
+            cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
+            val[++cnt]=x1;val[++cnt]=y1;
+            val[++cnt]=x2;val[++cnt]=y2;
+            if(x1==x2){
+                if(y1&gt;y2) swap(y1,y2);
+                b[++nb]=Line(x1,y1,y2);
+            }
+            if(y1==y2){
+                if(x1&gt;x2) swap(x1,x2);
+                a[++na]=Line(y1,x1,x2);
+            }
+        }
+        sort(val+1,val+1+cnt);
+        cnt=unique(val+1,val+1+cnt)-val-1;
+        for(int i=1;i&lt;=na;i++){
+            a[i].x=id(a[i].x);
+            a[i].y=id(a[i].y);
+            a[i].z=id(a[i].z);
+            c[++nc]=Line(a[i].y,i,1);
+            c[++nc]=Line(a[i].z,i,3);
+        }
+        for(int i=1;i&lt;=nb;i++){
+            b[i].x=id(b[i].x);
+            b[i].y=id(b[i].y);
+            b[i].z=id(b[i].z);
+            c[++nc]=Line(b[i].x,i,2);
+        }
+        sort(c+1,c+1+nc);
+        ll ans=0;
+        for(int i=1;i&lt;=nc;i++){
+            if(c[i].z==1) Tree.update(a[c[i].y].x,1);
+            if(c[i].z==2) ans+=Tree.solve(b[c[i].y].y,b[c[i].y].z);
+            if(c[i].z==3) Tree.update(a[c[i].y].x,-1);
+        }
+        cout&lt;&lt;ans&lt;&lt;endl; 
+    }
+}
 </code></pre>
       
     </div>
@@ -990,7 +1069,7 @@ int main()
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1021,7 +1100,9 @@ int main()
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1116,7 +1197,7 @@ int main()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一维树状数组-amp-二维树状数组-amp-三维树状数组"><span class="nav-text">一维树状数组 &amp; 二维树状数组 &amp; 三维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一维树状数组"><span class="nav-text">一维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单点更新区间查询"><span class="nav-text">单点更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新区间查询"><span class="nav-text">区间更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例题-Star-POJ-2352"><span class="nav-text">例题 Star POJ-2352</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维树状数组"><span class="nav-text">二维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单点更新区间查询-1"><span class="nav-text">单点更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新单点查询"><span class="nav-text">区间更新单点查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新区间查询-1"><span class="nav-text">区间更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例题-Matrix-POJ-2155"><span class="nav-text">例题 Matrix POJ-2155</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三维树状数组"><span class="nav-text">三维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2019牛客多校-八-D-Distance"><span class="nav-text">2019牛客多校(八) D-Distance</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一维树状数组-amp-二维树状数组-amp-三维树状数组"><span class="nav-text">一维树状数组 &amp; 二维树状数组 &amp; 三维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一维树状数组"><span class="nav-text">一维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单点更新区间查询"><span class="nav-text">单点更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新区间查询"><span class="nav-text">区间更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例题-Star-POJ-2352"><span class="nav-text">例题 Star POJ-2352</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维树状数组"><span class="nav-text">二维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单点更新区间查询-1"><span class="nav-text">单点更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新单点查询"><span class="nav-text">区间更新单点查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新区间查询-1"><span class="nav-text">区间更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例题-Matrix-POJ-2155"><span class="nav-text">例题 Matrix POJ-2155</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三维树状数组"><span class="nav-text">三维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2019牛客多校-八-D-Distance"><span class="nav-text">2019牛客多校(八) D-Distance</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#树状数组-求线段交点个数"><span class="nav-text">树状数组-求线段交点个数</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1149,7 +1230,7 @@ int main()
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">195k</span>
+    <span title="站点总字数">213k</span>
   
 
   
@@ -1158,7 +1239,7 @@ int main()
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">2:58</span>
+    <span title="站点阅读时长">3:14</span>
   
 </div>
 
