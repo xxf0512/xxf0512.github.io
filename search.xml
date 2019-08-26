@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[单调队列优化DP]]></title>
+    <url>%2F2019%2F08%2F26%2F%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96dp%2F</url>
+    <content type="text"><![CDATA[单调队列优化单调队列(双端队列)，元素具有单调性，它能够在队首队尾同时进行删除 能保证队首的元素是最大(最小)的，从而满足动态规划的最优性问题 对于一类特定的dp问题，可以用单调队列优化将时间复杂度降到O(n) 题目烽火传递//https://loj.ac/problem/10180 题意：在某两个城市之间有n座烽火台，每个烽火台发出信号都有一定的代价。为了使情报准确传递，在连续m个烽火台中至少要有一个发出信号。 现在输入n,m和每个烽火台的代价，请计算总共最少的代价在两城市之间来准确传递情报。 思路：设f[i]表示i必须选时最小代价。 初值： f[0]=0 f[1..n]=∞ 方程： f[i]=min(f[j])+w[i] 并且max(0,i-m)≤j＜i 为什么j有这样的范围？如果j能更小，那么j~i这段区间中将有不符合条件的子区间，就会错。应保证不能有缝隙。 最后在f[n-m+1..n]中取最小值即答案,时间复杂度O(nm) const int maxn=2e5+5; int n,m; int w[maxn],dp[maxn],que[maxn],head,tail; int main() { fastinout;cin&gt;&gt;n&gt;&gt;m; for(int i=1;i&lt;=n;i++) {cin&gt;&gt;w[i];dp[i]=inf;} dp[0]=0;que[0]=0; for(int i=1;i&lt;=n;i++){ if(que[head]&lt;i-m) ++head;//将超出范围的队头删掉 dp[i]=dp[que[head]]+w[i]; while(head&lt;=tail&amp;&amp;dp[que[tail]]&gt;dp[i]) --tail;//将不比它优的全部删掉 que[++tail]=i;//将它加进队尾 } int ans=inf; for(int i=n-m+1;i&lt;=n;i++) ans=min(ans,dp[i]); cout&lt;&lt;ans&lt;&lt;endl; } 最大连续子序列和(长度限制)题意：输入一个长度为n的整数序列，从中找出一段不超过M的连续子序列，使得整个序列的和最大。 思路：双端队列维护上升数据的下标。防止手造队列的数组装不下，可以用STL deque双端队列 int n,m,s[maxn]; deque&lt;int&gt; que; int main() { fastinout;cin&gt;&gt;n&gt;&gt;m; for(int i=1;i&lt;=n;i++){ int t;cin&gt;&gt;t;s[i]=t+s[i-1]; } int ans=-inf;que.push_back(0); for(int i=1;i&lt;=n;i++){ while(!que.empty()&amp;&amp;que.front()+m&lt;i) que.pop_front(); ans=max(ans,s[i]-s[que.front()]); while(!que.empty()&amp;&amp;s[que.back()]&gt;=s[i]) que.pop_back(); que.push_back(i); } cout&lt;&lt;ans&lt;&lt;endl; }]]></content>
+      <categories>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[prufer序列]]></title>
+    <url>%2F2019%2F08%2F26%2Fprufer%E5%BA%8F%E5%88%97%2F</url>
+    <content type="text"><![CDATA[prufer序列转自：https://www.cnblogs.com/chenxiaoran666/p/prufer.html prufer序列应该是一个比较实用的东西。 NB网友说：一切与度数有关的树上计数问题，都可以用它以及它的性质来解决。 转化1：从无根树到prefur序列现在，给你一棵树，我们要考虑如何把它变成prefur序列。 我们需要重复进行以下操作，直至树中只剩下两个点： 找到一个度数为1，且编号最小的点。（其中编号最小保证了后面将会提到的prufer序列的唯一对应性，同时也方便从prufer序列转化回无根树） 把这个点的父亲节点加入序列，然后把这个点从树中删除。 然后我们就得到了一个长度为n−2的序列，这就是prufer序列。 所以它有什么实际意义呢？ 我也不知道。 以上面的图为例，我们可以模拟这一过程如下： 找到4号节点，将其父结点加入序列，然后将其删去。此时序列：{2}。 找到5号节点，将其父结点加入序列，然后将其删去。此时序列：{2,3}。 找到3号节点，将其父结点加入序列，然后将其删去。此时序列：{2,3,1}。 找到6号节点，将其父结点加入序列，然后将其删去。此时序列：{2,3,1,2}。 找到2号节点，将其父结点加入序列，然后将其删去。此时序列：{2,3,1,2,1}。 所以，最后得到的prufer序列就是{2,3,1,2,1}。 转化2：从prufer序列到无根树还是以刚才那棵树为例吧，我们要考虑如何把它的prefur序列变回它本身。 我们需要重复进行以下操作，直至点集中只剩下两个点：（初始化所有点都在点集中） 取出prufer序列最前面的元素x。 取出在点集中的、且当前不在prufer序列中的最小元素y。（这恰好呼应了前面提到过的选取编号最小的节点） 在x,y之间连接一条边。（注意前面的取出相当于删除） 最后，我们在点集中剩下的两个点中连一条边。 显然这有n−1条边，且绝对不会形成环，因此它是一棵树，且就是原树。 以上面的序列为例，我们可以模拟这一过程如下： 取出2,4连边。此时prufer序列：{3,1,2,1}，点集：{1,2,3,5,6,7}。 取出3,5连边。此时prufer序列：{1,2,1}，点集：{1,2,3,6,7}。 取出1,3连边。此时prufer序列：{2,1}，点集：{1,2,6,7}。 取出2,6连边。此时prufer序列：{1}，点集：{1,2,7}。 取出1,2连边。此时prufer序列：{}，点集：{1,7}。 最后再在1,7间连边，就可以得到原树了。 prufer序列的性质及相关结论 题目数的计数https://www.luogu.org/problem/P2290 题意：给定每个点的度数，让你求有多少种符合条件的无根树。 思路：高精度上Python + 套公式 n=(int)(input())#读入n if n==1:#特判n=1的情况 x=(int)(input());#读入唯一的节点度数 if x==0:print(1);#如果这个节点度数为0，说明只有一种解法 else:print(0);#否则，无解 exit();#退出程序 f=[0 for i in range(n+5)];f[0]=1;#建立阶乘数组 for i in range(1,n+1):f[i]=f[i-1]*i;#预处理阶乘 ans=f[n-2];tot=0;s=input().split();#初始化ans为(n-2)!，用tot统计度数和来判断是否无解 for i in range(n): x=(int)(s[i]); if x==0:print(0);exit();#如果存在某个点度数为0，说明图不连通，输出0 tot+=x-1;ans//=f[x-1];#统计度数和，更新答案 if(tot==n-2):print(ans);#如果度数和为n-2，输出ans else:print(0);#否则无解 明明的烦恼https://www.luogu.org/problem/P2624 题意：给你某些点的度数，其余点度数任意，让你求有多少种符合条件的无根树。 n=(int)(input());k=0;s=0;a=[0 for i in range (n+5)];#初始化 for i in range(1,n+1): a[i]=(int)(input()); if a[i]==0:print(0);exit();#判断无解 if a[i]!=-1:k+=1;s+=a[i]-1;#统计k与s if s&gt;n-2:print(0);exit();#判断无解 f=[0 for i in range(n+5)];f[0]=1;#建立阶乘数组 for i in range(1,n+1):f[i]=f[i-1]*i;#预处理阶乘 ans=ans=(f[n-2]//f[s]//f[n-2-s])*f[s];#初始化ans为C(n-2,s)*s! for i in range(1,n+1): if a[i]!=-1:ans//=f[a[i]-1];#计算答案 print(ans*pow(n-k,n-2-s));#计算答案]]></content>
+      <categories>
+        <category>计数</category>
+      </categories>
+      <tags>
+        <tag>计数</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[最小表示法]]></title>
     <url>%2F2019%2F08%2F26%2F%E6%9C%80%E5%B0%8F%E8%A1%A8%E7%A4%BA%E6%B3%95%2F</url>
     <content type="text"><![CDATA[最小表示法大米饼巨巨&apos;s Blog: https://www.cnblogs.com/Paul-Guderian/p/10206362.html 给定一个长度为n，可循环旋转的字符串环，求从哪个位置断开 使得该长度为n的字符串的字典序最小/最大 下面以字典序最小为例，最大同理 令 i=0,j=1 表示最小字符串可能出现的位置 找到一个 k 使得 s[i+1]==s[j+1],s[i+2]==s[j+2],...,s[i+k-1]==s[j+k-1] 但是 s[i+k]!=s[j+k] 若 s[i+k]&lt;s[j+k] ，对于j&apos;=j+1到j+k的位置一定不是最优解,因为i+j&apos;-j位置的串一定比j&apos;位置的更优； 且如果i+j&apos;-j位置的串更优一定会被i选到。那么我们就可以 j=j+k+1 s[i+k]&gt;s[j+k]就i=i+k+1,注意i==j时要再向后移动一位 事实上你可以理解成i和j是互相独立的只是其中的某一个为最小的串的待定值，另一个为用来比较的串； 每多匹配一位k，i或j一次跳跃的次数就会相应多一位，最多跳2*k，所以复杂度O(n)； template: int solve(string s){ int i=0,j=1,k,n=s.length(); while(i&lt;n&amp;&amp;j&lt;n){ for(k=0,s[i+k]==s[j+k];k++); if(s[i+k]&lt;s[j+k]){j+=k+1;if(i==j) j++;} //若是最大表示 改成&gt;即可 else {i+=k+1;if(i==j) i++;} } return min(i,j); } 题目寻找主人 BZOJ-1389]]></content>
