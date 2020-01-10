@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"always","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一维树状数组 &amp;amp; 二维树状数组 &amp;amp; 三维树状数组* 树状数组 - 动态维护前缀和O(logn)或前缀最值 查询O(logn),常数小于线段树 * 利用二进制数的性质，关键在: lowbit(int x){return x&amp;amp;(-x)}; * 解决二维偏序问题(如逆序对)  一维树状数组单点更新区间查询#include&amp;lt;bits/stdc++.h&amp;gt; using na">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树状数组">
+<meta property="og:url" content="http://xxf0512.github.io/2019/12/25/树状数组/index.html">
+<meta property="og:site_name" content="XXF">
+<meta property="og:description" content="一维树状数组 &amp;amp; 二维树状数组 &amp;amp; 三维树状数组* 树状数组 - 动态维护前缀和O(logn)或前缀最值 查询O(logn),常数小于线段树 * 利用二进制数的性质，关键在: lowbit(int x){return x&amp;amp;(-x)}; * 解决二维偏序问题(如逆序对)  一维树状数组单点更新区间查询#include&amp;lt;bits/stdc++.h&amp;gt; using na">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-25T03:11:13.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树状数组">
+<meta name="twitter:description" content="一维树状数组 &amp;amp; 二维树状数组 &amp;amp; 三维树状数组* 树状数组 - 动态维护前缀和O(logn)或前缀最值 查询O(logn),常数小于线段树 * 利用二进制数的性质，关键在: lowbit(int x){return x&amp;amp;(-x)}; * 解决二维偏序问题(如逆序对)  一维树状数组单点更新区间查询#include&amp;lt;bits/stdc++.h&amp;gt; using na">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://xxf0512.github.io/2019/12/25/树状数组/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>树状数组 | XXF</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/xxf0512" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XXF</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">少说废话</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-schedule">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/schedule/" rel="section"><i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>日程表</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/12/25/树状数组/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XXF">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XXF">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">树状数组
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-25 19:41:12" itemprop="dateCreated datePublished" datetime="2019-12-25T19:41:12+08:00">2019-12-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-25 11:11:13" itemprop="dateModified" datetime="2019-08-25T11:11:13+08:00">2019-08-25</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">12k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一维树状数组-amp-二维树状数组-amp-三维树状数组"><a href="#一维树状数组-amp-二维树状数组-amp-三维树状数组" class="headerlink" title="一维树状数组 &amp; 二维树状数组 &amp; 三维树状数组"></a>一维树状数组 &amp; 二维树状数组 &amp; 三维树状数组</h3><pre><code>* 树状数组 - 动态维护前缀和O(logn)或前缀最值 查询O(logn),常数小于线段树
+* 利用二进制数的性质，关键在: lowbit(int x){return x&amp;(-x)};
+* 解决二维偏序问题(如逆序对)
+</code></pre><hr>
+<h4 id="一维树状数组"><a href="#一维树状数组" class="headerlink" title="一维树状数组"></a>一维树状数组</h4><h5 id="单点更新区间查询"><a href="#单点更新区间查询" class="headerlink" title="单点更新区间查询"></a>单点更新区间查询</h5><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int n,m;
+int a[50005],c[50005]; //对应原数组和树状数组
+int lowbit(int x){return x&amp;(-x);}//求最低位的1
+void update(int i,int k){//在i位置加上k
+    while(i&lt;=n){c[i]+=k;i+=lowbit(i);}
+}
+int query(int i){//求A[1 - i]的和
+    int res=0;
+    while(i&gt;0){res+=c[i];i-=lowbit(i);}
+    return res;
+}
+int main()
+{
+    int x,y,val;cin&gt;&gt;x&gt;&gt;y&gt;&gt;val;
+    update(x,val);//x位置加上val
+    update(x,-val);//x位置减去val
+    cout&lt;&lt;query(x)&lt;&lt;endl;//求a[1~x]的元素之和
+    cout&lt;&lt;query(y)-query(x-1)&lt;&lt;endl;//求a[x~y]的元素之和
+}
+</code></pre><h5 id="区间更新区间查询"><a href="#区间更新区间查询" class="headerlink" title="区间更新区间查询"></a>区间更新区间查询</h5><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=5e5+5;
+int n,m;
+int a[maxn];
+int sum1[maxn];//(D[1] + D[2] + ... + D[n])
+int sum2[maxn];//(1*D[1] + 2*D[2] + ... + n*D[n])
+int lowbit(int x){return x&amp;(-x);}
+void updata(int i,int k){
+    int x=i;    //因为x不变，所以得先保存i值
+    while(i&lt;=n){
+        sum1[i]+=k;
+        sum2[i]+=k*(x-1);
+        i+=lowbit(i);
+    }
+}
+int query(int i){//求前缀和
+    int res=0,x=i;
+    while(i&gt;0){
+        res+=x*sum1[i]-sum2[i];
+        i-=lowbit(i);
+    }
+    return res;
+}
+int main(){
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;i++){
+        cin&gt;&gt;a[i];updata(i,a[i]-a[i-1]);   //输入初值的时候，也相当于更新了值
+    }
+    int x,y,k;cin&gt;&gt;x&gt;&gt;y&gt;&gt;k;
+    //[x,y]区间内加上k
+    updata(x,k);//A[x] - A[x-1]增加k
+    updata(y+1,-k);//A[y+1] - A[y]减少k
+    //求[x,y]区间和
+    int sum=query(y)-query(x-1);
+    //求点[y]的和
+    int point=query(y)-query(y-1);
+    return 0;
+}
+</code></pre><h5 id="例题-Star-POJ-2352"><a href="#例题-Star-POJ-2352" class="headerlink" title="例题 Star POJ-2352"></a>例题 Star POJ-2352</h5><pre><code>题意：按照y升序给你n个星星的坐标，如果有m个星星的x,y坐标均小于等于星星A的坐标，那么星星A的等级为m。 输出每颗星星的等级。
+
+由于y坐标是升序的且坐标不重复，所以在星星A后面输入的星星的x,y坐标不可能都小于等于星星A。
+假如当前输入的星星为（3,3），易得我们只需要去找 树状数组中小于等于3的值就可以了，即GetSum(3)。
+注意：A[i]表示x坐标为i的个数，C[]为A[]的树状数组，那么GetSum(i)就是 序列中前i个元素的和，即x小于等于i的星星数。
+
+本题还是一点要注意：星星坐标的输入可以是（0,0），所以我们把x坐标统一加1，然后用树状数组实现。
+
+#include&lt;iostream&gt;
+using namespace std;
+typedef long long ll;
+const int maxn=1e5+5;
+int maxm=0;
+int n,c[maxn],ans[maxn],x[maxn];
+int lowbit(int x){return x&amp;(-x);}
+void update(int i,int val){
+    while(i&lt;=maxm){c[i]+=val;i+=lowbit(i);}
+}
+int query(int i){
+    int ans=0;
+    while(i&gt;0){ans+=c[i];i-=lowbit(i);}
+    return ans;
+}
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    cin&gt;&gt;n;int t;
+    for(int i=0;i&lt;n;i++) {cin&gt;&gt;x[i]&gt;&gt;t;x[i]++;maxm=max(maxm,x[i]);}
+    for(int i=0;i&lt;n;i++){
+        ans[query(x[i])]++;
+        update(x[i],1);
+    }
+    for(int i=0;i&lt;n;i++) cout&lt;&lt;ans[i]&lt;&lt;endl;
+}
+</code></pre><hr>
+<h4 id="二维树状数组"><a href="#二维树状数组" class="headerlink" title="二维树状数组"></a>二维树状数组</h4><pre><code>Blog：https://www.cnblogs.com/RabbitHu/p/BIT.html
+
+问题：一个由数字构成的大矩阵，能进行两种操作 
+1) 对矩阵里的某个数加上一个整数（可正可负） 
+2) 查询某个子矩阵里所有数字的和,要求对每次查询，输出结果。
+
+一维树状数组很容易扩展到二维，在二维情况下:数组A[][]的树状数组定义为：
+
+C[x][y] = ∑ a[i][j], 其中， 
+x-lowbit(x) + 1 &lt;= i &lt;= x, 
+y-lowbit(y) + 1 &lt;= j &lt;= y.
+</code></pre><h5 id="单点更新区间查询-1"><a href="#单点更新区间查询-1" class="headerlink" title="单点更新区间查询"></a>单点更新区间查询</h5><pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=500;
+int tree[maxn][maxn];//行列分开看，每一行每一列都是一个一位树状数组
+int n,m;//n行m列
+int lowbit(int x){return x&amp;(-x);}
+void update(int x,int y,int val){//单点更新
+    for(int i=x;i&lt;=n;i+=lowbit(i))
+        for(int j=y;j&lt;=m;j+=lowbit(j))//列的一维树状数组
+            tree[i][j]+=val;
+}
+int sum(int x,int y){//返回(0,0)(x,y)为对角顶点的矩阵和
+    int res=0;
+    for(int i=x;i&gt;0;i-=lowbit(i))
+        for(int j=y;j&gt;0;j-=lowbit(j))
+            res+=tree[i][j];
+    return res;
+}
+int query(int x1,int y1,int x2,int y2){//区间查询
+    return sum(x2,y2)+sum(x1-1,y1-1)-sum(x2,y1-1)-sum(x1,y2);//注意精度为int or longlong
+}
+</code></pre><h5 id="区间更新单点查询"><a href="#区间更新单点查询" class="headerlink" title="区间更新单点查询"></a>区间更新单点查询</h5><pre><code>//区间修改,单点查询,和一维树状数组差分思想一样,差分思想。
+//二维前缀和：
+//sum[i][j]=sum[i−1][j]+sum[i][j−1]−sum[i−1][j−1]+a[i][j]
+//那么我们可以令差分数组d[i][j] 表示 a[i][j] 与 a[i−1][j]+a[i][j−1]−a[i−1][j−1] 的差。
+
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int maxn=500;
+int tree[maxn][maxn];//行列分开看，每一行每一列都是一个一位树状数组
+int n,m;//n行m列
+int lowbit(int x){return x&amp;(-x);}
+void update(int x,int y,int val){//单点更新
+    for(int i=x;i&lt;=n;i+=lowbit(i))
+        for(int j=y;j&lt;=m;j+=lowbit(j))//列的一维树状数组
+            tree[i][j]+=val;
+}
+int query(int x,int y){//返回(0,0)(x,y)为对角顶点的矩阵和
+    int res=0;
+    for(int i=x;i&gt;0;i-=lowbit(i))
+        for(int j=y;j&gt;0;j-=lowbit(j))
+            res+=tree[i][j];
+    return res;
+}
+void regionupdate(int x1,int y1,int x2,int y2,int val){
+    update(x1,y1,val);
+    update(x2+1,y1,-val);
+    update(x1,y2+1,-val);
+    update(x2+1,y2+1,val);
+}
+int pointQuery(int x,int y){
+    return query(x,y);
+}
+</code></pre><h5 id="区间更新区间查询-1"><a href="#区间更新区间查询-1" class="headerlink" title="区间更新区间查询"></a>区间更新区间查询</h5><pre><code>#include&lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int maxn=500;
+ll n,m,Q;
+ll tree[maxn][maxn][4];
+inline ll lowbit(ll x){return x&amp;(-x);}
+void update(ll x,ll y,ll val){
+    for(int i=x;i&lt;=n;i+=lowbit(i))
+        for(int j=y;j&lt;=m;j+=lowbit(j)){
+            tree[i][j][0]+=val;
+            tree[i][j][1]+=val*x;
+            tree[i][j][2]+=val*y;
+            tree[i][j][3]+=val*x*y;
+        }
+}
+void range_update(ll xa,ll ya,ll xb,ll yb,ll val){//(xa,ya)到(xb,yb)的矩形
+    update(xa,ya,val);
+    update(xa,yb+1,-val);
+    update(xb+1,ya,-val);
+    update(xa+1,ya+1,val);
+}
+ll query(ll x,ll y){
+    ll ans=0;
+    for(int i=x;i&gt;0;i+=lowbit(i))
+        for(int j=y;j&gt;0;j+=lowbit(j)){
+            ans+=(x+1)*(y+1)*tree[i][j][0]
+                -(y+1)*tree[i][j][1]
+                -(x+1)*tree[i][j][2]
+                +tree[i][j][3];
+        }
+    return ans;
+}
+ll range_query(ll xa,ll ya,ll xb,ll yb){
+    return query(xb,yb)-query(xb,ya-1)-query(xa-1,yb)+query(xa-1,ya-1);
+}
+</code></pre><h5 id="例题-Matrix-POJ-2155"><a href="#例题-Matrix-POJ-2155" class="headerlink" title="例题 Matrix POJ-2155"></a>例题 Matrix POJ-2155</h5><pre><code>题意：一个01矩阵 可以区间翻转 单点查询
+思路：二维树状数组，区间更新单点查询
+
+#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+const int maxn=1005;
+int tree[maxn][maxn];
+int n,m;
+int lowbit(int x){return x&amp;(-x);}
+void update(int x,int y,int val){
+    for(int i=x;i&lt;=n;i+=lowbit(i))
+        for(int j=y;j&lt;=m;j+=lowbit(j))
+            tree[i][j]+=val;
+}
+int query(int x,int y){
+    int res=0;
+    for(int i=x;i&gt;0;i-=lowbit(i))
+        for(int j=y;j&gt;0;j-=lowbit(j))
+            res+=tree[i][j];
+    return res;
+}
+void regionupdate(int x1,int y1,int x2,int y2,int val){
+    update(x1,y1,val);
+    update(x2+1,y1,-val);
+    update(x1,y2+1,-val);
+    update(x2+1,y2+1,val);
+}
+int pointQuery(int x,int y){
+    return query(x,y);
+}
+int main()
+{
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    int T;cin&gt;&gt;T;
+    while(T--){
+        memset(tree,0,sizeof(tree));
+        int q;cin&gt;&gt;n&gt;&gt;q;m=n;
+        while(q--){
+            char ch;cin&gt;&gt;ch;
+            if(ch==&apos;C&apos;){
+                int x1,x2,y1,y2;cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
+                regionupdate(x1,y1,x2,y2,1);
+            }
+            else{
+                int x,y;cin&gt;&gt;x&gt;&gt;y;cout&lt;&lt;pointQuery(x,y)%2&lt;&lt;endl;
+            }
+        }
+        if(T&gt;0) cout&lt;&lt;endl;
+    }
+}
+</code></pre><hr>
+<h4 id="三维树状数组"><a href="#三维树状数组" class="headerlink" title="三维树状数组"></a>三维树状数组</h4><pre><code>三维空间内维护最值等相关信息
+</code></pre><h5 id="2019牛客多校-八-D-Distance"><a href="#2019牛客多校-八-D-Distance" class="headerlink" title="2019牛客多校(八) D-Distance"></a>2019牛客多校(八) D-Distance</h5><pre><code>//https://ac.nowcoder.com/acm/contest/888/D
+题意：三维空间内长宽高(n,m,h)，q次操作(两种)，可以给一个点打标记也可以查询离一个点最近的打标记的点，计算曼哈顿距离。
+思路：(定期重构或三维树状数组)  树状数组中维护前缀最大值，一个点的坐标对应着一个值(与原点的曼哈顿距离)，
+打标记就把这个点后面的区间更新一下，计算距离即把一个点的坐标之和减去其前缀中的最大坐标之和即为最近距离。
+因此需要以立方体的八个顶点为起点开八个树状数组，每次操作维护相关信息即可
+
+#include&lt;bits/stdc++.h&gt;
+#define fi first
+#define se second
+#define pb(x) push_back(x)
+#define eb(x) emplace_back(x)
+#define mem(a,b) memset(a,b,sizeof(a))
+#define all(x) x.begin(),x.end()
+#define fastinout ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+using namespace std;
+typedef unsigned long long ull;
+typedef long long ll;
+typedef double db;
+typedef pair&lt;int,int&gt; pii;
+typedef vector&lt;int&gt; vi;
+typedef vector&lt;ll&gt; vl;
+const double eps=1e-6;
+const int inf=0x3f3f3f3f;
+const ll INF=0x3f3f3f3f3f3f3f3f;
+const int mod=998244353;
+const int maxn=3e5+5;
+/***********************************************/
+int n,m,h;
+struct BIT{
+    int a[maxn];
+    inline int lowbit(int x){return x&amp;(-x);}
+    inline int getid(int x,int y,int z){return x*m*h+y*h+z;}
+    inline void init(){for(int i=0;i&lt;maxn;i++) a[i]=-inf;}
+    inline void add(int x,int y,int z,int val){
+        for(int i=x;i&lt;=n;i+=lowbit(i))
+            for(int j=y;j&lt;=m;j+=lowbit(j))
+                for(int k=z;k&lt;=h;k+=lowbit(k))
+                    a[getid(i,j,k)]=max(a[getid(i,j,k)],val);
+    }
+    inline int query(int x,int y,int z){
+        int res=-inf;
+        for(int i=x;i;i-=lowbit(i))
+            for(int j=y;j;j-=lowbit(j))
+                for(int k=z;k;k-=lowbit(k))
+                    res=max(res,a[getid(i,j,k)]);
+        return res;
+    }
+}tree[8];
+int main()
+{
+    fastinout;int T;cin&gt;&gt;n&gt;&gt;m&gt;&gt;h&gt;&gt;T;
+    for(int i=0;i&lt;8;i++) tree[i].init();
+    while(T--){
+        int op,x,y,z;cin&gt;&gt;op&gt;&gt;x&gt;&gt;y&gt;&gt;z;
+        if(op==1){
+            tree[0].add(x,y,z,x+y+z);
+            tree[1].add(x,y,h-z+1,x+y-z);
+            tree[2].add(x,m-y+1,z,x-y+z);
+            tree[3].add(x,m-y+1,h-z+1,x-y-z);
+            tree[4].add(n-x+1,y,z,-x+y+z);
+            tree[5].add(n-x+1,y,h-z+1,-x+y-z);
+            tree[6].add(n-x+1,m-y+1,z,-x-y+z);
+            tree[7].add(n-x+1,m-y+1,h-z+1,-x-y-z);
+        }
+        else{
+            int ans=inf;
+            ans=min(ans,x+y+z-tree[0].query(x,y,z));
+            ans=min(ans,x+y-z-tree[1].query(x,y,h-z+1));
+            ans=min(ans,x-y+z-tree[2].query(x,m-y+1,z));
+            ans=min(ans,x-y-z-tree[3].query(x,m-y+1,h-z+1));
+            ans=min(ans,-x+y+z-tree[4].query(n-x+1,y,z));
+            ans=min(ans,-x+y-z-tree[5].query(n-x+1,y,h-z+1));
+            ans=min(ans,-x-y+z-tree[6].query(n-x+1,m-y+1,z));
+            ans=min(ans,-x-y-z-tree[7].query(n-x+1,m-y+1,h-z+1));
+            cout&lt;&lt;ans&lt;&lt;endl;
+        }
+    }
+}
+</code></pre><hr>
+<h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><h5 id="树状数组-求线段交点个数"><a href="#树状数组-求线段交点个数" class="headerlink" title="树状数组-求线段交点个数"></a>树状数组-求线段交点个数</h5><pre><code>//HDU-5862
+/*
+    扫描线+线段树维护竖直方向点个数的前缀和，把坐标离散化之后用一条垂直x轴的线去扫(想象垂直线) 对于平行x轴的线(水平线)，碰到左端点就在响应位置+1，碰到右端点就在之前的位置-1。(删掉之后这条水平线就不会产生贡献了)
+    对于垂直线,求其上端点到下端点之间的点的个数(区间内水平线的个数)
+*/
+
+const int maxn=1e5+5;
+struct Line{
+    int x,y,z;
+    Line(int x=0,int y=0,int z=0):x(x),y(y),z(z){}
+    bool operator&lt; (const Line&amp; l){
+        return x&lt;l.x||(x==l.x&amp;&amp;z&lt;l.z);
+    }
+}a[maxn],b[maxn],c[maxn*2];
+int val[maxn&lt;&lt;2],cnt;
+int id(int x){return lower_bound(val+1,val+1+cnt,x)-val;}
+struct BIT{
+    int a[maxn*5];
+    void init(){mem(a,0);}
+    int lowbit(int x){return x&amp;(-x);}
+    void update(int x,int v){
+        for(int i=x;i&lt;=maxn&lt;&lt;2;i+=lowbit(i)) a[i]+=v;
+    }
+    int query(int x){
+        int res=0;
+        for(int i=x;i&gt;0;i-=lowbit(i)) res+=a[i];
+        return res;
+    }
+    int solve(int l,int r){
+        return query(r)-query(l-1);
+    }
+}Tree;
+int main()
+{
+    fastinout;int T;cin&gt;&gt;T;
+    while(T--){
+        Tree.init();
+        int k,na=0,nb=0,nc=0;
+        cnt=0;cin&gt;&gt;k;
+        for(int i=1;i&lt;=k;i++){
+            int x1,x2,y1,y2;
+            cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
+            val[++cnt]=x1;val[++cnt]=y1;
+            val[++cnt]=x2;val[++cnt]=y2;
+            if(x1==x2){
+                if(y1&gt;y2) swap(y1,y2);
+                b[++nb]=Line(x1,y1,y2);
+            }
+            if(y1==y2){
+                if(x1&gt;x2) swap(x1,x2);
+                a[++na]=Line(y1,x1,x2);
+            }
+        }
+        sort(val+1,val+1+cnt);
+        cnt=unique(val+1,val+1+cnt)-val-1;
+        for(int i=1;i&lt;=na;i++){
+            a[i].x=id(a[i].x);
+            a[i].y=id(a[i].y);
+            a[i].z=id(a[i].z);
+            c[++nc]=Line(a[i].y,i,1);
+            c[++nc]=Line(a[i].z,i,3);
+        }
+        for(int i=1;i&lt;=nb;i++){
+            b[i].x=id(b[i].x);
+            b[i].y=id(b[i].y);
+            b[i].z=id(b[i].z);
+            c[++nc]=Line(b[i].x,i,2);
+        }
+        sort(c+1,c+1+nc);
+        ll ans=0;
+        for(int i=1;i&lt;=nc;i++){
+            if(c[i].z==1) Tree.update(a[c[i].y].x,1);
+            if(c[i].z==2) ans+=Tree.solve(b[c[i].y].y,b[c[i].y].z);
+            if(c[i].z==3) Tree.update(a[c[i].y].x,-1);
+        }
+        cout&lt;&lt;ans&lt;&lt;endl; 
+    }
+}
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/树形dp/" rel="next" title="树形dp">
+                <i class="fa fa-chevron-left"></i> 树形dp
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/25/线段树/" rel="prev" title="线段树">
+                线段树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="XXF">
+            
+              <p class="site-author-name" itemprop="name">XXF</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xxf0512" title="GitHub &rarr; https://github.com/xxf0512" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:1258003050@qq.com" title="E-Mail &rarr; mailto:1258003050@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一维树状数组-amp-二维树状数组-amp-三维树状数组"><span class="nav-text">一维树状数组 &amp; 二维树状数组 &amp; 三维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一维树状数组"><span class="nav-text">一维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单点更新区间查询"><span class="nav-text">单点更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新区间查询"><span class="nav-text">区间更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例题-Star-POJ-2352"><span class="nav-text">例题 Star POJ-2352</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二维树状数组"><span class="nav-text">二维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单点更新区间查询-1"><span class="nav-text">单点更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新单点查询"><span class="nav-text">区间更新单点查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#区间更新区间查询-1"><span class="nav-text">区间更新区间查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#例题-Matrix-POJ-2155"><span class="nav-text">例题 Matrix POJ-2155</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三维树状数组"><span class="nav-text">三维树状数组</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2019牛客多校-八-D-Distance"><span class="nav-text">2019牛客多校(八) D-Distance</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#树状数组-求线段交点个数"><span class="nav-text">树状数组-求线段交点个数</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XXF</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">250k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">3:47</span>
+  
+</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+
+
+<!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+        总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+        访客数<span id="busuanzi_value_site_uv"></span>人
+</span>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+<script type="text/javascript" src="/custom/fold_action.js?v=7.1.0"></script>
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
