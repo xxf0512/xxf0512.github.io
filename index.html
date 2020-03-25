@@ -396,7 +396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2020/03/19/Viterbi/">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2020/03/25/切分算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="XXF">
@@ -416,7 +416,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/03/19/Viterbi/" class="post-title-link" itemprop="url">Viterbi</a>
+                <a href="/2020/03/25/切分算法/" class="post-title-link" itemprop="url">切分算法</a>
               
             
           </h1>
@@ -441,7 +441,7 @@
                 
               
 
-              <time title="创建时间：2020-03-19 13:41:17 / 修改时间：13:44:09" itemprop="dateCreated datePublished" datetime="2020-03-19T13:41:17+08:00">2020-03-19</time>
+              <time title="创建时间：2020-03-25 10:28:01 / 修改时间：10:54:25" itemprop="dateCreated datePublished" datetime="2020-03-25T10:28:01+08:00">2020-03-25</time>
             
 
             
@@ -492,7 +492,207 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">989</span>
+                <span title="本文字数">2.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              切分算法在确定词典后，需要依照词典中的词对文本进行切分。需要制定一些规则来查切词查词典，常用的规则有正向最长匹配、逆向最长匹配 和 双向最长匹配 。下面介绍的算法复杂度都是   O(n^2)​
+0. 加载词典def load_dictionary():    dic = set()    for l
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/03/25/切分算法/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2020/03/19/Viterbi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XXF">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XXF">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/19/Viterbi/" class="post-title-link" itemprop="url">Viterbi</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-19 13:41:17 / 修改时间：13:46:15" itemprop="dateCreated datePublished" datetime="2020-03-19T13:41:17+08:00">2020-03-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/NLP-Learning/" itemprop="url" rel="index"><span itemprop="name">NLP - Learning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">991</span>
               
 
               
@@ -533,8 +733,8 @@
 Viterbi算法是栅栏图的最短路问题DP解法。如下图(图是知乎嫖的)，即一条从S到E的最短路。常应用于马尔科夫模型。
 
 
-下面以一个具体的例子来说明它的一个应用(例子也是嫖的) :punch:
-一个人有两种状态(健康 or 发烧) 且状态转换的概率如下表，如一个
+下面以一个具体的例子来说明它的一个应用(例子也是嫖的)   :punch:
+一个人有两种状态(健康 or 发烧) 且状态转换的概率如下表，如
               ...
             </p>
           <!--noindex-->
@@ -2266,221 +2466,6 @@ struct Point{
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://xxf0512.github.io/2019/12/25/网络流/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="XXF">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XXF">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/25/网络流/" class="post-title-link" itemprop="url">网络流</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-12-25 19:41:12" itemprop="dateCreated datePublished" datetime="2019-12-25T19:41:12+08:00">2019-12-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-30 11:20:28" itemprop="dateModified" datetime="2019-08-30T11:20:28+08:00">2019-08-30</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图论/" itemprop="url" rel="index"><span itemprop="name">图论</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">34k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">31 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              网络流重在建图,再套模版 -最大流、最小割、最大匹配、最大权闭合图
-Blog：https://www.cnblogs.com/Paul-Guderian/p/6657639.html
-      https://www.cnblogs.com/zsnuo/p/8909613.html
-
-      
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/12/25/网络流/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2529,7 +2514,7 @@ Blog：https://www.cnblogs.com/Paul-Guderian/p/6657639.html
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2693,7 +2678,7 @@ Blog：https://www.cnblogs.com/Paul-Guderian/p/6657639.html
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">270k</span>
+    <span title="站点总字数">272k</span>
   
 
   
@@ -2702,7 +2687,7 @@ Blog：https://www.cnblogs.com/Paul-Guderian/p/6657639.html
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">4:05</span>
+    <span title="站点阅读时长">4:08</span>
   
 </div>
 
