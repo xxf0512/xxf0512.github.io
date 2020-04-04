@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://github.com/xxf0512/My-Image-Hosting/blob/master/blog-images/20200403/01.png?raw=true">
 <meta property="og:image" content="https://github.com/xxf0512/My-Image-Hosting/blob/master/blog-images/20200403/02.png?raw=true">
 <meta property="og:image" content="https://github.com/xxf0512/My-Image-Hosting/blob/master/blog-images/20200403/03.png?raw=true">
-<meta property="og:updated_time" content="2020-04-03T12:08:20.802Z">
+<meta property="og:updated_time" content="2020-04-04T01:24:48.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Restful-Web">
 <meta name="twitter:description" content="Restful-Web 不同于传统的MVC模式，Restful Web 服务一般会将数据以 JSON 的形式传给前端，实现前后端分离。下面开发的简易流程，实现用户的CRUD。  1. 实体类com/xxf/entity/User.java 12345678910package com.xxf.entity;import lombok.Data;@Datapublic class User &amp;#12">
@@ -446,12 +446,24 @@
                 
               
 
-              <time title="创建时间：2020-04-03 20:07:25 / 修改时间：20:08:20" itemprop="dateCreated datePublished" datetime="2020-04-03T20:07:25+08:00">2020-04-03</time>
+              <time title="创建时间：2020-04-03 20:07:25" itemprop="dateCreated datePublished" datetime="2020-04-03T20:07:25+08:00">2020-04-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-04 09:24:48" itemprop="dateModified" datetime="2020-04-04T09:24:48+08:00">2020-04-04</time>
               
             
           </span>
@@ -550,7 +562,7 @@
 <h3 id="4-2-其他注解"><a href="#4-2-其他注解" class="headerlink" title="4.2 其他注解"></a>4.2 其他注解</h3><p><code>@RestController</code>  <strong>将返回的对象数据直接以 JSON 或 XML 形式写入 HTTP 响应(Response)中。</strong> 绝大部分情况下都是直接以 JSON 形式返回给客户端，很少的情况下才会以 XML 形式返回。转换成 XML 形式还需要额为的工作，上面代码中演示的直接就是将对象数据直接以 JSON 形式写入 HTTP 响应(Response)中。<br><code>@Controller</code> +<code>@ResponseBody</code>= <code>@RestController</code></p>
 <p><code>@RequestMapping</code> 上面的示例中没有指定 GET 与 PUT、POST 等，因为<strong><code>@RequestMapping</code>默认映射所有HTTP Action</strong>，可以使用<code>@RequestMapping(method=ActionType)</code>来缩小这个映射。<code>@PostMapping</code>实际上就等价于<code>@RequestMapping(method = RequestMethod.POST)</code>，同样的 <code>@DeleteMapping</code> ,<code>@GetMapping</code>也都一样，常用的 HTTP Action 都有一个这种形式的注解所对应。</p>
 <p><code>@ResponseEntity</code> <strong>表示整个HTTP Response：状态码，标头和正文内容</strong>。可以使用它来自定义HTTP Response 的内容。</p>
-<p>以上参考：<a href="https://github.com/Snailclimb/springboot-guide/blob/master/docs/basis/sringboot-restful-web-service.md" target="_blank" rel="noopener">https://github.com/Snailclimb/springboot-guide/blob/master/docs/basis/sringboot-restful-web-service.md</a></p>
+<p>以上参考：<a href="https://github.com/Snailclimb/springboot-guide/blob/master/docs/basis/sringboot-restful-web-service.md---" target="_blank" rel="noopener">https://github.com/Snailclimb/springboot-guide/blob/master/docs/basis/sringboot-restful-web-service.md---</a></p>
 
       
     </div>
@@ -590,6 +602,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/04/ExceptionHandler/" rel="prev" title="ExceptionHandler">
+                ExceptionHandler <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -660,7 +676,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -843,7 +859,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">275k</span>
+    <span title="站点总字数">281k</span>
   
 
   
@@ -852,7 +868,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">4:10</span>
+    <span title="站点阅读时长">4:15</span>
   
 </div>
 
