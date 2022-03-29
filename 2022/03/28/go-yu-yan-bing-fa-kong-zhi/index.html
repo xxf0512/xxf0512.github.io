@@ -489,21 +489,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-28
+                    2022-03-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.5k
+                    5.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    19 分
+                    24 分
                 </div>
                 
 
@@ -529,7 +529,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Go语言并发控制"><a href="#Go语言并发控制" class="headerlink" title="Go语言并发控制"></a>Go语言并发控制</h1><blockquote>
-<p>参考: Go语言底层原理剖析 - 第17章 并发控制</p>
+<p>参考:<br>Go语言底层原理剖析 - 第17章 并发控制<br><a target="_blank" rel="noopener" href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/">Go语言设计与实现 - 6.2 同步原语与锁</a></p>
 </blockquote>
 <hr>
 <p>在高并发场景下，必定涉及到协程之间的交流与并发控制。除了通道外，go语言还提供了context以及各种锁机制，下面逐一进行介绍。</p>
@@ -933,7 +933,7 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>sync.Mutex构建起了互斥锁，在同一时刻，只会有一个获取锁的协程继续执行，而其他的协程将陷入等待状态，这和自旋锁的功能是类似的，但是其提供了更加复杂的机制避免自旋锁的争用问题。</p>
-<h4 id="3-3-3-实现原理"><a href="#3-3-3-实现原理" class="headerlink" title="3.3.3 实现原理"></a>3.3.3 实现原理</h4><p>互斥锁是一种混合锁，其实现方式包含了自旋锁，同时参考了操作系统锁的实现。</p>
+<h4 id="3-3-3-实现原理"><a href="#3-3-3-实现原理" class="headerlink" title="3.3.3 实现原理"></a>3.3.3 实现原理</h4><h5 id="3-3-3-1-数据结构"><a href="#3-3-3-1-数据结构" class="headerlink" title="3.3.3.1 数据结构"></a>3.3.3.1 数据结构</h5><p>互斥锁是一种混合锁，其实现方式包含了自旋锁，同时参考了操作系统锁的实现。</p>
 <pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// A Mutex is a mutual exclusion lock.</span>
 <span class="token comment" spellcheck="true">// The zero value for a Mutex is an unlocked mutex.</span>
 <span class="token comment" spellcheck="true">//</span>
@@ -953,7 +953,10 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
 <li>sema：互质锁中实现的信号量。</li>
 </ul>
 <p>为了解决某一个协程可能长时间无法获取锁的问题，Go 1.9之后使用了饥饿模式。在饥饿模式下，unlock会唤醒最先申请加速的协程，从而保证公平。</p>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// Lock locks m.</span>
+<h5 id="3-3-3-1-正常模式-amp-饥饿模式"><a href="#3-3-3-1-正常模式-amp-饥饿模式" class="headerlink" title="3.3.3.1 正常模式 &amp; 饥饿模式"></a>3.3.3.1 正常模式 &amp; 饥饿模式</h5><p>Mutex有两种模式：正常模式 与 饥饿模式</p>
+<p><strong>正常模式</strong>：锁的等待者会按照先进先出的顺序获取锁。刚被唤起的 Goroutine 与新创建的 Goroutine 竞争时，大概率会获取不到锁，为了减少这种情况的出现，一旦 Goroutine 超过 1ms 没有获取到锁，它就会将当前互斥锁切换饥饿模式，防止部分 Goroutine 被“饿死”。</p>
+<p><strong>饥饿模式</strong>：互斥锁会直接交给等待队列最前面的 Goroutine。新的 Goroutine 在该状态下不能获取锁、也不会进入自旋状态，它们只会在队列的末尾等待。如果一个 Goroutine 获得了互斥锁并且它在队列的末尾或者它等待的时间少于 1ms，那么当前的互斥锁就会切换回正常模式。</p>
+<h5 id="3-3-3-2-获取锁"><a href="#3-3-3-2-获取锁" class="headerlink" title="3.3.3.2 获取锁"></a>3.3.3.2 获取锁</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// Lock locks m.</span>
 <span class="token comment" spellcheck="true">// If the lock is already in use, the calling goroutine</span>
 <span class="token comment" spellcheck="true">// blocks until the mutex is available.</span>
 <span class="token keyword">func</span> <span class="token punctuation">(</span>m <span class="token operator">*</span>Mutex<span class="token punctuation">)</span> <span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -971,6 +974,8 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
 <img src="http://r9g4pyvo9.hd-bkt.clouddn.com/uPic/20220328/1648480268018-7b603396-955b-47ab-84ac-a02076b7b751.jpeg" alt="获取互斥锁" style="zoom: 67%;">
 
 <br>
+
+
 
 <h3 id="3-4-读写锁"><a href="#3-4-读写锁" class="headerlink" title="3.4 读写锁"></a>3.4 读写锁</h3><h4 id="3-4-1-思想介绍"><a href="#3-4-1-思想介绍" class="headerlink" title="3.4.1 思想介绍"></a>3.4.1 思想介绍</h4><p>读写锁通过两种锁来实现，一种为读锁，另一种为写锁。当进行读取操作时，需要加读锁，而进行写入操作时需要加写锁。</p>
 <table>
@@ -1032,7 +1037,135 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
 </ol>
 <br>
 
-<h3 id="3-5-总结"><a href="#3-5-总结" class="headerlink" title="3.5 总结"></a>3.5 总结</h3><p>Go语言中的互斥锁算一种混合锁，结合了原子操作、自旋、信号量、全局哈希表、等待队列、操作系统级别锁等多种技术，实现相对复杂。<br>但是Go语言的锁相对于操作系统级别的锁<strong>更快</strong>，因为在大部分情况下锁的争用停留在用户态。在有些场景下使用锁更简单，会<strong>比通道有更清晰的语义表达</strong>，需要结合具体的场景使用。</p>
+
+
+<h3 id="3-5-WaitGroup"><a href="#3-5-WaitGroup" class="headerlink" title="3.5 WaitGroup"></a>3.5 WaitGroup</h3><h4 id="3-5-1-使用方式"><a href="#3-5-1-使用方式" class="headerlink" title="3.5.1 使用方式"></a>3.5.1 使用方式</h4><p><code>sync.WaitGroup</code> 可以等待一组 Goroutine 的返回，一个比较常见的使用场景是批量发出 RPC 或者 HTTP 请求：</p>
+<pre class="line-numbers language-go"><code class="language-go">requests <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Request<span class="token punctuation">{</span><span class="token operator">...</span><span class="token punctuation">}</span>
+wg <span class="token operator">:=</span> <span class="token operator">&amp;</span>sync<span class="token punctuation">.</span>WaitGroup<span class="token punctuation">{</span><span class="token punctuation">}</span>
+wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>requests<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> request <span class="token operator">:=</span> <span class="token keyword">range</span> requests <span class="token punctuation">{</span>
+    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>r <span class="token operator">*</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">defer</span> wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">// res, err := service.call(r)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+wg<span class="token punctuation">.</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>类似于操作系统中的 <code>fork-in</code> 模式，<code>WaitGroup.Wait()</code> 会hang住，直到 <code>len(requests)</code> 个子协程全部 <code>Done()</code> 了。</p>
+<h4 id="3-5-2-实现原理"><a href="#3-5-2-实现原理" class="headerlink" title="3.5.2 实现原理"></a>3.5.2 实现原理</h4><h5 id="3-5-2-1-数据结构"><a href="#3-5-2-1-数据结构" class="headerlink" title="3.5.2.1 数据结构"></a>3.5.2.1 数据结构</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> WaitGroup <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    noCopy noCopy
+    state1 <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token builtin">uint32</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>WaitGroup</code>结构体中只包含两个成员变量：</p>
+<ul>
+<li><code>noCopy</code> — 保证 <code>WaitGroup</code>不会被开发者通过再赋值的方式拷贝</li>
+<li><code>state1</code> — 存储着状态和信号量；</li>
+</ul>
+<img src="https://img.draveness.me/2020-01-23-15797104328035-golang-waitgroup-state.png" alt="golang-waitgroup-state" style="zoom:67%;">
+
+
+
+<p><code>WaitGroup</code>对外暴露了三个方法：</p>
+<ol>
+<li><code>WaitGroup.Add</code></li>
+<li><code>WaitGroup.Wait</code> </li>
+<li><code>WaitGroup.Done</code> </li>
+</ol>
+<h5 id="3-5-2-2-WaitGroup-Add"><a href="#3-5-2-2-WaitGroup-Add" class="headerlink" title="3.5.2.2 WaitGroup.Add"></a>3.5.2.2 WaitGroup.Add</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>wg <span class="token operator">*</span>WaitGroup<span class="token punctuation">)</span> <span class="token function">Add</span><span class="token punctuation">(</span>delta <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    statep<span class="token punctuation">,</span> semap <span class="token operator">:=</span> wg<span class="token punctuation">.</span><span class="token function">state</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    state <span class="token operator">:=</span> atomic<span class="token punctuation">.</span><span class="token function">AddUint64</span><span class="token punctuation">(</span>statep<span class="token punctuation">,</span> <span class="token function">uint64</span><span class="token punctuation">(</span>delta<span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">32</span><span class="token punctuation">)</span>
+    v <span class="token operator">:=</span> <span class="token function">int32</span><span class="token punctuation">(</span>state <span class="token operator">>></span> <span class="token number">32</span><span class="token punctuation">)</span>
+    w <span class="token operator">:=</span> <span class="token function">uint32</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> v <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"sync: negative WaitGroup counter"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> v <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">||</span> w <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">*</span>statep <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> <span class="token punctuation">;</span> w <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">;</span> w<span class="token operator">--</span> <span class="token punctuation">{</span>
+        <span class="token function">runtime_Semrelease</span><span class="token punctuation">(</span>semap<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>WaitGroup.Add</code> 可以更新 <code>WaitGroup</code> 中的计数器 <code>counter</code>。虽然 <code>WaitGroup.Add</code> 方法传入的参数可以为负数，但是计数器只能是非负数，一旦出现负数就会发生程序崩溃。当调用计数器归零，即所有任务都执行完成时，才会通过 <code>sync.runtime_Semrelease</code> 唤醒处于等待状态的 Goroutine。</p>
+<h5 id="3-5-2-3-WaitGroup-Wait"><a href="#3-5-2-3-WaitGroup-Wait" class="headerlink" title="3.5.2.3 WaitGroup.Wait"></a>3.5.2.3 WaitGroup.Wait</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>wg <span class="token operator">*</span>WaitGroup<span class="token punctuation">)</span> <span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    statep<span class="token punctuation">,</span> semap <span class="token operator">:=</span> wg<span class="token punctuation">.</span><span class="token function">state</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token punctuation">{</span>
+        state <span class="token operator">:=</span> atomic<span class="token punctuation">.</span><span class="token function">LoadUint64</span><span class="token punctuation">(</span>statep<span class="token punctuation">)</span>
+        v <span class="token operator">:=</span> <span class="token function">int32</span><span class="token punctuation">(</span>state <span class="token operator">>></span> <span class="token number">32</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> v <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> atomic<span class="token punctuation">.</span><span class="token function">CompareAndSwapUint64</span><span class="token punctuation">(</span>statep<span class="token punctuation">,</span> state<span class="token punctuation">,</span> state<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">runtime_Semacquire</span><span class="token punctuation">(</span>semap<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token operator">+</span>statep <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+                <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"sync: WaitGroup is reused before previous Wait has returned"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>WaitGroup.Add</code> 会在计数器大于 0 并且不存在等待的 Goroutine 时，调用 <code>runtime.sync_runtime_Semacquire</code>陷入睡眠。</p>
+<p>当 <code>WaitGroup</code> 的计数器归零时，陷入睡眠状态的 Goroutine 会被唤醒，上述方法也会立刻返回。</p>
+<h5 id="3-5-2-4-WaitGroup-Done"><a href="#3-5-2-4-WaitGroup-Done" class="headerlink" title="3.5.2.4 WaitGroup.Done"></a>3.5.2.4 WaitGroup.Done</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// Done decrements the WaitGroup counter by one.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>wg <span class="token operator">*</span>WaitGroup<span class="token punctuation">)</span> <span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>WaitGroup.Done</code> 只是对 <code>WaitGroup.Add</code> 方法的简单封装，我们可以向 <code>sync.WaitGroup.Add</code> 方法传入任意负数（需要保证计数器非负）快速将计数器归零以唤醒等待的 Goroutine；</p>
+<br>
+
+<h3 id="3-6-Once"><a href="#3-6-Once" class="headerlink" title="3.6 Once"></a>3.6 Once</h3><h4 id="3-6-1-使用方式"><a href="#3-6-1-使用方式" class="headerlink" title="3.6.1 使用方式"></a>3.6.1 使用方式</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    o <span class="token operator">:=</span> <span class="token operator">&amp;</span>sync<span class="token punctuation">.</span>Once<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        o<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"only once"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// only once</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> <code>sync.Once</code>可以保证在 Go 程序运行期间的某段代码只会执行一次。</p>
+<h4 id="3-6-2-实现原理"><a href="#3-6-2-实现原理" class="headerlink" title="3.6.2 实现原理"></a>3.6.2 实现原理</h4><h5 id="3-6-2-1-数据结构"><a href="#3-6-2-1-数据结构" class="headerlink" title="3.6.2.1 数据结构"></a>3.6.2.1 数据结构</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Once <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    done <span class="token builtin">uint32</span>
+    m    Mutex
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>done: 标识代码块是否执行过</li>
+<li>m: 互斥锁</li>
+</ul>
+<h5 id="3-6-2-2-Once-Do"><a href="#3-6-2-2-Once-Do" class="headerlink" title="3.6.2.2 Once.Do"></a>3.6.2.2 Once.Do</h5><p><code>Once.Do</code>是 <code>Once</code>结构体对外唯一暴露的方法，该方法会接收一个入参为空的函数：</p>
+<ul>
+<li>如果传入的函数已经执行过，会直接返回；</li>
+<li>如果传入的函数没有执行过，会调用 <code>Once.doSlow</code>执行传入的函数：</li>
+</ul>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>o <span class="token operator">*</span>Once<span class="token punctuation">)</span> <span class="token function">Do</span><span class="token punctuation">(</span>f <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> atomic<span class="token punctuation">.</span><span class="token function">LoadUint32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>o<span class="token punctuation">.</span>done<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        o<span class="token punctuation">.</span><span class="token function">doSlow</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token punctuation">(</span>o <span class="token operator">*</span>Once<span class="token punctuation">)</span> <span class="token function">doSlow</span><span class="token punctuation">(</span>f <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    o<span class="token punctuation">.</span>m<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> o<span class="token punctuation">.</span>m<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> o<span class="token punctuation">.</span>done <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">defer</span> atomic<span class="token punctuation">.</span><span class="token function">StoreUint32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>o<span class="token punctuation">.</span>done<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol>
+<li>为当前 Goroutine 获取互斥锁；</li>
+<li>执行传入的无入参函数；</li>
+<li>运行延迟函数调用，将成员变量 <code>done</code> 更新成 1；</li>
+</ol>
+<h3 id="3-6-总结"><a href="#3-6-总结" class="headerlink" title="3.6 总结"></a>3.6 总结</h3><p>Go语言中的互斥锁算一种混合锁，结合了原子操作、自旋、信号量、全局哈希表、等待队列、操作系统级别锁等多种技术，实现相对复杂。<br>但是Go语言的锁相对于操作系统级别的锁<strong>更快</strong>，因为在大部分情况下锁的争用停留在用户态。在有些场景下使用锁更简单，会<strong>比通道有更清晰的语义表达</strong>，需要结合具体的场景使用。</p>
 
                 
             </div>
@@ -1522,7 +1655,7 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
         class="fas fa-chart-area"
       ></i
       >&nbsp;站点总字数:&nbsp;<span class="white-color"
-        >40.7k</span
+        >41.7k</span
       >
          
        
