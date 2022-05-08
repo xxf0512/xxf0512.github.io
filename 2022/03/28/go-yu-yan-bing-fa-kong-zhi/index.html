@@ -559,7 +559,7 @@
     <span class="token function">Value</span><span class="token punctuation">(</span>key <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="http://img.xxf0512.xyz/uPic/20220328/1648468559536-05c4145d-3397-4fd8-aaed-19e3e78e49eb-20220328233245645.jpeg" alt="context-interface" style="zoom:67%;">
+<img src="/images/20220328/1648468559536-05c4145d-3397-4fd8-aaed-19e3e78e49eb-20220328233245645.png" alt="context-interface" style="zoom:67%;">
 
 
 <h4 id="1-2-2-context接口实现"><a href="#1-2-2-context接口实现" class="headerlink" title="1.2.2 context接口实现"></a>1.2.2 context接口实现</h4><p><code>context</code>只是一个接口，意味着需要有具体的实现。Go标准库对此进行了简单的实现，用户也可以按照接口定义的方法自己实现。<br>context包中定义了一个空的context类<code>emptyCtx</code>，本质是int别名，并对上述4种函数进行了实现。</p>
@@ -618,7 +618,7 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>调用context.Background函数或context.TODO函数会返回最简单的context实现。context.Background函数一般作为根对象存在，其不可以退出，也不能携带值。要具体地使用context的功能，需要派生出新的context，配套的使用函数如下，其中前三个函数用于处理退出。</p>
-<img src="http://img.xxf0512.xyz/uPic/20220328/1648472663217-b34d9ce6-c314-4d9b-9cf7-c52e10854d3f.jpeg" alt="派生context配套函数" style="zoom:67%;">
+<img src="/images/20220328/派生context配套函数.png" alt="派生context配套函数" style="zoom:67%;">
 
 
 <br>
@@ -628,7 +628,7 @@
 
 
 <h3 id="1-3-context原理"><a href="#1-3-context原理" class="headerlink" title="1.3 context原理"></a>1.3 context原理</h3><p>context在很大程度上利用了通道在close时会通知所有监听它的协程这一特性来实现。每个派生出的子协程都会创建一个新的退出通道，组织好context之间的关系即可实现继承链上退出的传递，图17-2所示的三个协程中，关闭通道A会连带关闭调用链上的通道B、通道C。</p>
-<img src="http://img.xxf0512.xyz/uPic/20220328/1648472914403-b19fcc54-4bab-47d0-9778-5cda87117ff0.png" alt="context退出" style="zoom:67%;">
+<img src="/images/20220328/context退出.png" alt="context退出" style="zoom:67%;">
 
 <p>前面也已经提到，context包中定义了结构体emptyCtx，emptyCtx什么内容都没有，其不可以被退出，也不能携带值。<br><code>background</code>和<code>todo</code>是emptyCtx的实例化对象，可以通过<code>context.Background</code>函数或<code>context.TODO</code>函数获取到，一般作为最初始的根对象。</p>
 <h4 id="1-3-1-WithCancel"><a href="#1-3-1-WithCancel" class="headerlink" title="1.3.1 WithCancel"></a>1.3.1 WithCancel</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// WithCancel returns a copy of parent with a new Done channel. The returned</span>
@@ -822,7 +822,7 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>三个协程共同访问了全局变量count，乍看之下可能没有问题，但是该程序其实是有数据争用的，count的结果也是不明确的。count+=1操作看起来是一条指令，但是对CPU来说，需要先读取count的值，执行+1操作，再将count的值写回内存。</p>
 <p>再举一例，Go语言中的经典数据争用错误。如下伪代码所示，在hash表中，存储了我们希望存储到Redis数据库中的数据（data）。但是在Go语言使用range时，变量k是一个堆上地址不变的对象，该地址存储的值会随着range遍历而发生变化。如果此时我们将变量k的地址放入协程save，以提供并发存储而不堵塞程序，那么最后的结果可能是后面的数据覆盖前面的数据，同时导致一些数据不被存储，并且每一次执行完存储的数据也是不明确的。</p>
-<img src="http://img.xxf0512.xyz/uPic/20220328/1648476012744-640c7a57-1510-4d6b-8eb3-c943db9d01f9.png" alt="数据争用" style="zoom:67%;">
+<img src="/images/20220328/数据争用.png" alt="数据争用" style="zoom:67%;">
 
 
 <br>
@@ -947,7 +947,7 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
 <ul>
 <li>state：通过位图的形式存储了当前锁的状态，如图所示，其中包含锁是否为锁定状态、正在等待被锁唤醒的协程数量、两个和饥饿模式有关的标志。</li>
 </ul>
-<img src="http://img.xxf0512.xyz/uPic/20220328/1648478620250-4111dd94-bf1b-4be0-8eee-d317e8854aad.png" alt="Mutex" style="zoom:67%;">
+<img src="/images/20220328/Mutex.png" alt="Mutex" style="zoom:67%;">
 
 <ul>
 <li>sema：互质锁中实现的信号量。</li>
@@ -971,7 +971,7 @@ Found 1 data race<span class="token punctuation">(</span>s<span class="token pun
     m<span class="token punctuation">.</span><span class="token function">lockSlow</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<img src="http://img.xxf0512.xyz/uPic/20220328/1648480268018-7b603396-955b-47ab-84ac-a02076b7b751.jpeg" alt="获取互斥锁" style="zoom: 67%;">
+<img src="/images/20220328/获取互斥锁.png" alt="获取互斥锁" style="zoom: 67%;">
 
 <br>
 
@@ -1063,7 +1063,7 @@ wg<span class="token punctuation">.</span><span class="token function">Wait</spa
 <li><code>noCopy</code> — 保证 <code>WaitGroup</code>不会被开发者通过再赋值的方式拷贝</li>
 <li><code>state1</code> — 存储着状态和信号量；</li>
 </ul>
-<img src="https://img.draveness.me/2020-01-23-15797104328035-golang-waitgroup-state.png" alt="golang-waitgroup-state" style="zoom:67%;">
+<img src="/images/20220328/golang-waitgroup-state.png" alt="golang-waitgroup-state" style="zoom:67%;">
 
 
 
