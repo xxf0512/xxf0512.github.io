@@ -1,0 +1,1559 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Go 数据结构 - map, XXF">
+    <meta name="description" content="map｜哈希表｜扩容">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Go 数据结构 - map | XXF</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+  <nav id="headNav" class="bg-color nav-transparent">
+    <div id="navContainer" class="nav-wrapper container">
+      <div class="brand-logo">
+        <a href="/" class="waves-effect waves-light">
+          
+          <img
+            src="/medias/logo_xxf.png"
+            class="logo-img"
+            alt="LOGO"
+          />
+          
+          <!-- <span class="logo-span">XXF</span> -->
+        </a>
+      </div>
+      
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo_xxf.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">XXF</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+    </div>
+
+     <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a> 
+  </nav>
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/20211228/cover.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Go 数据结构 - map</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/golang/">
+                                <span class="chip bg-color">golang</span>
+                            </a>
+                        
+                            <a href="/tags/map/">
+                                <span class="chip bg-color">map</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/golang/" class="post-category">
+                                golang
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-12-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-04-12
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    16 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Go-数据结构-map"><a href="#Go-数据结构-map" class="headerlink" title="Go 数据结构 - map"></a>Go 数据结构 - map</h1><blockquote>
+<p>参考<br>  《Go 语言底层原理剖析》第 8 章<br>  <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/2CDpE5wfoiNXm1agMAq4wA">深度解密 Go 语言之 map - 码农桃花源</a><br>  <a target="_blank" rel="noopener" href="https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap/">理解 Golang 哈希表 map 的原理</a><br>  <a target="_blank" rel="noopener" href="https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap/#332-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">Go 语言设计与实现</a> 注：本文部分内容从该博客中复制，博主写的太棒了，respect~</p>
+</blockquote>
+<p>map 作为一种基础数据结构，经常会用到，比如统计元素个数、去重等，但是 Go 内置的 map 有个缺点即不支持并发操作。下面将对 map 的使用方式以及底层原理进行介绍，最后再介绍如何实现一个支持并发操作的 map。</p>
+<hr>
+<br>
+<br>
+
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>很多语言里都支持 map 数据结构，如 Go 的 map、Java 的 HashMap、Python 的 dict，它们逻辑上都是键值对，所以可以把 map 看作一种 key→value 的映射。实现上一般有两种：</p>
+<ul>
+<li>哈希表：Go 的 map 以及 Python 的 dict 底层是哈希表。最差查找效率是 O(n)，平均查找效率是 O(1)，遍历哈希表得到的是乱序序列。</li>
+<li>搜索树：一般是 AVL 树和红黑树，如 Java1.8 之后 HashMap 的底层就是数组 + 链表 + 红黑树。自平衡搜索树法的最差搜索效率是 O(lgn)，遍历自平衡搜索树，返回的 key 序列，一般会按照从小到大的顺序。</li>
+</ul>
+<hr>
+<br>
+<br>
+
+<h2 id="2-基本操作"><a href="#2-基本操作" class="headerlink" title="2. 基本操作"></a>2. 基本操作</h2><p>map 支持增删改查这些基础操作，里面也有一些需要注意的点。</p>
+<h3 id="2-1-声明与初始化"><a href="#2-1-声明与初始化" class="headerlink" title="2.1 声明与初始化"></a>2.1 声明与初始化</h3><p>需要注意的是 map 只有在初始化之后才能插入 k-v 对。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 声明之后插入数据</span>
+<span class="token keyword">var</span> m <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment" spellcheck="true">// panic: assignment to entry in nil map</span>
+
+<span class="token comment" spellcheck="true">// 初始化之后插入数据</span>
+m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// map[x:1]</span>
+
+<span class="token comment" spellcheck="true">// 字面量初始化</span>
+m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span>
+    <span class="token string">"x"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">"y"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// map[x:1 y:2]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>不难理解，声明时并没有给 map 分配内存空间，只有在通过 make 初始化 map(或使用字面量初始化) 后给其分配内存空间才能插入数据，下面来验证一下。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 声明的 map 没有实际的地址</span>
+<span class="token keyword">var</span> m <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%p, %v\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 0x0, map[]</span>
+
+<span class="token comment" spellcheck="true">// 初始化之后的 map 才有实际的地址</span>
+m <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+<span class="token comment" spellcheck="true">// m = make(map[int]string, 10) 初始化时可以设置长度，降低扩容的成本</span>
+fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%p, %v\n"</span><span class="token punctuation">,</span> m<span class="token punctuation">,</span> m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 0xc000100d20, map[]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<br>
+
+<h3 id="2-2-增-插入键值对"><a href="#2-2-增-插入键值对" class="headerlink" title="2.2 增 - 插入键值对"></a>2.2 增 - 插入键值对</h3><p>给不存在的数据赋值即为插入操作，插入键值很简单，按照 map 的类型将 key 和 value 绑定起来。</p>
+<pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+m<span class="token punctuation">[</span><span class="token string">"y"</span><span class="token punctuation">]</span><span class="token operator">++</span> <span class="token comment" spellcheck="true">// 在 int 零值的基础上 + 1，在统计个数时很方便</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// map[x:1 y:1]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<br>
+
+<h3 id="2-3-删-删除键值对"><a href="#2-3-删-删除键值对" class="headerlink" title="2.3 删 - 删除键值对"></a>2.3 删 - 删除键值对</h3><p>使用 <code>delete(mapName, keyName)</code> 即可根据键删除 map 中相应的键值对。</p>
+<pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+m<span class="token punctuation">[</span><span class="token string">"y"</span><span class="token punctuation">]</span><span class="token operator">++</span>
+<span class="token function">delete</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token string">"x"</span><span class="token punctuation">)</span>
+<span class="token function">delete</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token string">"z"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 删除不存在的 kv 相当于不做任何操作</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// map[y:1]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<br>
+
+<h3 id="2-4-改-修改值"><a href="#2-4-改-修改值" class="headerlink" title="2.4 改 - 修改值"></a>2.4 改 - 修改值</h3><p>给存在的数据赋值即为修改操作。</p>
+<pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span><span class="token operator">++</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">10</span> <span class="token comment" spellcheck="true">// 修改 value</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// map[x:10]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<br>
+
+<h3 id="2-5-查-查询值"><a href="#2-5-查-查询值" class="headerlink" title="2.5 查 - 查询值"></a>2.5 查 - 查询值</h3><p>根据 key 查询值，可以得到 value 以及 key 是否存在的 bool 值，若 key 不存在则返回零值</p>
+<pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span><span class="token operator">++</span>
+v <span class="token operator">:=</span> m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 1</span>
+
+v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> ok<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 1 true</span>
+
+v<span class="token punctuation">,</span> ok <span class="token operator">=</span> m<span class="token punctuation">[</span><span class="token string">"y"</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// y 不存在</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> ok<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 0 false</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<br>
+<br>
+
+<h2 id="3-实现原理"><a href="#3-实现原理" class="headerlink" title="3. 实现原理"></a>3. 实现原理</h2><p>注：源码在 <code>src/runtime/map.go</code> 中</p>
+<h3 id="3-1-map-结构体"><a href="#3-1-map-结构体" class="headerlink" title="3.1 map 结构体"></a>3.1 map 结构体</h3><h4 id="3-1-1-hmap"><a href="#3-1-1-hmap" class="headerlink" title="3.1.1 hmap"></a>3.1.1 hmap</h4><img src="/images/20211228/hmap.png" alt="hmap" style="zoom:50%;">
+
+<ul>
+<li>count：元素个数</li>
+<li>flags：代表当前 map 的状态（是否处于正在写入的状态等）</li>
+<li>B：桶的数量: 2^B</li>
+<li>noverflow：溢出桶的数量，当溢出的桶太多时，map 会进行 same-size map growth，其实质是避免溢出桶过大导致内存泄露</li>
+<li>hash0：计算 key hash 时的种子</li>
+<li>buckets：指向新桶</li>
+<li>oldbuckets：指向旧桶，扩容时会用到，所有旧桶中的数据都已经转移到了新桶中时，则清空</li>
+<li>nevacuate：指示扩容进度，小于此地址的 buckets 迁移完成</li>
+<li>extra：存储 map 中的溢出桶</li>
+</ul>
+<h4 id="3-1-2-bmap"><a href="#3-1-2-bmap" class="headerlink" title="3.1.2 bmap"></a>3.1.2 bmap</h4><p>map 的核心是” 桶 “，这也是真正存储 key-value 的数据结构，buckets 和 oldbuckets 是一个指针，最终它指向的是桶的结构体 bmap。</p>
+<img src="/images/20211228/bmap.png" alt="bmap" style="zoom: 50%;">
+
+<p>bmap 里存放 tophash 字段，即长度为 8 的数组，存储着 key 的 hash 值的前 8 位。但这只是表面 <code>src/runtime/map.go</code> 的结构，编译期间会给它加料，动态地创建一个新的结构：</p>
+<img src="/images/20211228/bmap-gc.png" alt="bmap-gc" style="zoom:50%;">
+
+<p>bmap 桶里面会最多装 8 个 key，这些 key 之所以会落入同一个桶，是因为它们经过哈希计算后，哈希结果是 “一类” 的。在桶内，又会根据 key 计算出来的 hash 值的高 8 位来决定 key 到底落入桶内的哪个位置（一个桶内最多有 8 个位置）。</p>
+<p><img src="/images/20211228/hmap%E7%BB%93%E6%9E%84.png" alt="hmap 结构"></p>
+<p>Go 语言选择将 key 与 value 分开存储而不是以 key/value/key/value 的形式存储，是为了在字节对齐时压缩空间。在根据 key 找 value 的过程中，首先计算 key 的 hash 值从而找到桶的 index(hash%array_size), 找到桶的位置后遍历 tophash 数组，如果在数组中找到了相同的 hash，那么可以接着通过指针的寻址操作找到对应的 key 与 value。</p>
+<p><img src="/images/20211228/map%E7%BB%93%E6%9E%84.png" alt="map 结构"></p>
+<h4 id="3-1-3-mapextra"><a href="#3-1-3-mapextra" class="headerlink" title="3.1.3 mapextra"></a>3.1.3 mapextra</h4><p>在 Go 语言中还有一个溢出桶的概念，在执行 hash[key]=value 赋值操作时，当指定桶中的数据超过 8 个时，并不会直接开辟一个新桶，而是将数据放置到溢出桶中，每个桶的最后都存储了 overflow，即溢出桶的指针。在正常情况下，数据是很少会跑到溢出桶里面去的。</p>
+<img src="/images/20211228/mapextra.png" alt="mapextra" style="zoom:50%;">
+
+<img src="/images/20211228/hmap-buckets.png" alt="hmap-buckets" style="zoom:50%;">
+
+<p>当发生以下两种情况之一时，map 会进行重建：</p>
+<ul>
+<li>map 超过了负载因子大小。</li>
+<li>溢出桶的数量过多。</li>
+</ul>
+<p>在哈希表中有经典的负载因子的概念：<strong>负载因子 = 哈希表中的元素数量 / 桶的数量。</strong>负载因子的增大，意味着更多的元素会被分配到同一个桶中，此时效率会减慢。Go 语言中的负载因子为 6.5，当超过其大小后，map 会进行扩容，增大到旧表 2 倍的大小，旧桶的数据会存到 oldbuckets 字段中，并想办法分散转移到新桶中。当旧桶中的数据全部转移到新桶中后，旧桶就会被清空。</p>
+<p>溢出桶的数量太多，这时 map 只会新建和原来相同大小的桶，目的是防止溢出桶的数量缓慢增长导致的内存泄露。</p>
+<br>
+
+<h3 id="3-2-初始化"><a href="#3-2-初始化" class="headerlink" title="3.2 初始化"></a>3.2 初始化</h3><p>Go 初始化 map 主要通过两种方式 — <strong>字面量</strong> &amp; <strong>运行时</strong></p>
+<h4 id="3-2-1-字面量初始化"><a href="#3-2-1-字面量初始化" class="headerlink" title="3.2.1 字面量初始化"></a>3.2.1 字面量初始化</h4><pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span>
+    <span class="token string">"x"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">"y"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// map[x:1 y:2]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果 map 采取了字面量初始化的方式，那么它最终仍然需要转换为 make 操作。map 的长度被自动推断为字面量的长度，其核心逻辑位于 <a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/cmd/compile/internal/gc/sinit.go#L753">gc/sinit.go</a> 中，该函数专门用于处理各种类型的字面量。</p>
+<p>若 <code>len(map) ≤ 25</code>，则会将字面量初始化的结构体转为以下代码，将 key-value 一次加入 map。</p>
+<pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+m<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+m<span class="token punctuation">[</span><span class="token string">"y"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>若 <code>len(map) &gt; 25</code>，编译器会构建两个数组专门存储 key 与 value，在运行时循环添加数据。</p>
+<pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">)</span>
+vstatk <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">"a"</span><span class="token punctuation">,</span> <span class="token string">"b"</span><span class="token punctuation">,</span> <span class="token string">"c"</span><span class="token punctuation">,</span> <span class="token operator">...</span> <span class="token punctuation">,</span> <span class="token string">"z"</span><span class="token punctuation">}</span>
+vstatv <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token operator">...</span> <span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span><span class="token function">len</span><span class="token punctuation">(</span>vstak<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+    m<span class="token punctuation">[</span>vstatk<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> vstatv<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3-2-2-运行时初始化"><a href="#3-2-2-运行时初始化" class="headerlink" title="3.2.2 运行时初始化"></a>3.2.2 运行时初始化</h4><p><strong>小容量 hash 优化</strong>：当创建的哈希被分配到栈上并且其容量小于&nbsp;<code>BUCKETSIZE = 8</code>&nbsp;时，Go 语言在编译阶段会使用如下方式快速初始化哈希，这也是编译器对小容量的哈希做的优化。</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> h <span class="token operator">*</span>hmap
+<span class="token keyword">var</span> hv hmap
+<span class="token keyword">var</span> bv bmap
+h <span class="token operator">:=</span> <span class="token operator">&amp;</span>hv
+b <span class="token operator">:=</span> <span class="token operator">&amp;</span>bv
+h<span class="token punctuation">.</span>buckets <span class="token operator">=</span> b
+h<span class="token punctuation">.</span>hash0 <span class="token operator">=</span> <span class="token function">fashtrand0</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>makemap</strong></p>
+<p>初始化 map 最后调用的都是 <a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L303">makemap 函数</a></p>
+<ol>
+<li>计算哈希占用的内存是否溢出或者超出能分配的最大值；</li>
+<li>调用&nbsp;<a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/41d8e61a6b9d8f9db912626eb2bbc535e929fefc/src/runtime/stubs.go#L109">runtime.fastrand</a>&nbsp;获取一个随机的哈希种子；</li>
+<li>根据传入的&nbsp;<code>hint</code>&nbsp;计算出需要的最小需要的桶的数量；</li>
+<li>使用&nbsp;<a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L344">runtime.makeBucketArray</a> 创建用于保存桶的数组；</li>
+</ol>
+<img src="/images/20211228/makemap.png" alt="makemap" style="zoom:50%;">
+
+<p>makemap 函数会计算出需要的桶的数量，即 ${log_2N}$ ，并调用 makeBucketArray 函数生成桶和溢出桶。如果初始化时生成了溢出桶，则会放置到 map 的 extra 字段里去。</p>
+<p><strong>makeBucketArray</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L344">runtime.makeBucketArray</a> 会根据传入的&nbsp;<code>B</code>&nbsp;计算出的需要创建的桶数量并在内存中分配一片连续的空间用于存储数据：</p>
+<img src="/images/20211228/makeBucketArray.png" alt="makeBucketArray" style="zoom:50%;">
+
+<ul>
+<li>当桶的数量小于 2^4 时，由于数据较少、使用溢出桶的可能性较低，会省略创建的过程以减少额外开销；</li>
+<li>当桶的数量多于 2^4 时，会额外创建&nbsp;2^(B-4)&nbsp;个溢出桶；</li>
+</ul>
+<br>
+
+<h3 id="3-3-查-查询值"><a href="#3-3-查-查询值" class="headerlink" title="3.3 查 - 查询值"></a>3.3 查 - 查询值</h3><p>根据 key 查询 value 时有两种方式，因为 Go 没有函数重载所以会调用两个函数名不同的函数，但是内部逻辑基本相同。</p>
+<pre class="line-numbers language-go"><code class="language-go">v     <span class="token operator">:=</span> hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// => v     := *mapaccess1(maptype, hash, &amp;key)</span>
+v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> hash<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// => v, ok := mapaccess2(maptype, hash, &amp;key)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>mapaccess1</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L394">mapaccess1</a> 会先算出 key 的 hash 值，再通过 <a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L189">bucketMask</a> 和 <a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/stubs.go#L11">add</a> 拿到该键值对所在的桶序号和 hash 值高位的 8 位数字。之后会依次遍历正常桶和溢出桶中的数据，它会先比较 hash 值的高 8 位和桶中存储的&nbsp;<code>tophash</code>，后比较传入的和桶中的值以加速数据的读写。</p>
+<p>用于选择桶序号的是哈希的最低几位，而用于加速访问的是哈希的高 8 位，这种设计能够减少同一个桶中有大量相等&nbsp;<code>tophash</code>&nbsp;的概率影响性能。</p>
+<img src="/images/20211228/mapaccess.png" alt="mapaccess" style="zoom:50%;">
+
+<p>如上图所示，每一个桶都是一整片的内存空间，当发现桶中的&nbsp;<code>tophash</code>&nbsp;与传入键的&nbsp;<code>tophash</code>&nbsp;匹配之后，我们会通过指针和偏移量获取哈希中存储的键&nbsp;<code>keys[0]</code>&nbsp;并与&nbsp;<code>key</code>&nbsp;比较，如果两者相同就会获取目标值的指针&nbsp;<code>values[0]</code>&nbsp;并返回。</p>
+<p><strong>mapaccess2</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L452">mapaccess2</a> 在 mapaccess1 的基础上多返回了一个标识键值对是否存在的&nbsp;<code>bool</code>&nbsp;值，使用&nbsp;<code>v, ok := hash[k]</code>&nbsp;的形式访问哈希表中元素时，我们能够通过这个布尔值更准确地知道当&nbsp;<code>v == nil</code>&nbsp;时，<code>v</code>&nbsp;到底是哈希中存储的元素还是表示该键对应的元素不存在，所以在访问哈希时，更推荐使用这种方式判断元素是否存在。</p>
+<br>
+
+<h3 id="3-4-增-改-写入-修改键值对"><a href="#3-4-增-改-写入-修改键值对" class="headerlink" title="3.4 增 / 改 - 写入 / 修改键值对"></a>3.4 增 / 改 - 写入 / 修改键值对</h3><h4 id="3-4-1-操作流程"><a href="#3-4-1-操作流程" class="headerlink" title="3.4.1 操作流程"></a>3.4.1 操作流程</h4><p>当形如&nbsp;<code>hash[k]</code>&nbsp;的表达式出现在赋值符号左侧时，该表达式也会在编译期间转换成&nbsp;<a target="_blank" rel="noopener" href="https://github.com/golang/go/blob/ac0ba6707c1655ea4316b41d06571a0303cc60eb/src/runtime/map.go#L571">runtime.mapassign</a>&nbsp;函数的调用。</p>
+<img src="/images/20211228/overflow.png" alt="overflow" style="zoom:50%;">
+
+<ol>
+<li>首先是函数会根据传入的键拿到对应的哈希和桶。</li>
+<li>然后通过遍历比较桶中存储的&nbsp;<code>tophash</code>&nbsp;和键的哈希，如果找到了相同结果就会返回目标位置的地址。其中&nbsp;<code>inserti</code>&nbsp;表示目标元素的在桶中的索引，<code>insertk</code>&nbsp;和&nbsp;<code>val</code>&nbsp;分别表示键值对的地址，获得目标地址之后会通过算术计算寻址获得键值对&nbsp;<code>k</code>&nbsp;和&nbsp;<code>val</code>。</li>
+<li>如果当前桶已经满了，哈希会调用&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.hmap.newoverflow">runtime.hmap.newoverflow</a>&nbsp;创建新桶或者使用&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.hmap">runtime.hmap</a>&nbsp;预先在&nbsp;<code>noverflow</code>&nbsp;中创建好的桶来保存数据，新创建的桶不仅会被追加到已有桶的末尾，还会增加哈希表的&nbsp;<code>noverflow</code>&nbsp;计数器。</li>
+<li>如果当前键值对在哈希中不存在，哈希会为新键值对规划存储的内存地址，通过&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.typedmemmove">runtime.typedmemmove</a>&nbsp;将键移动到对应的内存空间中并返回键对应值的地址&nbsp;<code>val</code>。如果当前键值对在哈希中存在，那么就会直接返回目标区域的内存地址，哈希并不会在&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.mapassign">runtime.mapassign</a>&nbsp;这个运行时函数中将值拷贝到桶中，该函数只会返回内存地址，真正的赋值操作是在编译期间插入的。</li>
+</ol>
+<h4 id="3-4-2-扩容"><a href="#3-4-2-扩容" class="headerlink" title="3.4.2 扩容"></a>3.4.2 扩容</h4><p>随着哈希表中元素的逐渐增加，哈希的性能会逐渐恶化，所以我们需要更多的桶和更大的内存保证哈希的读写性能。</p>
+<p>以下两种情况发生时触发哈希的扩容：</p>
+<ol>
+<li>装载因子已经超过 6.5；</li>
+<li>哈希使用了太多溢出桶；</li>
+</ol>
+<p>不过因为 Go 语言哈希的扩容不是一个原子的过程，所以&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.mapassign">runtime.mapassign</a>&nbsp;还需要判断当前哈希是否已经处于扩容状态，避免二次扩容造成混乱。</p>
+<p>根据触发的条件不同扩容的方式分成两种，如果这次扩容是溢出的桶太多导致的，那么这次扩容就是等量扩容&nbsp;<code>sameSizeGrow</code>，<code>sameSizeGrow</code>&nbsp;是一种特殊情况下发生的扩容，当我们持续向哈希中插入数据并将它们全部删除时，如果哈希表中的数据量没有超过阈值，就会不断积累溢出桶造成缓慢的内存泄漏 <a target="_blank" rel="noopener" href="https://draveness.me/golang/docs/part2-foundation/ch03-datastructure/golang-hashmap/#fn:4">4</a>。<a target="_blank" rel="noopener" href="https://github.com/golang/go/commit/9980b70cb460f27907a003674ab1b9bea24a847c">runtime: limit the number of map overflow buckets</a>&nbsp;引入了&nbsp;<code>sameSizeGrow</code>&nbsp;通过复用已有的哈希扩容机制解决该问题，一旦哈希中出现了过多的溢出桶，它会创建新桶保存数据，垃圾回收会清理老的溢出桶并释放内存。</p>
+<p>扩容的入口是&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.hashGrow">runtime.hashGrow</a> ，哈希在扩容的过程中会通过&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.makeBucketArray">runtime.makeBucketArray</a>&nbsp;创建一组新桶和预创建的溢出桶，随后将原有的桶数组设置到&nbsp;<code>oldbuckets</code>&nbsp;上并将新的空桶设置到&nbsp;<code>buckets</code>&nbsp;上，溢出桶也使用了相同的逻辑更新，下图展示了触发扩容后的哈希：</p>
+<img src="/images/20211228/hashgrow.png" alt="hashgrow" style="zoom:50%;">
+
+<p>我们在&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.hashGrow">runtime.hashGrow</a>&nbsp;中还看不出来等量扩容和翻倍扩容的太多区别，等量扩容创建的新桶数量只是和旧桶一样，该函数中只是创建了新的桶，并没有对数据进行拷贝和转移。哈希表的数据迁移的过程在是&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.evacuate">runtime.evacuate</a>&nbsp;中完成的，它会对传入桶中的元素进行再分配。</p>
+<p><a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.evacuate">runtime.evacuate</a>&nbsp;会将一个旧桶中的数据分流到两个新桶，所以它会创建两个用于保存分配上下文的&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.evacDst">runtime.evacDst</a>&nbsp;结构体，这两个结构体分别指向了一个新桶。</p>
+<img src="/images/20211228/evacuate.png" alt="evacuate" style="zoom:50%;">
+
+<p>我们简单总结一下哈希表扩容的设计和原理，哈希在存储元素过多时会触发扩容操作，每次都会将桶的数量翻倍，扩容过程不是原子的，而是通过&nbsp;<a target="_blank" rel="noopener" href="https://draveness.me/golang/tree/runtime.growWork">runtime.growWork</a>&nbsp;增量触发的，在扩容期间访问哈希表时会使用旧桶，向哈希表写入数据时会触发旧桶元素的分流。除了这种正常的扩容之外，为了解决大量写入、删除造成的内存泄漏问题，哈希引入了&nbsp;<code>sameSizeGrow</code>&nbsp;这一机制，在出现较多溢出桶时会整理哈希的内存减少空间的占用。</p>
+<br>
+
+<h3 id="3-5-删-删除键值对"><a href="#3-5-删-删除键值对" class="headerlink" title="3.5 删 - 删除键值对"></a>3.5 删 - 删除键值对</h3><p>如果想要删除哈希中的元素，就需要使用 Go 语言中的&nbsp;<code>delete</code>&nbsp;关键字，这个关键字的唯一作用就是将某一个键对应的元素从哈希表中删除，无论是该键对应的值是否存在，这个内建的函数都不会返回任何的结果。</p>
+<p>哈希表的删除逻辑与写入逻辑很相似，只是触发哈希的删除需要使用关键字，如果在删除期间遇到了哈希表的扩容，就会分流桶中的元素，分流结束之后会找到桶中的目标元素完成键值对的删除工作。</p>
+<hr>
+<br>
+<br>
+
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h2><p>Go 语言使用拉链法来解决哈希碰撞的问题实现了哈希表，它的访问、写入和删除等操作都在编译期间转换成了运行时的函数或者方法。哈希在每一个桶中存储键对应哈希的前 8 位，当对哈希进行操作时，这些&nbsp;<code>tophash</code>&nbsp;就成为可以帮助哈希快速遍历桶中元素的缓存。</p>
+<p>哈希表的每个桶都只能存储 8 个键值对，一旦当前哈希的某个桶超出 8 个，新的键值对就会存储到哈希的溢出桶中。随着键值对数量的增加，溢出桶的数量和哈希的装载因子也会逐渐升高，超过一定范围就会触发扩容，扩容会将桶的数量翻倍，元素再分配的过程也是在调用写操作时增量进行的，不会造成性能的瞬时巨大抖动。</p>
+<br>
+<br>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">xuxiangfei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://xxf0512.github.io/posts/7e08620c.html">http://xxf0512.github.io/posts/7e08620c.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">xuxiangfei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/golang/">
+                                    <span class="chip bg-color">golang</span>
+                                </a>
+                            
+                                <a href="/tags/map/">
+                                    <span class="chip bg-color">map</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/31d1c6ce.html">
+                    <div class="card-image">
+                        
+                        <img src="/images/20220118/cover.png" class="responsive-img" alt="Go 数据结构 - interface">
+                        
+                        <span class="card-title">Go 数据结构 - interface</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            interface｜实例｜原理
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/golang/" class="post-category">
+                                    golang
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/golang/">
+                        <span class="chip bg-color">golang</span>
+                    </a>
+                    
+                    <a href="/tags/interface/">
+                        <span class="chip bg-color">interface</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/7f74b491.html">
+                    <div class="card-image">
+                        
+                        <img src="/images/20211222/cover.png" class="responsive-img" alt="Go数据类型-数组&amp;切片">
+                        
+                        <span class="card-title">Go数据类型-数组&amp;切片</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数组｜切片｜切片扩容
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/golang/" class="post-category">
+                                    golang
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/golang/">
+                        <span class="chip bg-color">golang</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">数组</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%87%E7%89%87/">
+                        <span class="chip bg-color">切片</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: XXF<br />'
+            + '文章作者: xuxiangfei<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+  
+
+  <div
+    class="container row center-align"
+    style="margin-bottom: 15px !important;"
+  >
+    <div class="col s12 m8 l8 copy-right">
+      Copyright&nbsp;&copy; 
+      <span id="year"
+        >2021-2025</span
+      >
+      
+      <!-- <span id="year">2021</span> -->
+      <a href="/about" target="_blank"
+        >xuxiangfei</a
+      >
+      |&nbsp;
+
+      <!-- 运行天数提醒. -->
+      
+      <span id="sitetime"> Loading ...</span>
+      <script>
+        var calcSiteTime = function () {
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var startYear = "2021";
+          var startMonth = "9";
+          var startDate = "15";
+          var startHour = "18";
+          var startMinute = "0";
+          var startSecond = "0";
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth() + 1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          var t1 = Date.UTC(
+            startYear,
+            startMonth,
+            startDate,
+            startHour,
+            startMinute,
+            startSecond
+          );
+          var t2 = Date.UTC(
+            todayYear,
+            todayMonth,
+            todayDate,
+            todayHour,
+            todayMinute,
+            todaySecond
+          );
+          var diff = t2 - t1;
+          var diffYears = Math.floor(diff / years);
+          var diffDays = Math.floor(diff / days - diffYears * 365);
+
+          // 区分是否有年份.
+          var language = "zh-CN";
+          if (startYear === String(todayYear)) {
+            document.getElementById("year").innerHTML = todayYear;
+            var daysTip =
+              "This site has been running for " + diffDays + " days";
+            if (language === "zh-CN") {
+              daysTip = "本站已运行 " + diffDays + " 天";
+            } else if (language === "zh-HK") {
+              daysTip = "本站已運行 " + diffDays + " 天";
+            }
+            document.getElementById("sitetime").innerHTML = daysTip;
+          } else {
+            document.getElementById("year").innerHTML =
+              startYear + " - " + todayYear;
+            var yearsAndDaysTip =
+              "This site has been running for " +
+              diffYears +
+              " years and " +
+              diffDays +
+              " days";
+            if (language === "zh-CN") {
+              yearsAndDaysTip =
+                "本站已运行 " + diffYears + " 年 " + diffDays + " 天";
+            } else if (language === "zh-HK") {
+              yearsAndDaysTip =
+                "本站已運行 " + diffYears + " 年 " + diffDays + " 天";
+            }
+            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+          }
+        };
+
+        calcSiteTime();
+      </script>
+      
+      <br />
+
+       &nbsp;<i
+        class="fas fa-chart-area"
+      ></i
+      >&nbsp;站点总字数:&nbsp;<span class="white-color"
+        >38.6k</span
+      >
+         
+       
+      <span id="busuanzi_container_site_pv">
+        &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+        <span id="busuanzi_value_site_pv" class="white-color"></span>
+      </span>
+       
+      <span id="busuanzi_container_site_uv">
+        &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+        <span id="busuanzi_value_site_uv" class="white-color"></span>
+      </span>
+      
+      <br />
+
+      
+    </div>
+    <div class="col s12 m4 l4 social-link social-statis">
+      
+    <a href="https://github.com/xxf0512" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:xxf0512@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1258003050" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1258003050" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language="javascript">
+  function siteTime() {
+    window.setTimeout("siteTime()", 60000);
+    var seconds = 1000;
+    var minutes = seconds * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+    var today = new Date();
+    var todayYear = today.getFullYear();
+    var todayMonth = today.getMonth() + 1;
+    var todayDate = today.getDate();
+    var todayHour = today.getHours();
+    var todayMinute = today.getMinutes();
+    var todaySecond = today.getSeconds();
+    /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+      year - 作为date对象的年份，为4位年份值
+      month - 0-11之间的整数，做为date对象的月份
+      day - 1-31之间的整数，做为date对象的天数
+      hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+      minutes - 0-59之间的整数，做为date对象的分钟数
+      seconds - 0-59之间的整数，做为date对象的秒数
+      microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+    var t1 = Date.UTC(2021, 09, 16, 00, 00, 00); //北京时间2018-2-13 00:00:00
+    var t2 = Date.UTC(
+      todayYear,
+      todayMonth,
+      todayDate,
+      todayHour,
+      todayMinute,
+      todaySecond
+    );
+    var diff = t2 - t1;
+    var diffYears = Math.floor(diff / years);
+    var diffDays = Math.floor(diff / days - diffYears * 365);
+    var diffHours = Math.floor(
+      (diff - (diffYears * 365 + diffDays) * days) / hours
+    );
+    var diffMinutes = Math.floor(
+      (diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes
+    );
+    var diffSeconds = Math.floor(
+      (diff -
+        (diffYears * 365 + diffDays) * days -
+        diffHours * hours -
+        diffMinutes * minutes) /
+        seconds
+    );
+    document.getElementById("sitetime").innerHTML =
+      "本站已运行 " +
+      diffYears +
+      " 年 " +
+      diffDays +
+      " 天 " +
+      diffHours +
+      " 小时 " +
+      diffMinutes +
+      " 分钟 ";
+    // + diffSeconds +
+    // " 秒";
+  } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+  siteTime();
+</script>
+
+<script>
+  $(document).ready(function () {
+    var int = setInterval(fixCount, 5000); // 50ms周期检测函数
+    var pvcountOffset = 0; // 初始化首次数据
+    var uvcountOffset = 0;
+
+    function fixCount() {
+      if (
+        document.getElementById("busuanzi_container_site_pv").style.display !=
+        "none"
+      ) {
+        $("#busuanzi_value_site_pv").html(
+          parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset
+        );
+        clearInterval(int);
+      }
+      if ($("#busuanzi_container_site_pv").css("display") != "none") {
+        $("#busuanzi_value_site_uv").html(
+          parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset
+        ); // 加上初始数据
+        clearInterval(int); // 停止检测
+      }
+    }
+  });
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
