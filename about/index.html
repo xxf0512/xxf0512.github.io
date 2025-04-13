@@ -379,21 +379,21 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">19</a></span>
+    <span class="count"><a href="/">20</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">6</a></span>
+    <span class="count"><a href="/categories">7</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">27</a></span>
+    <span class="count"><a href="/tags">29</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -409,21 +409,21 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">19</a></span>
+    <span class="count"><a href="/">20</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">6</a></span>
+    <span class="count"><a href="/categories">7</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">27</a></span>
+    <span class="count"><a href="/tags">29</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -559,7 +559,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,0],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,1],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -601,7 +601,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"前端","value":4},{"name":"golang","value":11},{"name":"docker","value":1},{"name":"MySQL","value":1},{"name":"计算机组成原理","value":1},{"name":"设计模式","value":1}],
+                data: [{"name":"golang","value":11},{"name":"前端","value":4},{"name":"MySQL","value":1},{"name":"MQ","value":1},{"name":"docker","value":1},{"name":"计算机组成原理","value":1},{"name":"设计模式","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -625,7 +625,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["golang","前端","并发","Vue","css","json","goroutine","文件处理","CLI","Cobra"]
+                data: ["golang","前端","并发","Vue","goroutine","css","json","文件处理","时间处理","数组"]
             }
         ],
         yAxis: [
@@ -837,26 +837,8 @@
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/%E5%89%8D%E7%AB%AF/">
-                <span class="chip center-align waves-effect waves-light chip-default">前端</span>
-            </a>
-            
-            
-            
-            <a href="/tags/css/">
-                <span class="chip center-align waves-effect waves-light chip-default">css</span>
-            </a>
-            
-            
-            
             <a href="/tags/golang/">
                 <span class="chip center-align waves-effect waves-light chip-default">golang</span>
-            </a>
-            
-            
-            
-            <a href="/tags/json/">
-                <span class="chip center-align waves-effect waves-light chip-default">json</span>
             </a>
             
             
@@ -873,32 +855,32 @@
             
             
             
+            <a href="/tags/%E5%89%8D%E7%AB%AF/">
+                <span class="chip center-align waves-effect waves-light chip-default">前端</span>
+            </a>
+            
+            
+            
+            <a href="/tags/css/">
+                <span class="chip center-align waves-effect waves-light chip-default">css</span>
+            </a>
+            
+            
+            
+            <a href="/tags/json/">
+                <span class="chip center-align waves-effect waves-light chip-default">json</span>
+            </a>
+            
+            
+            
             <a href="/tags/%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/">
                 <span class="chip center-align waves-effect waves-light chip-default">文件处理</span>
             </a>
             
             
             
-            <a href="/tags/CLI/">
-                <span class="chip center-align waves-effect waves-light chip-default">CLI</span>
-            </a>
-            
-            
-            
-            <a href="/tags/Cobra/">
-                <span class="chip center-align waves-effect waves-light chip-default">Cobra</span>
-            </a>
-            
-            
-            
             <a href="/tags/%E6%97%B6%E9%97%B4%E5%A4%84%E7%90%86/">
                 <span class="chip center-align waves-effect waves-light chip-default">时间处理</span>
-            </a>
-            
-            
-            
-            <a href="/tags/channel/">
-                <span class="chip center-align waves-effect waves-light chip-default">channel</span>
             </a>
             
             
@@ -915,8 +897,32 @@
             
             
             
+            <a href="/tags/CLI/">
+                <span class="chip center-align waves-effect waves-light chip-default">CLI</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Cobra/">
+                <span class="chip center-align waves-effect waves-light chip-default">Cobra</span>
+            </a>
+            
+            
+            
+            <a href="/tags/channel/">
+                <span class="chip center-align waves-effect waves-light chip-default">channel</span>
+            </a>
+            
+            
+            
             <a href="/tags/interface/">
                 <span class="chip center-align waves-effect waves-light chip-default">interface</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF/">
+                <span class="chip center-align waves-effect waves-light chip-default">工程技术</span>
             </a>
             
             
@@ -927,11 +933,31 @@
             
             
             
-            <a href="/tags/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF/">
-                <span class="chip center-align waves-effect waves-light chip-default">工程技术</span>
+            
+            
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">
+                <span class="chip center-align waves-effect waves-light chip-default">数据库索引</span>
             </a>
             
             
+            
+            <a href="/tags/TypeScript/">
+                <span class="chip center-align waves-effect waves-light chip-default">TypeScript</span>
+            </a>
+            
+            
+            
+            
+            
+            <a href="/tags/MQ/">
+                <span class="chip center-align waves-effect waves-light chip-default">MQ</span>
+            </a>
+            
+            
+            
+            <a href="/tags/kafka/">
+                <span class="chip center-align waves-effect waves-light chip-default">kafka</span>
+            </a>
             
             
             
@@ -949,20 +975,6 @@
             
             <a href="/tags/%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2/">
                 <span class="chip center-align waves-effect waves-light chip-default">项目部署</span>
-            </a>
-            
-            
-            
-            
-            
-            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/">
-                <span class="chip center-align waves-effect waves-light chip-default">数据库索引</span>
-            </a>
-            
-            
-            
-            <a href="/tags/TypeScript/">
-                <span class="chip center-align waves-effect waves-light chip-default">TypeScript</span>
             </a>
             
             
@@ -1153,7 +1165,7 @@
         class="fas fa-chart-area"
       ></i
       >&nbsp;站点总字数:&nbsp;<span class="white-color"
-        >38.6k</span
+        >43.1k</span
       >
          
        
