@@ -489,21 +489,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-04-20
+                    2025-04-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.8k
+                    4.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    14 分
+                    18 分
                 </div>
                 
 
@@ -530,7 +530,7 @@
             <div id="articleContent">
                 <h1 id="kafka-进阶篇"><a href="#kafka-进阶篇" class="headerlink" title="kafka-进阶篇"></a>kafka-进阶篇</h1><blockquote>
 <p> <a href="https://xxf0512.github.io/posts/d451c14b.html">kafka-入门篇</a>介绍了kafka的重要概念。</p>
-<p> 本文将从消息的视角出发，并结合实验，从消息生产、消息存储、消息消费全流程分析kafka的设计原理。</p>
+<p> 本文将从消息的视角出发，并结合实验，从消息生产、消息处理、消息消费全流程分析kafka的设计原理。</p>
 <p> kafka版本：3.6.0</p>
 </blockquote>
 <h2 id="1-消息生产"><a href="#1-消息生产" class="headerlink" title="1. 消息生产"></a>1. 消息生产</h2><p>消息生产主要分为以下几个步骤</p>
@@ -706,10 +706,130 @@ config<span class="token punctuation">.</span>Producer<span class="token punctua
 <li><code>SyncProducer 同步生产者</code>：阻塞等待响应，直接返回结果给调用方</li>
 <li><code>AsyncProducer 异步生产者</code>：通过 <code>Successes</code> 和 <code>Errors</code> <strong>channel</strong> 异步通知结果</li>
 </ul>
-<h2 id="2-消息存储"><a href="#2-消息存储" class="headerlink" title="2. 消息存储"></a>2. 消息存储</h2><img src="../images/kafka-进阶篇/Kafka_Internals_026.png" alt="Kafka-Broker" style="zoom: 50%;">
-
-<p>TDOO</p>
 <hr>
+<h2 id="2-消息处理"><a href="#2-消息处理" class="headerlink" title="2. 消息处理"></a>2. 消息处理</h2><p>消息处理的流程如下，</p>
+<p><strong>对于消息生产请求</strong></p>
+<ol>
+<li>请求进入 broker 的套接字接收缓冲区</li>
+<li>处理用户请求<ul>
+<li>网络线程从缓冲区捞一个用户请求，并负责该请求从接收到响应的全生命周期，直到处理完成才被放回线程池</li>
+<li>将用户请求转换为消息生产请求对象，并添加到请求队列</li>
+</ul>
+</li>
+<li>处理消息生产请求<ul>
+<li>I/O 线程从队列捞取一个请求，做一些校验，和分区关联，最后把消息追加到 commit log</li>
+<li>消息先存在 Page Cache 中，然后被批量刷盘，最终落到磁盘上</li>
+<li>为了完成 Leader-Follower 副本同步，消息还会存到 Purgatory（名为炼狱的缓冲区）上</li>
+</ul>
+</li>
+<li>响应请求<ul>
+<li>当满足 acks 条件，如成功写入 Leader，将把结果写入响应队列</li>
+<li>网络线程将结果捞出写入套接字发送缓冲区</li>
+</ul>
+</li>
+</ol>
+<p><strong>对于消息消费请求</strong>，流程基本相同，不同点如下</p>
+<ol>
+<li><p>I/O 线程会计算消息在日志文件中的位置</p>
+</li>
+<li><p>可以指定每批拿到多少数据才返回，把请求丢到 Purgatory 等待</p>
+</li>
+<li><p>Purgatory 中请求累计了足够多的数据后就可以响应</p>
+</li>
+</ol>
+<img src="../images/kafka-进阶篇/Kafka_Internals_026.png" alt="Kafka-Broker" style="zoom: 50%;">
+
+
+
+
+
+<h3 id="2-1-数据面：副本同步"><a href="#2-1-数据面：副本同步" class="headerlink" title="2.1 数据面：副本同步"></a>2.1 数据面：副本同步</h3><p>副本同步也叫数据复制，是 Kafka 持久性和高可用的关键技术，如果副本因子是N，那么可以忍受 N-1 次 broker 宕机。</p>
+<p>副本分为两类：</p>
+<ul>
+<li><code>Leader</code>：负责消息的收发，以及确认哪些 Follower 与自己同步</li>
+<li><code>Follower</code>：主动从 Leader 拉取消息，返回同步的 Offset；根据是否与 Leader 同步，Follower 又被划分为；<ul>
+<li>ISR(In-Sync Replica)：保持同步，Leader 的预备军，为其 backup，在它宕机时取代之</li>
+<li>OSR(Out-Sync Replica)：存在不可接收的Gap，在阈值时间内没有拉取动作或没有拉取最新消息，通过<code>replica.lag.time.max.ms</code>配置</li>
+</ul>
+</li>
+</ul>
+<img src="../images/kafka-进阶篇/Kafka_Internals_034.png" alt="副本同步" style="zoom:30%;">
+
+<p>Leader 会维护两个同步状态：</p>
+<ul>
+<li>LEO(Log End Offset)：实际复制的位置，标识当前日志文件中下一条待写入的消息的offset</li>
+<li>HW(High Watermark)：高水位，所有 Follower 都同步了之前的消息，可认为之前的消息已经持久化，消费者只能拉取到这个offset之前的消息；</li>
+<li><strong>Leader HW = min(leader LEO, followers LEO)</strong></li>
+<li><strong>Follower HW = min(leader HW, follower LEO)</strong></li>
+</ul>
+<h3 id="2-2-控制面：管理集群元数据"><a href="#2-2-控制面：管理集群元数据" class="headerlink" title="2.2 控制面：管理集群元数据"></a>2.2 控制面：管理集群元数据</h3><img src="../images/kafka-进阶篇/Kafka_Internals_048.png" alt="Data-Control Plane" style="zoom:38%;">
+
+<ul>
+<li><code>Zookeeper Mode</code>：通过 ZooKeeper 的外部共识服务进行管理，其中一个 Broker 被指定为控制器。该控制器负责与 Zookeeper 以及集群中的其他 Broker 进行通信。集群的元数据持久保存在 ZooKeeper 中。</li>
+<li><code>KRaft Mode</code>：(3.3.1 引入)：一部分 Broker 被指定为控制器，这些控制器提供之前由 Zookeeper 提供的共识服务。所有集群元数据现在都存储在 Kafka 主题中并由内部管理。<ul>
+<li>优点<ul>
+<li>更简单的部署和管理：只需安装和管理一个应用程序，Kafka 的运维占用空间显著减少</li>
+<li>提升可扩展性：KRaft 的恢复时间比 ZooKeeper 快一个数量级。这使我们能够高效地扩展到单个集群中的数百万个分区</li>
+<li>更高效的元数据传播：基于日志、事件驱动的元数据传播可提高 Kafka 许多核心功能的性能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-1-Zookeeper"><a href="#2-2-1-Zookeeper" class="headerlink" title="2.2.1 Zookeeper"></a>2.2.1 Zookeeper</h4><img src="../images/kafka-进阶篇/Kafka_Internals_049.png" alt="zookeeper" style="zoom:30%;">
+
+
+
+
+<h4 id="2-2-2-KRaft"><a href="#2-2-2-KRaft" class="headerlink" title="2.2.2 KRaft"></a>2.2.2 KRaft</h4><img src="../images/kafka-进阶篇/Kafka_Internals_053.png" alt="kraft" style="zoom: 30%;">
+
+<ul>
+<li><p>节点角色：节点可以专门作为 Controller 或 Broker，也可以同时承担两种角色</p>
+<ul>
+<li>控制器：每个 Controller 都会互相感知，并选出一个作为 leader（活跃控制器）；所有节点都会同步维护一份元数据缓存，出现故障时能快速选出新 leader</li>
+<li><strong>集群元数据</strong>：存储在名为<code>__cluster_metadata</code>的单分区 Topic 中，在 Controller 和 Broker 之间同步状态</li>
+</ul>
+</li>
+<li><p>选举 Controller Leader</p>
+<ul>
+<li>基于 Raft 协议：TODO 学习Raft</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-物理存储"><a href="#2-4-物理存储" class="headerlink" title="2.4 物理存储"></a>2.4 物理存储</h3><h4 id="2-4-1-分区分配"><a href="#2-4-1-分区分配" class="headerlink" title="2.4.1 分区分配"></a>2.4.1 分区分配</h4><blockquote>
+<p>决定每个 Partition 分配到哪个 Broker。</p>
+</blockquote>
+<p>首先明确总副本数为：分区数✖️副本因子，目标是把它们均匀地分配到所有 Broker，过程如下：</p>
+<ul>
+<li>先分配 Leader 副本，随机选取一个 Broker x 分配Leader0, 之后轮询 Broker(x+1)%n 分配Leader1…</li>
+<li>之后根据 Leader 副本的位置分配 Follower, 尽量与 Leader 不在同一个 Broker 上<ul>
+<li>Follower 0a, Follower 0b 分别分配到 Broker(x+1)%n, Broker(x+2)%n</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-2-日志文件"><a href="#2-4-2-日志文件" class="headerlink" title="2.4.2 日志文件"></a>2.4.2 日志文件</h4><blockquote>
+<p>消息以追加的形式写入磁盘文件，为了防止文件体积过大以及加速查询，将其进行分段并构建索引。</p>
+</blockquote>
+<p>详细内容见 <a href="https://xxf0512.github.io/posts/d451c14b.html#toc-heading-17">kafka-入门篇-存储结构</a></p>
+<h4 id="2-4-3-日志清理"><a href="#2-4-3-日志清理" class="headerlink" title="2.4.3 日志清理"></a>2.4.3 日志清理</h4><blockquote>
+<p>为了节省磁盘空间，需要对历史数据进行清理</p>
+</blockquote>
+<p>每个日志片段可分为干净区（被清理过）和 污浊区（未被清理），清理线程针对污浊区</p>
+<ul>
+<li><p>日志删除：</p>
+<ul>
+<li>基于时间：删除早于保留时间的 Segment，<code>log.retention.hours</code>（默认 168 小时，即 7 天）</li>
+<li>基于大小：当分区总大小超过阈值时，删除最旧的 Segment，<code>log.retention.bytes</code>（默认 -1，即不限制）。</li>
+</ul>
+</li>
+<li><p>日志压缩（Compact 策略，适用于 Key-Value 场景）</p>
+<ul>
+<li>保留每个 Key 的最新值，删除旧版本数据。</li>
+<li>常用于 Topic 存储状态信息（如 __consumer_offsets）</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-6-高性能设计（TODO-新开一文）"><a href="#2-6-高性能设计（TODO-新开一文）" class="headerlink" title="2.6 高性能设计（TODO 新开一文）"></a>2.6 高性能设计（TODO 新开一文）</h3><h4 id="2-6-1-Reactor-多路复用"><a href="#2-6-1-Reactor-多路复用" class="headerlink" title="2.6.1 Reactor 多路复用"></a>2.6.1 Reactor 多路复用</h4><h4 id="2-6-2-PageCache"><a href="#2-6-2-PageCache" class="headerlink" title="2.6.2 PageCache"></a>2.6.2 PageCache</h4><h4 id="2-6-3-顺序磁盘写入"><a href="#2-6-3-顺序磁盘写入" class="headerlink" title="2.6.3 顺序磁盘写入"></a>2.6.3 顺序磁盘写入</h4><h4 id="2-6-4-零拷贝"><a href="#2-6-4-零拷贝" class="headerlink" title="2.6.4 零拷贝"></a>2.6.4 零拷贝</h4><h4 id="2-6-5-时间轮"><a href="#2-6-5-时间轮" class="headerlink" title="2.6.5 时间轮"></a>2.6.5 时间轮</h4><hr>
 <h2 id="3-消息消费"><a href="#3-消息消费" class="headerlink" title="3. 消息消费"></a>3. 消息消费</h2><p>消息消费主要分为以下几个步骤</p>
 <ol>
 <li><code>初始化</code>：初始化消费者组和消费者，设置相关配置</li>
@@ -944,38 +1064,6 @@ config<span class="token punctuation">.</span>Producer<span class="token punctua
 <td align="center">跨系统原子操作（Exactly-Once）</td>
 </tr>
 </tbody></table>
-<h2 id="常见问题（TODO-新开一文）"><a href="#常见问题（TODO-新开一文）" class="headerlink" title="常见问题（TODO 新开一文）"></a>常见问题（TODO 新开一文）</h2><h3 id="1-如何避免消息丢失"><a href="#1-如何避免消息丢失" class="headerlink" title="1.如何避免消息丢失"></a>1.如何避免消息丢失</h3><p>消息丢失主要是在这几种场景：</p>
-<ol>
-<li><p>Producer：Producer 发送到 Broker 丢失，消息没有成功投递</p>
-<ul>
-<li>使用带回调通知的发送 API，不要用 Fire and forget 模式</li>
-<li>发送时设置重试次数</li>
-</ul>
-</li>
-<li><p>Broker：Broker 保存消息(持久化)丢失</p>
-<ul>
-<li>Kafka 收到消息后会先存储在也缓存中(Page Cache)中，之后由操作系统根据自己的策略进行刷盘或者通过 fsync 命令强制刷盘。如果系统挂掉，在 PageCache 中的数据就会丢失。<ul>
-<li>acks=0：消息很可能会丢</li>
-<li>acks=1：如果 follower 没有收到 leader 同步的消息，leader 就挂了，消息会丢失</li>
-<li>acks=-1(all)，只有所有副本全挂才会丢，基本不可能，可认为已经持久化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Consumer：Consumer 消费消息丢失</p>
-<ul>
-<li><p>唯一原因：Consumer 没有正确消费消息，就把 Offset 提交了，导致 Kafka 认为该消息已经被消费了，从而导致消息丢失。</p>
-</li>
-<li><p>不要开启自动提交，手动提交位移，确保休息消费完再提交</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-如何避免重复消费"><a href="#2-如何避免重复消费" class="headerlink" title="2.如何避免重复消费"></a>2.如何避免重复消费</h3><h3 id="3-如何实现-exactly-once-语义"><a href="#3-如何实现-exactly-once-语义" class="headerlink" title="3.如何实现 exactly-once 语义"></a>3.如何实现 exactly-once 语义</h3><h3 id="4-Rebalance-触发时机"><a href="#4-Rebalance-触发时机" class="headerlink" title="4.Rebalance 触发时机"></a>4.Rebalance 触发时机</h3><ol>
-<li>组成员数量发生变化</li>
-<li>订阅主题数量发生变化，如正则匹配到了更多主题</li>
-<li>订阅主题的分区数发生变化</li>
-</ol>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>[1] Kafka权威指南</p>
 <p>[2] 深入理解Kafka：核心设计与实践原理</p>
 <p>[3] <a target="_blank" rel="noopener" href="https://learn.conduktor.io/kafka/kafka-producers">kafka-producers</a></p>
@@ -1106,29 +1194,28 @@ config<span class="token punctuation">.</span>Producer<span class="token punctua
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/fbd900db.html">
+                <a href="/posts/6895709.html">
                     <div class="card-image">
                         
-                        <img src="/images/kafka-%E8%BF%9B%E9%98%B6%E7%AF%87/producer-5074896.png" class="responsive-img" alt="kafka-进阶篇">
+                        <img src="/images/kafka-%E8%BF%9B%E9%98%B6%E7%AF%87/kafka-interview-questions.png" class="responsive-img" alt="kafka-常见问题">
                         
-                        <span class="card-title">kafka-进阶篇</span>
+                        <span class="card-title">kafka-常见问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            消息生命周期 | 生产 | 存储 | 消费
+                            消息丢失 | 重复消费
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-18
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-29
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1141,7 +1228,6 @@ config<span class="token punctuation">.</span>Producer<span class="token punctua
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1151,6 +1237,10 @@ config<span class="token punctuation">.</span>Producer<span class="token punctua
                     
                     <a href="/tags/kafka/">
                         <span class="chip bg-color">kafka</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
                     </a>
                     
                 </div>
@@ -1476,7 +1566,7 @@ config<span class="token punctuation">.</span>Producer<span class="token punctua
         class="fas fa-chart-area"
       ></i
       >&nbsp;站点总字数:&nbsp;<span class="white-color"
-        >46.9k</span
+        >50k</span
       >
          
        
