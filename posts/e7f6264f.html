@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="kafka-常见问题, XXF">
-    <meta name="description" content="消息丢失 | 重复消费">
+    <meta name="keywords" content="Go性能分析, XXF">
+    <meta name="description" content="Benchmark | PProf | Trace">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>kafka-常见问题 | XXF</title>
+    <title>Go性能分析 | XXF</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -332,12 +332,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/kafka-%E8%BF%9B%E9%98%B6%E7%AF%87/kafka-interview-questions.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/Go%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/FlameGraph-ssa.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">kafka-常见问题</h1>
+                    <h1 class="description center-align post-title">Go性能分析</h1>
                 </div>
             </div>
         </div>
@@ -453,16 +453,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/MQ/">
-                                <span class="chip bg-color">MQ</span>
+                            <a href="/tags/Go/">
+                                <span class="chip bg-color">Go</span>
                             </a>
                         
-                            <a href="/tags/kafka/">
-                                <span class="chip bg-color">kafka</span>
+                            <a href="/tags/testing/">
+                                <span class="chip bg-color">testing</span>
                             </a>
                         
-                            <a href="/tags/%E9%9D%A2%E8%AF%95/">
-                                <span class="chip bg-color">面试</span>
+                            <a href="/tags/pprof/">
+                                <span class="chip bg-color">pprof</span>
                             </a>
                         
                     </div>
@@ -473,8 +473,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/MQ/" class="post-category">
-                                MQ
+                            <a href="/categories/Go%E8%AF%AD%E8%A8%80/" class="post-category">
+                                Go语言
                             </a>
                         
                     </div>
@@ -486,7 +486,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-04-29
+                    2025-05-01
                 </div>
                 
 
@@ -500,14 +500,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    573
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    6 分
                 </div>
                 
 
@@ -532,54 +532,296 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="一、核心概念和架构"><a href="#一、核心概念和架构" class="headerlink" title="一、核心概念和架构"></a>一、核心概念和架构</h2><h3 id="1-Topic-如何实现高吞吐与负载均衡"><a href="#1-Topic-如何实现高吞吐与负载均衡" class="headerlink" title="1. Topic 如何实现高吞吐与负载均衡"></a>1. Topic 如何实现高吞吐与负载均衡</h3><h3 id="2-Partition-的副本机制及数据同步原理？"><a href="#2-Partition-的副本机制及数据同步原理？" class="headerlink" title="2. Partition 的副本机制及数据同步原理？"></a>2. Partition 的副本机制及数据同步原理？</h3><h3 id="3-ISR-的作用是什么？如何判断副本是否在-ISR-中？"><a href="#3-ISR-的作用是什么？如何判断副本是否在-ISR-中？" class="headerlink" title="3. ISR 的作用是什么？如何判断副本是否在 ISR 中？"></a>3. ISR 的作用是什么？如何判断副本是否在 ISR 中？</h3><h3 id="4-副本滞后时如何处理？replica-lag-time-max-ms-的作用？"><a href="#4-副本滞后时如何处理？replica-lag-time-max-ms-的作用？" class="headerlink" title="4. 副本滞后时如何处理？replica.lag.time.max.ms 的作用？"></a>4. 副本滞后时如何处理？replica.lag.time.max.ms 的作用？</h3><h3 id="5-HW-如何保证消费者读取一致性？LEO-如何影响生产者写入？"><a href="#5-HW-如何保证消费者读取一致性？LEO-如何影响生产者写入？" class="headerlink" title="5. HW 如何保证消费者读取一致性？LEO 如何影响生产者写入？"></a>5. HW 如何保证消费者读取一致性？LEO 如何影响生产者写入？</h3><h2 id="1-如何避免消息丢失"><a href="#1-如何避免消息丢失" class="headerlink" title="1.如何避免消息丢失"></a>1.如何避免消息丢失</h2><p>消息丢失主要是在这几种场景：</p>
+                <h1 id="Go性能分析"><a href="#Go性能分析" class="headerlink" title="Go性能分析"></a>Go性能分析</h1><p>日常开发中经常会对程序的性能进行分析，本文介绍几种常用的工具</p>
+<ul>
+<li><code>Benchmark（基准测试）</code>：衡量特定代码片段的执行效率，支持多维度参数调优。</li>
+<li><code>PProf（性能剖析）</code>：深入分析CPU、内存、Goroutine等资源的使用情况，定位性能瓶颈。</li>
+<li><code>Trace（执行追踪）</code>：分析Goroutine调度、系统调用、阻塞事件等并发问题。</li>
+</ul>
+<h2 id="1-Benchmark（基准测试）"><a href="#1-Benchmark（基准测试）" class="headerlink" title="1.Benchmark（基准测试）"></a>1.Benchmark（基准测试）</h2><ol>
+<li><strong>编写基准函数</strong>：与单元测试类似，在<code>_test.go</code>文件中定义以<code>Benchmark</code>开头的函数，例如：</li>
+</ol>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> bench
+
+<span class="token keyword">import</span> <span class="token string">"testing"</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkFib</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token function">Fib</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li><strong>运行测试</strong></li>
+</ol>
+<ul>
+<li>执行所有基准测试：<code>go test -bench=.</code></li>
+<li>指定指定基准测试：<code>go test -bench=BenchmarkFib</code></li>
+<li>指定测试次数或时间<ul>
+<li><code>-benchtime=5s</code>：指定测试时间</li>
+<li><code>-count=3</code>：多次运行取平均结果</li>
+<li><code>-cpu=4</code>：指定使用的CPU核心数</li>
+<li><code>-benchmem</code>：获得内存分配的统计数据</li>
+</ul>
+</li>
+</ul>
+<p> <code>go test -bench=. -benchmem</code></p>
+<pre><code>goos: darwin
+goarch: arm64
+pkg: github.com/xxf0512/playground/perf/bench
+函数名称-CPU核心数         执行次数                耗时/次                 分配内存/次       分配次数/次
+BenchmarkFib-8           4481872               255.4 ns/op             0 B/op          0 allocs/op
+PASS
+ok      github.com/xxf0512/playground/perf/bench        1.615s
+</code></pre>
+<ol start="3">
+<li>结合性能分析：生成CPU和内存分析文件</li>
+</ol>
+<p><code>go test -bench=. -cpuprofile=cpu.prof -memprofile=mem.prof</code></p>
+<p>随后可用<code>go tool pprof</code>分析这些文件</p>
+<hr>
+<h2 id="2-PProf（性能剖析）"><a href="#2-PProf（性能剖析）" class="headerlink" title="2.PProf（性能剖析）"></a>2.PProf（性能剖析）</h2><p>👇下面的实验基于<a target="_blank" rel="noopener" href="https://github.com/wolfogre/go-pprof-practice">go-pprof-practice</a>项目，这是一个性能堪忧的炸弹程序。</p>
+<h3 id="2-1-环境搭建"><a href="#2-1-环境搭建" class="headerlink" title="2.1 环境搭建"></a>2.1 环境搭建</h3><p>pprof 可以通过命令行查看数据，也可以通过图形化页面<a target="_blank" rel="noopener" href="https://graphviz.gitlab.io/download/">graphviz</a>直观展示</p>
+<pre><code>brew install graphviz # macos
+apt install graphviz # ubuntu
+yum install graphviz # centos
+</code></pre>
+<h3 id="2-2-运行项目"><a href="#2-2-运行项目" class="headerlink" title="2.2 运行项目"></a>2.2 运行项目</h3><p><a target="_blank" rel="noopener" href="https://github.com/wolfogre/go-pprof-practice">go-pprof-practice</a>项目入口如下, 启动并访问 pprof 页面<code>http://localhost:6060/debug/pprof/</code></p>
+<ul>
+<li><strong>在这个页面点击触发采样并下载采样文件</strong>，命令行或可视化查看<ul>
+<li>命令行：<code>go tool pprof profile_path</code></li>
+<li>可视化：<code>go tool pprof -http=:8088 profile_path</code></li>
+</ul>
+</li>
+<li>也可直接通过 go tool pprof 命令查看 <ul>
+<li><code>go tool pprof -http=:8088 "http://localhost:6060/debug/pprof/xxx"</code></li>
+</ul>
+</li>
+<li>其他操作<ul>
+<li>curl下载采样：<code>curl -o heap-target http://localhost:6060/debug/pprof/xxx</code></li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"log"</span>
+    <span class="token string">"net/http"</span>
+    <span class="token boolean">_</span> <span class="token string">"net/http/pprof"</span> <span class="token comment" spellcheck="true">// 自动注册 handler 到 http server，方便通过 http 接口获取程序运行采样报告</span>
+    <span class="token string">"os"</span>
+    <span class="token string">"runtime"</span>
+    <span class="token string">"time"</span>
+
+    <span class="token string">"github.com/wolfogre/go-pprof-practice/animal"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">SetFlags</span><span class="token punctuation">(</span>log<span class="token punctuation">.</span>Lshortfile <span class="token operator">|</span> log<span class="token punctuation">.</span>LstdFlags<span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span><span class="token function">SetOutput</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Stdout<span class="token punctuation">)</span>
+
+    runtime<span class="token punctuation">.</span><span class="token function">GOMAXPROCS</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 限制 CPU 使用数，避免过载</span>
+    runtime<span class="token punctuation">.</span><span class="token function">SetMutexProfileFraction</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 开启对锁调用的跟踪</span>
+    runtime<span class="token punctuation">.</span><span class="token function">SetBlockProfileRate</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 开启对阻塞操作的跟踪</span>
+
+    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 启动一个 http server </span>
+        <span class="token keyword">if</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">":6060"</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        os<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> animal<span class="token punctuation">.</span>AllAnimals <span class="token punctuation">{</span>
+            v<span class="token punctuation">.</span><span class="token function">Live</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-3-采样分析"><a href="#2-3-采样分析" class="headerlink" title="2.3 采样分析"></a>2.3 采样分析</h3><p>pprof 支持以下几种类型的采样数据，注意图中的 Count，可以初步评估程序是否有问题</p>
+<img src="../images/Go性能分析/image-20250501212909015.png" alt="pprof页面" style="zoom: 33%;">
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>allocs</td>
+<td><strong>内存分配</strong> 情况的采样信息</td>
+</tr>
+<tr>
+<td>blocks</td>
+<td><strong>阻塞操作</strong> 情况的采样信息</td>
+</tr>
+<tr>
+<td>cmdline</td>
+<td>显示程序 启动命令及参数</td>
+</tr>
+<tr>
+<td>goroutine</td>
+<td>当前所有 <strong>协程的堆栈信息</strong></td>
+</tr>
+<tr>
+<td>heap</td>
+<td><strong>堆上内存使用</strong> 情况的采样信息</td>
+</tr>
+<tr>
+<td>mutex</td>
+<td><strong>锁争用</strong> 情况的采样信息</td>
+</tr>
+<tr>
+<td>profile</td>
+<td><strong>CPU 占用</strong> 情况的采样信息</td>
+</tr>
+<tr>
+<td>threadcreate</td>
+<td><strong>系统线程创建</strong> 情况的采样信息</td>
+</tr>
+<tr>
+<td>trace</td>
+<td>程序运行跟踪信息</td>
+</tr>
+</tbody></table>
+<h4 id="2-3-1-profile-CPU占用"><a href="#2-3-1-profile-CPU占用" class="headerlink" title="2.3.1 profile-CPU占用"></a>2.3.1 profile-CPU占用</h4><blockquote>
+<p>在一段时间内进行打点采样，通过查看采样点在各个函数栈中的分布比例，以此来反映各函数对 cpu 的占用情况.</p>
+</blockquote>
+<p><code>go tool pprof -http=:8088 "http://localhost:6060/debug/pprof/profile"</code></p>
+<ul>
+<li>可以从 Peek/Top 列表看到每个函数消耗的资源</li>
+</ul>
+<img src="../images/Go性能分析/image-20250501222124084.png" alt="profile-Peek" style="zoom: 50%;">
+
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>flat</td>
+<td>当前函数本身的执行耗时</td>
+</tr>
+<tr>
+<td>flat%</td>
+<td>flat 占 CPU 总时间的比例</td>
+</tr>
+<tr>
+<td>sum%</td>
+<td>当前函数及其父函数的总耗时占比</td>
+</tr>
+<tr>
+<td>cum</td>
+<td>当前函数及其子函数的总耗时</td>
+</tr>
+<tr>
+<td>cum%</td>
+<td>cum 占 CPU 总时间的比例</td>
+</tr>
+</tbody></table>
+<ul>
+<li>也可以从函数调用链直观看到链路上各个方法的消耗</li>
+</ul>
+<img src="../images/Go性能分析/image-20250501223134454.png" alt="CPU占用-Graph" style="zoom:30%;">
+
+
+
+<p>由图可见</p>
 <ol>
-<li><p>Producer：Producer 发送到 Broker 丢失，消息没有成功投递</p>
-<ul>
-<li>使用带回调通知的发送 API，不要用 Fire and forget 模式</li>
-<li>发送时设置重试次数</li>
-</ul>
-</li>
-<li><p>Broker：Broker 保存消息(持久化)丢失</p>
-<ul>
-<li>Kafka 收到消息后会先存储在也缓存中(Page Cache)中，之后由操作系统根据自己的策略进行刷盘或者通过 fsync 命令强制刷盘。如果系统挂掉，在 PageCache 中的数据就会丢失。<ul>
-<li>acks=0：消息很可能会丢</li>
-<li>acks=1：如果 follower 没有收到 leader 同步的消息，leader 就挂了，消息会丢失</li>
-<li>acks=-1(all)，只有所有副本全挂才会丢，基本不可能，可认为已经持久化</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Consumer：Consumer 消费消息丢失</p>
-<ul>
-<li><p>唯一原因：Consumer 没有正确消费消息，就把 Offset 提交了，导致 Kafka 认为该消息已经被消费了，从而导致消息丢失。</p>
-</li>
-<li><p>不要开启自动提交，手动提交位移，确保休息消费完再提交</p>
-</li>
-</ul>
-</li>
+<li>CPU 炸弹在 Tiger.Eat 函数里，for 循环把 CPU 打满</li>
+<li>下游 asyncPreempt 函数消耗了 510ms，因为 g 超时触发抢占</li>
 </ol>
-<h2 id="2-如何避免重复消费"><a href="#2-如何避免重复消费" class="headerlink" title="2.如何避免重复消费"></a>2.如何避免重复消费</h2><h2 id="3-消息传递语义"><a href="#3-消息传递语义" class="headerlink" title="3.消息传递语义"></a>3.消息传递语义</h2><p>消息传递语义：Producer 和 Consumer 之间消息传递保证性，分为三种</p>
+<img src="../images/Go性能分析/image-20250501223513061.png" alt="profile-问题定位" style="zoom:40%;">
+
+
+
+
+
+<h4 id="2-3-2-heap-内存分配"><a href="#2-3-2-heap-内存分配" class="headerlink" title="2.3.2 heap-内存分配"></a>2.3.2 heap-内存分配</h4><p><code>go tool pprof -http=:8088 "http://localhost:6060/debug/pprof/heap"</code></p>
 <ul>
-<li><code>at-least-once</code>: 至少一次，消息不会丢，但可能重复传递<ul>
-<li>默认 Kafka 保障，Producer ACK 机制 + Broker Replica 机制</li>
+<li>函数调用链可以看到 Mouse.Steal 占用了大量内存</li>
 </ul>
-</li>
-<li><code>at-most-once</code>: 最多一次，消息可能丢，但不会重复传递<ul>
-<li>用户在处理消息之前保存 Offset，实现该语义</li>
+<img src="../images/Go性能分析/image-20250501225729689.png" alt="heap-Graph" style="zoom:35%;">
+
+<ul>
+<li>Source 可以直接定位到有问题的代码，在不断往 buffer 里追加数据</li>
 </ul>
-</li>
-<li><code>exactly-once</code>: 精准一次，消息不会丢，也不会重复传递<ul>
-<li>用户自己实现幂等</li>
+<img src="../images/Go性能分析/image-20250501225938311.png" alt="heap-Source" style="zoom:35%;">
+
+
+
+<h4 id="2-3-3-goroutine-协程分析"><a href="#2-3-3-goroutine-协程分析" class="headerlink" title="2.3.3 goroutine-协程分析"></a>2.3.3 goroutine-协程分析</h4><p><code>go tool pprof -http=:8088 "http://localhost:6060/debug/pprof/goroutine"</code></p>
+<ul>
+<li>这次用火焰图分析，可以看到 Wolf.Drink 函数创建大量协程</li>
 </ul>
-</li>
+<img src="../images/Go性能分析/image-20250501230716513.png" alt="groutine-Flame Graph" style="zoom:40%;">
+
+<ul>
+<li>Source 可以看到代码里发生了协程泄露</li>
 </ul>
-<h2 id="如何实现-exactly-once-语义"><a href="#如何实现-exactly-once-语义" class="headerlink" title="如何实现 exactly-once 语义"></a>如何实现 exactly-once 语义</h2><h2 id="4-Rebalance-触发时机"><a href="#4-Rebalance-触发时机" class="headerlink" title="4.Rebalance 触发时机"></a>4.Rebalance 触发时机</h2><ol>
-<li>组成员数量发生变化</li>
-<li>订阅主题数量发生变化，如正则匹配到了更多主题</li>
-<li>订阅主题的分区数发生变化</li>
-</ol>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a target="_blank" rel="noopener" href="https://www.tpointtech.com/kafka-interview-questions">Top 35+ Most Asked Kafka Interview Questions and Answers</a></p>
+<img src="../images/Go性能分析/image-20250501231030535.png" alt="groutine-Source" style="zoom:40%;">
+
+
+
+<h4 id="2-3-4-mutex-锁争抢"><a href="#2-3-4-mutex-锁争抢" class="headerlink" title="2.3.4 mutex-锁争抢"></a>2.3.4 mutex-锁争抢</h4><blockquote>
+<p>mutex 分析看的是某个 goroutine 持有锁的时长（mutex.Lock -&gt; mutex.Unlock 之间这段时间），且只有在存在锁竞争关系时才会上报这部分数据</p>
+</blockquote>
+<p><code>go tool pprof -http=:8088 "http://localhost:6060/debug/pprof/mutex"</code></p>
+<ul>
+<li>先通过火焰图或调用图粗粒度分析问题，Wolf.Howl 方法锁占用时间异常</li>
+</ul>
+<img src="../images/Go性能分析/image-20250501231627728.png" alt="mutex-Graph" style="zoom:30%;">
+
+<ul>
+<li>再到 Source 定位问题</li>
+</ul>
+<img src="../images/Go性能分析/image-20250501231754062.png" alt="mutex-Source" style="zoom:30%;">
+
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>w <span class="token operator">*</span>Wolf<span class="token punctuation">)</span> <span class="token function">Howl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>w<span class="token punctuation">.</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"howl"</span><span class="token punctuation">)</span>
+
+    m <span class="token operator">:=</span> <span class="token operator">&amp;</span>sync<span class="token punctuation">.</span>Mutex<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    m<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 锁占用时间</span>
+        m<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    m<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-3-5-block-阻塞操作"><a href="#2-3-5-block-阻塞操作" class="headerlink" title="2.3.5 block-阻塞操作"></a>2.3.5 block-阻塞操作</h4><blockquote>
+<p>查看某个 goroutine 陷入 waiting 状态（被动阻塞，通常因 gopark 操作触发，比如因加锁、读chan条件不满足而陷入阻塞）的触发次数和持续时长</p>
+</blockquote>
+<p><code>go tool pprof -http=:8088 "http://localhost:6060/debug/pprof/block"</code></p>
+<ul>
+<li>先通过火焰图或调用图粗粒度分析问题</li>
+</ul>
+<img src="../images/Go性能分析/image-20250501232623296.png" alt="block-Graph" style="zoom:25%;">
+
+<ul>
+<li>Source 定位问题</li>
+</ul>
+<img src="../images/Go性能分析/image-20250501232954806.png" alt="block-Source" style="zoom:33%;">
+
+
+
+
+
+<h4 id="2-3-6-基准对比"><a href="#2-3-6-基准对比" class="headerlink" title="2.3.6 基准对比"></a>2.3.6 基准对比</h4><p>可以对比两个不同时间点的采样，能更好地发现内存泄露等问题，提升效率</p>
+<p><code>go tool pprof -http=:8080 -base heap-base heap-target</code></p>
+<h3 id="2-4-PProf-原理"><a href="#2-4-PProf-原理" class="headerlink" title="2.4 PProf 原理"></a>2.4 PProf 原理</h3><hr>
+<h2 id="3-Trace（执行追踪）"><a href="#3-Trace（执行追踪）" class="headerlink" title="3.Trace（执行追踪）"></a>3.Trace（执行追踪）</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Qwmo9FHCF010-0rMUbyuww">Golang pprof 案例实战与原理解析</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://farmerchillax.github.io/2023/07/04/Go%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/">Go性能分析工具</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://blog.wolfogre.com/posts/go-ppof-practice/">golang pprof 实战</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/680397395">Golang性能分析工具从原理到实战</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://golang2.eddycjy.com/posts/ch6/01-pprof-1/">Go 大杀器之性能剖析 PProf</a></p>
+<p>[6] <a target="_blank" rel="noopener" href="https://huizhou92.com/p/golang-high-performance-programming-ep5-benchmark/">Golang High-Performance Programming EP5: Benchmark</a></p>
+<p>[7] <a target="_blank" rel="noopener" href="https://www.liwenzhou.com/posts/Go/unit-test/">Go语言基础之单元测试</a></p>
+<p>[8] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/I9xSMxy32cALSNQAN8wlnQ">深入浅出 Go trace</a></p>
 
                 
             </div>
@@ -596,7 +838,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">xiangfei.xu</a>
+                    <a href="/about" rel="external nofollow noreferrer">xuxiangfei</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -606,7 +848,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://xxf0512.github.io/posts/6895709.html">http://xxf0512.github.io/posts/6895709.html</a>
+                    <a href="http://xxf0512.github.io/posts/e7f6264f.html">http://xxf0512.github.io/posts/e7f6264f.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -619,7 +861,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">xiangfei.xu</a>
+                    <a href="/about" target="_blank">xuxiangfei</a>
                     !
                 </span>
             </div>
@@ -644,16 +886,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/MQ/">
-                                    <span class="chip bg-color">MQ</span>
+                                <a href="/tags/Go/">
+                                    <span class="chip bg-color">Go</span>
                                 </a>
                             
-                                <a href="/tags/kafka/">
-                                    <span class="chip bg-color">kafka</span>
+                                <a href="/tags/testing/">
+                                    <span class="chip bg-color">testing</span>
                                 </a>
                             
-                                <a href="/tags/%E9%9D%A2%E8%AF%95/">
-                                    <span class="chip bg-color">面试</span>
+                                <a href="/tags/pprof/">
+                                    <span class="chip bg-color">pprof</span>
                                 </a>
                             
                         </div>
@@ -699,9 +941,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/posts/e7f6264f.html">
                     <div class="card-image">
@@ -718,9 +961,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-05-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-05-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -733,6 +976,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -759,23 +1003,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/fbd900db.html">
+                <a href="/posts/6895709.html">
                     <div class="card-image">
                         
-                        <img src="/images/kafka-%E8%BF%9B%E9%98%B6%E7%AF%87/producer-5074896.png" class="responsive-img" alt="kafka-进阶篇">
+                        <img src="/images/kafka-%E8%BF%9B%E9%98%B6%E7%AF%87/kafka-interview-questions.png" class="responsive-img" alt="kafka-常见问题">
                         
-                        <span class="card-title">kafka-进阶篇</span>
+                        <span class="card-title">kafka-常见问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            消息生命周期 | 生产 | 存储 | 消费
+                            消息丢失 | 重复消费
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-29
                             </span>
                         <span class="publish-author">
                             
@@ -798,6 +1042,10 @@
                     
                     <a href="/tags/kafka/">
                         <span class="chip bg-color">kafka</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <span class="chip bg-color">面试</span>
                     </a>
                     
                 </div>
